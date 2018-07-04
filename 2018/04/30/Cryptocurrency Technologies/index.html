@@ -1,6 +1,5 @@
 <!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Cryptocurrency Technologies · Max的博客</title><meta name="description" content="Cryptocurrency Technologies - Max Qi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Max的博客"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://weibo.com/u/5177514260" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/cherishher" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Cryptocurrency Technologies</h1><div class="post-info">2018年4月30日</div><div class="post-content"><h1 id="Cryptocurrency-Technologies"><a href="#Cryptocurrency-Technologies" class="headerlink" title="Cryptocurrency Technologies"></a>Cryptocurrency Technologies</h1><p>Coursera course from Princeton University, here are some information and notes from the course.</p>
 <hr>
-<p>[TOC]</p>
 <h2 id="Cryptographic-Hash-Functions"><a href="#Cryptographic-Hash-Functions" class="headerlink" title="Cryptographic Hash Functions"></a>Cryptographic Hash Functions</h2><p>Hash function :</p>
 <ul>
 <li>takes any string of any size as input</li>
@@ -11,13 +10,19 @@
 <ul>
 <li>collision-free</li>
 <li>hiding</li>
-<li>puzzle-friendly</li>
+<li>puzzle-friendly </li>
 </ul>
-<h3 id="collision-free"><a href="#collision-free" class="headerlink" title="collision-free"></a>collision-free</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><p>Nobody can find x and y such that:<br>    &gt;  <strong>x!=y and H(x) = H(y)</strong>  </p>
+<h3 id="collision-free"><a href="#collision-free" class="headerlink" title="collision-free"></a>collision-free</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><p>Nobody can find x and y such that:</p>
+<blockquote>
+<p> <strong>x!=y and H(x) = H(y)</strong>  </p>
+</blockquote>
 <p>So that is what we call collision-free.</p>
 <p>Actually <strong>collision do exist. But it merely be found</strong> ——that is guaranteed the work.</p>
 <h4 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h4><p>If we know H(x) = H(y), it’s safe to assume that x = y. Hash function provide us with a efficient way to recognize the same things. The hash is small, which has only 256 bits, while the whole things might be really big.</p>
-<h3 id="Hiding"><a href="#Hiding" class="headerlink" title="Hiding"></a>Hiding</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><p>We want something like this:<br>    &gt; Given H(x), it is infeasible to find x.</p>
+<h3 id="Hiding"><a href="#Hiding" class="headerlink" title="Hiding"></a>Hiding</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><p>We want something like this:</p>
+<blockquote>
+<p>Given H(x), it is infeasible to find x.</p>
+</blockquote>
 <p>high min-entropy : the distribution is “very spread out”. If r is chosen from a probability distribution that has high min-entropy, then given H(r | x), it is infeasible to find x.</p>
 <h4 id="Application-Commitment"><a href="#Application-Commitment" class="headerlink" title="Application : Commitment"></a>Application : Commitment</h4><p>Commit to a value, reveal it later.</p>
 <blockquote>
