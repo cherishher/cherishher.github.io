@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Max的博客</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2018-07-04T10:03:57.407Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Max Qi</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一些简单的命令行操作总结</title>
+    <link href="http://yoursite.com/2018/07/04/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2018/07/04/一些简单的命令行操作总结/</id>
+    <published>2018-07-04T10:03:57.407Z</published>
+    <updated>2018-07-04T10:03:57.407Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一些简单的命令行操作总结"><a href="#一些简单的命令行操作总结" class="headerlink" title="一些简单的命令行操作总结"></a>一些简单的命令行操作总结</h1><p>今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中，不然太容易忘掉了。</p><ol><li>一些好用的插件，z/web-search/d/zsh-autosuggestions</li><li>很常用的一些命令行快捷键 如ctrl+q/w/e/a</li><li>conda的随后再说</li><li>ssh的key的名字问题</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;一些简单的命令行操作总结&quot;&gt;&lt;a href=&quot;#一些简单的命令行操作总结&quot; class=&quot;headerlink&quot; title=&quot;一些简单的命令行操作总结&quot;&gt;&lt;/a&gt;一些简单的命令行操作总结&lt;/h1&gt;&lt;p&gt;今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2018/07/02/hello-world/"/>
+    <id>http://yoursite.com/2018/07/02/hello-world/</id>
+    <published>2018-07-02T13:08:27.717Z</published>
+    <updated>2018-07-02T13:08:27.718Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Cryptocurrency Technologies</title>
+    <link href="http://yoursite.com/2018/04/30/Cryptocurrency%20Technologies/"/>
+    <id>http://yoursite.com/2018/04/30/Cryptocurrency Technologies/</id>
+    <published>2018-04-30T08:27:54.000Z</published>
+    <updated>2018-07-04T10:05:03.976Z</updated>
+    
+    <content type="html"><![CDATA[<p>Coursera course from Princeton University, here are some information and notes from the course.</p><hr><p>[TOC]</p><h2 id="Cryptographic-Hash-Functions"><a href="#Cryptographic-Hash-Functions" class="headerlink" title="Cryptographic Hash Functions"></a>Cryptographic Hash Functions</h2><p>Hash function :</p><ul><li>takes any string of any size as input</li><li>fixed-size output (We’ll use 256 bits )</li><li>efficiently computable</li></ul><p>Security properties:</p><ul><li>collision-free</li><li>hiding</li><li>puzzle-friendly</li></ul><h3 id="collision-free"><a href="#collision-free" class="headerlink" title="collision-free"></a>collision-free</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><p>Nobody can find x and y such that:<br>    &gt;  <strong>x!=y and H(x) = H(y)</strong>  </p><p>So that is what we call collision-free.</p><p>Actually <strong>collision do exist. But it merely be found</strong> ——that is guaranteed the work.</p><h4 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h4><p>If we know H(x) = H(y), it’s safe to assume that x = y. Hash function provide us with a efficient way to recognize the same things. The hash is small, which has only 256 bits, while the whole things might be really big.</p><h3 id="Hiding"><a href="#Hiding" class="headerlink" title="Hiding"></a>Hiding</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><p>We want something like this:<br>    &gt; Given H(x), it is infeasible to find x.</p><p>high min-entropy : the distribution is “very spread out”. If r is chosen from a probability distribution that has high min-entropy, then given H(r | x), it is infeasible to find x.</p><h4 id="Application-Commitment"><a href="#Application-Commitment" class="headerlink" title="Application : Commitment"></a>Application : Commitment</h4><p>Commit to a value, reveal it later.</p><blockquote><p><strong>com = H(key | msg)</strong></p></blockquote><h5 id="Hidding"><a href="#Hidding" class="headerlink" title="Hidding:"></a>Hidding:</h5><p>Given H(key | msg), infeasible to find msg.</p><h5 id="Binding"><a href="#Binding" class="headerlink" title="Binding:"></a>Binding:</h5><p>Infeasible to find msg != msg’ such that H(key | msg) == H(key | msg’)</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Coursera course from Princeton University, here are some information and notes from the course.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;Cryptograph
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
