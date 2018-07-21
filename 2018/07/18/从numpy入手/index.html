@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        从numpy入手 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建："><span class="toc-text">创建：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#随机数："><span class="toc-text">随机数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变换数组形态："><span class="toc-text">变换数组形态：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件存储与读取"><span class="toc-text">文件存储与读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用numpy做简单的统计分析"><span class="toc-text">利用numpy做简单的统计分析</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        从numpy入手
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-18 10:26:21</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>最近看了一些numpy的基础，在这里整理一下。</p>
+<h3 id="创建："><a href="#创建：" class="headerlink" title="创建："></a>创建：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#数组</span></span><br><span class="line">array1 = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">np.eye(<span class="number">3</span>)<span class="comment">#单位多维数组</span></span><br><span class="line">np.diag([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])<span class="comment">#对角多维数组</span></span><br><span class="line">np.arange(<span class="number">1</span>,<span class="number">4</span>)<span class="comment">#[1,2,3]数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#矩阵</span></span><br><span class="line">np.mat(<span class="string">"1 2 3;4 5 6;7 8 9"</span>)<span class="comment">#矩阵运算与多维数组运算结果不同，所以要用mat建矩阵，用分号隔开数据</span></span><br><span class="line">matrix = np.mat(array1)<span class="comment">#可以用多维数组初始化矩阵</span></span><br><span class="line">matrix1 = np.bmat(<span class="string">"array1 array2;array1 array2"</span>)<span class="comment">#创建分块矩阵</span></span><br></pre></td></tr></table></figure>
+<h3 id="随机数："><a href="#随机数：" class="headerlink" title="随机数："></a>随机数：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">np.random.random(<span class="number">100</span>)<span class="comment">#完全随机</span></span><br><span class="line">np.random.rand(<span class="number">5</span>,<span class="number">5</span>)<span class="comment">#5*5均匀分布</span></span><br><span class="line">np.random.randn(<span class="number">5</span>,<span class="number">5</span>)<span class="comment">#5*5正态分布</span></span><br><span class="line">np.random.randint(<span class="number">2</span>,<span class="number">50</span>,size=(<span class="number">2</span>,<span class="number">3</span>),dtype=<span class="string">'l'</span>)<span class="comment">#大于等于2小于50的2*3的int64型整数</span></span><br></pre></td></tr></table></figure>
+<h3 id="变换数组形态："><a href="#变换数组形态：" class="headerlink" title="变换数组形态："></a>变换数组形态：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.reshape(<span class="number">3</span>,<span class="number">3</span>)<span class="comment">#转变成3*3的数组，但要求原数组必须9个元素，否则不能reshape</span></span><br><span class="line">np.hstack((arr1,arr2))<span class="comment">#横向组合</span></span><br><span class="line">np.vsplit(arr4,<span class="number">3</span>)<span class="comment">#横向切割，即把横向由1列的变成3列（相当于横着切）</span></span><br></pre></td></tr></table></figure>
+<h3 id="文件存储与读取"><a href="#文件存储与读取" class="headerlink" title="文件存储与读取"></a>文件存储与读取</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#二进制存储与读取</span></span><br><span class="line"><span class="comment">#存储</span></span><br><span class="line">file = <span class="string">"./temp/save_arr.npy"</span></span><br><span class="line">filez = <span class="string">"./temp/save_arr.npz"</span></span><br><span class="line">np.save(file,arr)<span class="comment">#用save存，文件扩展名.npy，只能存一个数组</span></span><br><span class="line">np.savez(filez,arr1[,arr2...])<span class="comment">#用savez存，文件扩展名.npz，可以存多个数组。注意：不按照要求扩展名，则系统自己添加对应扩展名；二进制存储的数组打开文件看不到真实数据</span></span><br><span class="line"><span class="comment">#读取</span></span><br><span class="line">loaded_data = np.load(file)<span class="comment">#存储可以省略扩展名，读取一定不可以</span></span><br><span class="line">loaded_dataz = np.load(filez)</span><br><span class="line">loaded_dataz[<span class="string">"arr_0"</span>]<span class="comment">#对于多个文件读取，这种方式可以得到单独数组</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#文件存储与读取</span></span><br><span class="line"><span class="comment">#存储</span></span><br><span class="line">np.savetxt(fname,x,fmt=<span class="string">'%d'</span>,delimiter=<span class="string">','</span>,newline=<span class="string">'\n'</span>,header=<span class="string">''</span>,footer=<span class="string">''</span>,comments=<span class="string">'# '</span>)<span class="comment">#x为要存的数组，fmt='%d'表示整数方式存，delimiter表示存储时的分隔符，存储和读取时默认为空格</span></span><br><span class="line"><span class="comment">#读取</span></span><br><span class="line">loaded_data = np.loadtxt(fname,delimiter=<span class="string">","</span>)<span class="comment">#一定也要带上啊delimiter且与文件中的分隔符一致</span></span><br></pre></td></tr></table></figure>
+<h3 id="利用numpy做简单的统计分析"><a href="#利用numpy做简单的统计分析" class="headerlink" title="利用numpy做简单的统计分析"></a>利用numpy做简单的统计分析</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">np.random.seed(<span class="number">10</span>)<span class="comment">#种子是伪随机数的开头，相同种子对应随机数都相同，一般种子会设为当前时间，确保得到真随机数（numpy默认也是这样）</span></span><br><span class="line">arr = np.random.randint(<span class="number">1</span>,<span class="number">10</span>,size=<span class="number">10</span>)</span><br><span class="line"><span class="comment">#排序</span></span><br><span class="line">arr.sort()<span class="comment">#这个会直接将arr排序</span></span><br><span class="line">arr.sort(axis=<span class="number">0</span>)<span class="comment">#二维数组的sort参数axis可以为0、1，分别对应数组纵向和横向的排序</span></span><br><span class="line"><span class="comment">#去重</span></span><br><span class="line">np.unique(arr)</span><br><span class="line"><span class="comment">#重复</span></span><br><span class="line">np.tile(arr,<span class="number">3</span>)<span class="comment">#arr是重复哪个，3是重复次数</span></span><br><span class="line">np.repeat(arr,<span class="number">3</span>,axis=<span class="number">0</span>)<span class="comment">#axis是重复的方向（tile没有这个参数）</span></span><br><span class="line"><span class="comment">#注意：tile是对数组进行重复，repeat则是对每一个数组的每一个元素进行重复，打破了原来的数组。</span></span><br><span class="line"><span class="comment">#常用统计函数</span></span><br><span class="line">np.sum(arr)<span class="comment">#求和</span></span><br><span class="line">arr.sum(axis=<span class="number">0</span>)<span class="comment">#沿纵轴求和</span></span><br><span class="line">np.mean(arr)<span class="comment">#计算数组均值</span></span><br><span class="line">arr.mean(axis = <span class="number">0</span>)<span class="comment">#沿着纵轴计算数组均值</span></span><br><span class="line">np.std(arr)<span class="comment">#计算标准差</span></span><br><span class="line">np.var(arr)<span class="comment">#计算方差</span></span><br><span class="line">np.min(arr)<span class="comment">#计算最小值</span></span><br><span class="line">np.max(arr)<span class="comment">#计算最大值</span></span><br></pre></td></tr></table></figure>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

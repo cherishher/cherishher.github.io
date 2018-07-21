@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -81,6 +81,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#znode（data-node）："><span class="toc-text">znode（data node）：</span></a></li></ol>
+</div>
+    
 </div>
 
 
@@ -104,98 +108,51 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 720px">
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-20</div>
-        <div class="post-info">
-            <a href="/2018/07/20/看了一点zookeeper的心得/">
-                <h3>
-                    Untitled
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-18</div>
-        <div class="post-info">
-            <a href="/2018/07/18/从numpy入手/">
-                <h3>
-                    从numpy入手
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-16</div>
-        <div class="post-info">
-            <a href="/2018/07/16/20180716日记/">
-                <h3>
-                    最近在看的东西
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-04</div>
-        <div class="post-info">
-            <a href="/2018/07/04/新的尝试/">
-                <h3>
-                    anaconda基础
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-04</div>
-        <div class="post-info">
-            <a href="/2018/07/04/一些简单的命令行操作总结/">
-                <h3>
-                    一些简单的命令行操作总结
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-04-30</div>
-        <div class="post-info">
-            <a href="/2018/04/30/Cryptocurrency Technologies/">
-                <h3>
-                    Cryptocurrency Technologies
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    
-</ul>
 
+
+<div class="post-container">
+    <div class="post-title">
+        
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-20 00:10:42</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>###Fast Paxos算法：</p>
+<p>###文件结构：</p>
+<p>zookeeper的文件结构大概是这个样子的：</p>
+<p>!å¾ 1 Zookeeper æ°æ®ç”æ](<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/image001.gif" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/image001.gif</a>)</p>
+<h3 id="znode（data-node）："><a href="#znode（data-node）：" class="headerlink" title="znode（data node）："></a>znode（data node）：</h3><ol>
+<li>其中的每个子目录就是一个znode，他们也可以有子的znode（临时znode除外）。</li>
+<li>这些znode必须是绝对路径，不允许相对路径。</li>
+<li>每个znode都维护一个stat structure（linux系统文件的结构），其中包括版本号，acl改变等等。每次更新数据会让版本号自增。</li>
+<li>每个znode可以设置一个watches，当watch触发后，zookeeper将发给client一个提醒。</li>
+<li>在znode中数据读写是原子性的。每个znode都有一个ACL（access control list）来控制其读写权限。zookeeper不是用来做数据库的，其中存储的数据可能都是几kb的配置/状态信息。大块数据都存在hdfs中。</li>
+<li>Ephemeral node就是临时节点，每次会话结束这些节点都会清空，不允许有子节点。</li>
+</ol>
+<p>###Zookeeper Session：</p>
+<p><img src="/Users/max/Documents/Blog/source/img/state_dia.jpg" alt="state_dia"></p>
+<p>###一致性的保证：</p>
+<p>zookeeper是一个非常高效、可扩展的服务。其一致性靠以下几点保证：</p>
+<ol>
+<li>顺序的一致性。一个client的更新会依序发送给其他。</li>
+<li>原子性。更新是原子操作，只有成功和失败，没有中间过程。</li>
+<li>服务器会看到完全相同的服务，不论其连接了哪个服务器。</li>
+<li>可靠性。一旦一个更新被部署，他会一直存在，直到被另一个更新覆盖。</li>
+<li>及时性。client对系统的观察在一个时间段内将是最新的。也即系统的改变在这个时间段内client是看见的，或者可以探测到它失败。</li>
+</ol>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
@@ -234,7 +191,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = ""
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
