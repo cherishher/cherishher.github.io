@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Hadoop了解一下 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Hadoop了解一下
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-08-05 22:20:47</span></span>
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>搞分布式数据分析系统，hadoop绝对是不可绕过的一关，所以简单玩了一下，以下是总结。</p>
+<p>##基本概念</p>
+<p>###Apache Hadoop与HDFS</p>
+<p>Hadoop是一个大的生态系统，最主要是hdfs和一个基于mapreduce的分布式计算引擎。hdfs就是一个文件系统，在mapreduce的时候（包括用spark的时候）都需要对应文件在hdfs里。</p>
+<p><strong>block块：</strong>HDFS在物理上是以block存储的，block大小可以通过配置参数（dfs.blocksize）来规定，默认128M，可以减少寻址开销。大文件会被切分成很多block来存，而小文件存储则不会占用整个块的空间。</p>
+<p><strong>NameNode：</strong>是master。负责管理文件系统的namespace（可以理解是指向具体数据的文件名、路径名这种）和客户端对文件的访问。</p>
+<p><strong>(非Yarn)JobTracker：</strong>在NameNode上，协调在集群运行的所有作业，分配要在tasktracker上运行的map和reduce任务。</p>
+<p><strong>DataNode：</strong>是slave。datanode则负责数据的存储。</p>
+<p><strong>(非Yarn)TaskTracker：</strong>在datanode上，运行分配的任务并定期向jobtracker报告进度。</p>
+<p><strong>流式访问：</strong>指hdfs访问时像流水一样一点一点过。这样也决定了hdfs是一次写入、多次读取的特性，同时只能有一个wirhter。这样访问方式适合做数据分析，而不是网盘这种。</p>
+<p><strong>rack-aware（机架感知）：</strong>这是hdfs的复制策略。hdfs为了数据可靠一般会将数据复制几份（默认三份）。同一个机架的机器传输速度快，不需要通过交换机。为了提高效率，一台机器的数据会把一个备份放在同一机架（相同rack id）的机器里，另一个备份放在其他机架的机器上。机架的错误率很小，所以不影响可靠性。</p>
+<p><strong>hdfs的特点：</strong></p>
+<ul>
+<li>面对构成系统的组件数目很大，所以对硬件的快速检测错误并自动回复非常重要</li>
+<li>hdfs需要流式访问他们的数据集</li>
+<li>运行的数据集非常大，一个典型文件大小一般在几G到几T</li>
+<li>文件访问模型是“一次写入、多次访问”</li>
+<li>将计算移动到数据附近闭将数据移动到计算更好</li>
+</ul>
+<p>###Yarn：</p>
+<p>yarn其实是解决了经典mapreduce中一些问题（例如：jobtracker太累导致的可扩展性问题）的新一代hadoop计算平台。</p>
+<p><strong>ResourceManager：</strong>代替jobtracker，以后台进程的形式运行。追踪有哪些可用的活动节点和资源，指出哪些程序应该何时或者这些资源。</p>
+<p><strong>ApplicationMaster：</strong>代替一个专用而短暂的JobTracker。用户提交一个应用程序时，会启动applicationmaster这个轻量级进程实例来协调程序内任务（监视进度、定时向resourcemanager发送心跳数据、负责容错等），计算数据需要的资源并向resourcemanager申请。它本身也是在一个container里运行的，且可能与它管理的任务运行在同一节点上。</p>
+<p><strong>Container：</strong>是yarn中资源的抽象，封装了某个节点上一定量的资源（如cpu和内存等资源）。它的分配是由applicationmaster向resourcemanager申请的；而它的运行则是applicationmaster向资源所在的nodemanager发起的。</p>
+<p><strong>NodeManager：</strong>代替tasktracker。拥有很多动态创建的资源Container。容器大小取决于它所包含资源量，而一个节点上的容器数量由配置参数和除用于后台进程和操作系统以外资源总量决定。</p>
+<p>##基本架构</p>
+<p>Hdfs采用了master/slave架构。一个hdfs集群由一个namenode和一群datanodes组成。简单来说，就是hdfs通过namenode暴露出了文件系统命名空间的操作，包括打卡、关闭、重命名文件等等。在这个文件系统对一块数据的操作会映射到具体的datanodes上。</p>
+<p>所以一般是一台机器上搭namenode，然后datanode在其他各个机器上。</p>
+<p><img src="/Users/max/Documents/Blog/source/img/hdfsarchitecture.gif" alt="hdfsarchitecture"></p>
+<p>##基本操作</p>
+<p>###单节点测试</p>
+<p>比较无聊，只是测一下能不能跑，不需要运行什么</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cd Cellar/hadoop/3.1.0/libexec</span><br><span class="line"><span class="meta">$</span> mkdir input#不能是别的名字</span><br><span class="line"><span class="meta">$</span> cp etc/hadoop/*.xml input</span><br><span class="line"><span class="meta">$</span> hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.0.jar  grep input output 'dfs[a-z.]+'</span><br><span class="line"><span class="meta">$</span> cat output/*</span><br></pre></td></tr></table></figure>
+<p>###伪分布式测试（pseudo-distributed）</p>
+<ol>
+<li><p>保证本机已经装好hadoop，java1.8（java9有些函数被废了会报错）</p>
+</li>
+<li><p>配置本机ssh，确保</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh localhost#mac默认不允许，需要手动去打开</span><br></pre></td></tr></table></figure>
+<p>可以运行。注意：mac默认不允许任何机器远程登录，需要到  系统偏好设置 -&gt; 共享 去勾选远程登录。</p>
+</li>
+<li><p>配置HDFS，包括core-site.xml文件和hdfs-site.xml文件。前者配置用于存储HDFS的临时文件目录和hdsf访问端口，后者确定复制份数</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- core-site.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	   <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop/libexec/tmp/hadoop- $&#123;user.name&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--如果无此目录则去mkdir一个--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">description</span>&gt;</span>A base for other temporary directories.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.default.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- hdfs-site.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式化HDFS</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
+<p>成功的话在tmp目录下可以看到dfs文件</p>
+</li>
+<li><p>启动各个节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hdfs --daemon start NameNode#启动namenode</span><br><span class="line">hdfs --daemon start DataNode#启动datanode</span><br><span class="line">hdfs --daemon start SecondaryNameNode#它是namenode的快照，保证了namenode的更新</span><br><span class="line"><span class="meta">jps#</span>用来查看这些节点是否真的启动了</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在HDFS上创建文件夹及文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir /demo#在hdfs上创建demo文件夹</span><br><span class="line">hdfs dfs -ls /demo</span><br><span class="line">hdfs dfs -put test.input /demo#将本地的test.input文件发到hdfs上</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置Yarn的mapred-site.xml和yarn-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mapred-sited.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.application.classpath<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">value</span>&gt;</span>share/hadoop/mapreduce/*<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 如果不加这个property，在后面运行mapreduce任务时会报找不到包 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- yarn-site.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Site specific YARN configuration properties --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>localhost<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动resourcemanager和nodemanager</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn --daemon start nodemanager</span><br><span class="line">yarn --daemon start resourcemanager</span><br></pre></td></tr></table></figure>
+<p>yarn端口是8088，可以去localhost:8088看页面</p>
+</li>
+<li><p>运行mapreduce任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn jar hadoop-mapreduce-examples-3.1.0.jar wordcount /demo/test.input /demo-output/</span><br></pre></td></tr></table></figure>
+<p>可以到对应文件里查看运行结果</p>
+</li>
+</ol>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

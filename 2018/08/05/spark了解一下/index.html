@@ -11,7 +11,7 @@
 
     <title>
         
-        Tags - undefined
+        
         
     </title>
 
@@ -59,7 +59,7 @@
                     <span>HOME</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>TAGS</span>
@@ -80,6 +80,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#RDD-resilient-distributed-dataset，弹性分布式数据集"><span class="toc-text">RDD(resilient distributed dataset，弹性分布式数据集)</span></a></li></ol>
+</div>
     
 </div>
 
@@ -103,13 +107,36 @@
     
     <div class="index-middle">
         <!-- Main Content -->
-        <div id='tag_cloud' class="tags">
-    
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-08-05 21:38:09</span></span>
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>看了研究生的project，选择了分布式系统下的数据挖掘的项目，所以先来搞一点spark的的东西，免得什么都不会。。。</p>
+<h3 id="RDD-resilient-distributed-dataset，弹性分布式数据集"><a href="#RDD-resilient-distributed-dataset，弹性分布式数据集" class="headerlink" title="RDD(resilient distributed dataset，弹性分布式数据集)"></a>RDD(resilient distributed dataset，弹性分布式数据集)</h3><p>spark RDD与hadoop的mapreduce要做的类似，都是实现对大数据的分布式处理。但spark RDD解决的痛点主要是</p>
+<ul>
+<li>迭代式的机器学习算法</li>
+<li>交互式数据挖掘</li>
+</ul>
+<p>这两项在mapreduce下都难以完成，而RDD通过<strong>对分布式集群的内存资源进行抽象，允许程序高效复用已有的中间结果。</strong>解决了上述问题</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
 </div>
-
-<!-- 标签列表 -->
-
-
     </div>
 </div>
 
@@ -148,7 +175,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = ""
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
