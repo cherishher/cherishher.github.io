@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建"><span class="toc-text">新建</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建"><span class="toc-text">新建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从数据库中得到数据-amp-amp-将数据写入数据库"><span class="toc-text">从数据库中得到数据 &amp;&amp; 将数据写入数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用dataframe"><span class="toc-text">使用dataframe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Category类型的使用"><span class="toc-text">Category类型的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#时间类型"><span class="toc-text">时间类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分组和聚合"><span class="toc-text">分组和聚合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建透视表"><span class="toc-text">创建透视表</span></a></li></ol>
 </div>
     
 </div>
@@ -138,7 +138,158 @@
     </div>
     <div class="post-content ">
         <p>之前看了numpy，这两天看了pandas，也在这里整理一下。</p>
-<h3 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>	pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<h3 id="新建"><a href="#新建" class="headerlink" title="新建"></a>新建</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>	pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">'key1'</span>:[<span class="string">'value11,value12'</span>],</span><br><span class="line">    <span class="string">'key2'</span>:[<span class="string">'value21'</span>,<span class="string">'value22'</span>]   </span><br><span class="line">       &#125;</span><br><span class="line">df = pd.DataFrame(data)</span><br><span class="line"></span><br><span class="line">df.index<span class="comment">#描述dataframe的index的【开始/结束）和步长，注意这个是指df的index而非数据的id</span></span><br><span class="line">df.columns<span class="comment">#行名</span></span><br><span class="line">df.dtypes<span class="comment">#类型</span></span><br><span class="line">df.size<span class="comment">#数据总数</span></span><br><span class="line">df.shape<span class="comment">#数据形式（行，列）</span></span><br><span class="line">df.ndim<span class="comment">#维度</span></span><br><span class="line">df.T<span class="comment">#转置</span></span><br></pre></td></tr></table></figure>
+<h3 id="从数据库中得到数据-amp-amp-将数据写入数据库"><a href="#从数据库中得到数据-amp-amp-将数据写入数据库" class="headerlink" title="从数据库中得到数据 &amp;&amp; 将数据写入数据库"></a>从数据库中得到数据 &amp;&amp; 将数据写入数据库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"></span><br><span class="line"><span class="comment">#连接mysql数据库</span></span><br><span class="line">engine = create_engine(<span class="string">'mysql+pymysql://root:qh129512@127.0.0.1:3306/testdb?charset=utf8'</span>)</span><br><span class="line"></span><br><span class="line">sql = <span class="string">'select * from person'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#下面有三种获取数据的方式，返回的formlist就是一个dataframe</span></span><br><span class="line">formlist = pd.read_sql_query(sql,con=engine)<span class="comment">#参数为sql语句</span></span><br><span class="line">formlist = pd.read_sql_table(table,con=engine)<span class="comment">#参数为表名</span></span><br><span class="line">formlist = pd.read_sql(sql,con=engine)<span class="comment">#参数可以是sql语句，也可以表名</span></span><br></pre></td></tr></table></figure>
+<p>下面是将数据写入数据库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df = pd.DataFrame(data,columns=[<span class="string">'name,birthday'</span>])<span class="comment">#这里的columns就是指dataframe里有哪些comlumn，这里没有的df里也不会有，如果不添加columns这个参数就默认data中全部数据</span></span><br><span class="line"></span><br><span class="line">df.to_sql(name=<span class="string">'person'</span>,con=engine, if_exists=<span class="string">'append'</span>,index=<span class="keyword">False</span>)</span><br><span class="line"><span class="comment">#if_exists:有三种fail-&gt;表存在就不写入；replace-&gt;表存在就删掉原来的表重新创建；append-&gt;在原表基础上追加数据。默认为fail</span></span><br><span class="line"><span class="comment">#index：决定是否将行索引作为数据传入数据库，注意：如果数据库没有专门来存这个的就false，因为表里没有这里用true会有问题</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用dataframe"><a href="#使用dataframe" class="headerlink" title="使用dataframe"></a>使用dataframe</h3><p>直接取某个、某些数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'name'</span>][<span class="number">0</span>]</span><br><span class="line">df.name[:<span class="number">5</span>]</span><br><span class="line">df[[<span class="string">'name'</span>,<span class="string">'birthday'</span>]][:<span class="number">2</span>]</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
+<p>取数据的切片</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">df.loc[:<span class="number">5</span>,<span class="string">'name'</span>]<span class="comment">#前一个参数为行索引，后一个是列索引名称</span></span><br><span class="line">df.iloc[<span class="number">0</span>:<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#有条件的切片</span></span><br><span class="line">df.loc[(df[<span class="string">'name'</span>] == <span class="string">'max'</span>),:]<span class="comment">#取name为max的切片</span></span><br><span class="line"></span><br><span class="line">df.iloc[(df[<span class="string">'name'</span>] == <span class="string">'max'</span>).values,:]</span><br></pre></td></tr></table></figure>
+<p>这里有两个函数，loc和iloc，区别有</p>
+<ul>
+<li>loc第一个参数可以为series，例如我传入一个条件，其实相当于一个Series([True,True,False…])这种形式；iloc不可以穿series，但能传一个array，所以可以通过.values的形式传入条件</li>
+<li>行索引时loc是前后闭区间，而iloc是前闭后开区间（python中这种更常见）</li>
+</ul>
+<p>删除数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df.drop(labels=rang(<span class="number">9</span>,<span class="number">10</span>),axis=<span class="number">0</span>,inplace=<span class="keyword">True</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">labels接收string、array，表示删除行/列的标签</span></span><br><span class="line"><span class="string">axis接收0、1，表示操作轴向，0为横，1为纵</span></span><br><span class="line"><span class="string">inplace接收boolean，代表操作是否对原数据生效</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p>对dataframe中数据修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#直接声明就可以添加一列，如</span></span><br><span class="line">df[<span class="string">'prefix_name'</span>] = <span class="string">'MAC_'</span> + df[<span class="string">'name'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改某个数据可以将其找出来然后直接赋值</span></span><br><span class="line">df.loc[(df.name == <span class="string">'max'</span>),<span class="string">'name'</span>] = <span class="string">'maxhh'</span></span><br></pre></td></tr></table></figure>
+<p>随机数的使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">series = pd.Series(np.random.randint(high=<span class="number">10000</span>,low=<span class="number">1000</span>,size=<span class="number">8</span>))<span class="comment">#产生一个随机series</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">df.loc[:,<span class="string">'net-worth'</span>] = series<span class="comment">#将series值付给df</span></span><br></pre></td></tr></table></figure>
+<p>dataframe算数统计</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'net-worth'</span>].mean()<span class="comment">#平均值</span></span><br><span class="line">np.mean(df[<span class="string">'net-worth'</span>])<span class="comment">#另一种计算平均值的方法</span></span><br><span class="line">df[<span class="string">'net-worth'</span>].min()<span class="comment">#最小值</span></span><br><span class="line">df[<span class="string">'net-worth'</span>].describe()<span class="comment">#描述，包含很多数据可以用！</span></span><br><span class="line">nullNum = df.shape[<span class="number">0</span>] - df[<span class="string">'name'</span>].count()<span class="comment">#统计有多少空值</span></span><br></pre></td></tr></table></figure>
+<h3 id="Category类型的使用"><a href="#Category类型的使用" class="headerlink" title="Category类型的使用"></a>Category类型的使用</h3><p>可以将某一列转化成category类型，这样相当于做了一次分类处理，这样得到的描述性信息会很多</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'name'</span>] = df[<span class="string">'name'</span>].astype(<span class="string">'category'</span>)<span class="comment">#注意这里是赋值而不是调用</span></span><br><span class="line"></span><br><span class="line">df[<span class="string">'name'</span>].describe()</span><br></pre></td></tr></table></figure>
+<h3 id="时间类型"><a href="#时间类型" class="headerlink" title="时间类型"></a>时间类型</h3><p>pandas里有很多时间类型，不同类型用处不同。如timestamp主要用来记录时间，而timedelta用来做时间运算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#有很多方法创建或转化出一个timestamp</span></span><br><span class="line">today_date = pd.to_datetime(<span class="string">'2018-8/5'</span>)<span class="comment">#随意的一个string都可以识别</span></span><br></pre></td></tr></table></figure>
+<p>注意一个概念，从数据库一个datatime拿出来的时间如果调用dtype的话发现是(‘&lt;M8[ns]’)类似的类型，展开来说：</p>
+<p>这个是属于机器的比较特别的类型:<br>小端机器的类型：datatime[ns] == &lt;M8[ns]<br>大端机器的类型：datatime[ns] == &gt;M8[ns]<br>这个可以通过</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.dtype(<span class="string">'datetime64[ns]'</span>) == np.dtype(<span class="string">'&lt;M8[ns]'</span>)</span><br><span class="line"><span class="comment">#out: True</span></span><br></pre></td></tr></table></figure>
+<p>证明。<br>所以当数据库中取出就是这种类型时，不需要再进行处理，但如果取出是个object，则用pd.to_datatime处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'birthday'</span>] = pd.to_datatime(df[<span class="string">'birthday'</span>])</span><br></pre></td></tr></table></figure>
+<p>这里要熟悉的操作有：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user_birthday = [i.year <span class="keyword">for</span> i <span class="keyword">in</span> df[<span class="string">'birthday'</span>]]<span class="comment">#返回所有年份的list</span></span><br><span class="line"></span><br><span class="line">birthday = df[df[<span class="string">'birthday'</span>]&lt;=pd.datetime(<span class="number">1991</span>,<span class="number">1</span>,<span class="number">1</span>)]<span class="comment">#按条件取时间时，一定要那拿timestamp与对应的pdf.datetime()相比</span></span><br></pre></td></tr></table></figure>
+<p>还有时间做加减法也是支持的,timestamp可以加一个tmiedelta来做时间的计算。注意timedelta的参数为weeks,days,hours以及更小的时间<br>直接用+，-符号就可以做计算了。相反的，想算两个时间差，只要用两个datetime做减法，即可得到timedelta类型的时间差距</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">aweek_after = date + pd.Timedelta(weeks = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">today_date = pd.to_datetime(<span class="string">'2018-8-5'</span>)</span><br><span class="line"></span><br><span class="line">time_delta = aweek_after - today_date<span class="comment">#两个timestamp做减法，得到了一个timedelta类型的时间差</span></span><br></pre></td></tr></table></figure>
+<h3 id="分组和聚合"><a href="#分组和聚合" class="headerlink" title="分组和聚合"></a>分组和聚合</h3><p>分组顾名思义，就是将数据按照一定条件进行分组，得到数据整体情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data_group = df.groupby(by=<span class="string">'birthday'</span>)</span><br><span class="line">data_group.count()</span><br></pre></td></tr></table></figure>
+<p>这里的count()得到如下表结果</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>id</th>
+<th>name</th>
+<th>net-worth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>birthday</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1987-01-10</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1989-03-10</td>
+<td>6</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>1993-08-05</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1995-12-12</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1996-10-12</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>分组的直接结果并不能直接看，因为它返回的只是一个地址，但可以方便的查分组后的一些属性，如：count，head，max等等</p>
+<p>聚合，就是将一组数据做aggretate，聚合的函数自己定</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'net-worth'</span>].agg([np.sum,np.mean])<span class="comment">#针对net-worth数据计算两种agg，分别以sum和mean</span></span><br><span class="line"></span><br><span class="line">df.agg(&#123;<span class="string">'net-worth'</span>:[np.sum,sp.mean]&#125;)<span class="comment">#针对不同数据要进行不同的agg，可以用key-value的方式</span></span><br></pre></td></tr></table></figure>
+<p>agg函数的参数是计算函数，这个函数可以用numpy中一些简单的统计函数，如果复杂也可以自定义，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Trinum</span><span class="params">(data)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> data.sum()*<span class="number">2</span></span><br><span class="line">    </span><br><span class="line">df[<span class="string">'net-worth'</span>].agg(Trinum)<span class="comment">#agg函数的参数可以是函数，该函数将data传入做处理，然后返回即可</span></span><br><span class="line"><span class="comment">#稍微注意下sum后面的括号，没有括号是函数，有括号的是执行，但必须声明参数</span></span><br><span class="line"></span><br><span class="line">df[<span class="string">'net-worth'</span>].agg(<span class="keyword">lambda</span> x:x*<span class="number">2</span>)<span class="comment">#agg的参数可以是lambda函数</span></span><br></pre></td></tr></table></figure>
+<p>这里的一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.groupby(by=<span class="string">'birthday'</span>).agg(np.mean)<span class="comment">#完全等价于data_group.mean()，都是求每组的平均值</span></span><br></pre></td></tr></table></figure>
+<p>当然，apply函数、transform函数和agg函数也大部分相同，但apply方法不能用key-value类型来特定的处理，transform方法只有一个参数function</p>
+<h3 id="创建透视表"><a href="#创建透视表" class="headerlink" title="创建透视表"></a>创建透视表</h3><p>可以通过pandas创建透视表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.pivot_table(df[[<span class="string">'id'</span>,<span class="string">'name'</span>,<span class="string">'net-worth'</span>]],index=[<span class="string">'id'</span>],columns=<span class="string">'name'</span>,fill_value=<span class="number">0</span>)<span class="comment">#不显示无index的值</span></span><br></pre></td></tr></table></figure>
+<p>得到</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>net-worth</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>hape</td>
+<td>john</td>
+<td>johnny</td>
+<td>max</td>
+</tr>
+<tr>
+<td>id</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>6355</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>6567</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>8491</td>
+<td>0</td>
+</tr>
+<tr>
+<td>8</td>
+<td>6872</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>但这不是pandas的重点，略～</p>
 
         
         <div id="comment-container">
@@ -156,7 +307,7 @@
 
         
         <li>
-            <a target="_blank" href="http://weibo.com/max辉辉">
+            <a target="_blank" href="http://weibo.com/5177514260">
                             <span class="fa-stack fa-lg">
                                   <i class="iconfont icon-weibo"></i>
                             </span>
