@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        一些使用homebrew的经验 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#brew管理服务"><span class="toc-text">brew管理服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#brew其他命令"><span class="toc-text">brew其他命令</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        一些使用homebrew的经验
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-08-02 12:05:26</span></span>
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>现在新的mac基本都内置homebrew了吧，brew可以说是mac神器之一了。上手简单，但还是用法需要整理一下：</p>
+<p>###brew常用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew search 包名 #搜索包</span><br><span class="line">brew info 包名#包信息</span><br><span class="line">brew list #查看有哪些包</span><br><span class="line">brew install 包名#安装包</span><br><span class="line">brew uninstall 包名#删除包</span><br></pre></td></tr></table></figure>
+<h3 id="brew管理服务"><a href="#brew管理服务" class="headerlink" title="brew管理服务"></a>brew管理服务</h3><p>brew还有个重要的任务就是管理服务，在我本机的：</p>
+<ul>
+<li>Kafka</li>
+<li>mysql</li>
+<li>nginx</li>
+<li>Redis</li>
+<li>zookeeper</li>
+</ul>
+<p>都是用了brew进行管理，管理他们用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew services start 服务名#开启一个service</span><br><span class="line">brew services stop 服务名#关闭一个service</span><br></pre></td></tr></table></figure>
+<p>每次开启一个服务，就会在～/Library/LaunchAgents里面增加一个plist文件，用来存储这个服务的一些版本信息，同时，本机所有其他服务可以通过</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">launchctl load *.plist #加载 </span><br><span class="line">launchctl unload *.plist #取消</span><br><span class="line">launchctl list#查看服务</span><br></pre></td></tr></table></figure>
+<p>来完成</p>
+<h3 id="brew其他命令"><a href="#brew其他命令" class="headerlink" title="brew其他命令"></a>brew其他命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew link 包名</span><br></pre></td></tr></table></figure>
+<p>这里的link是指symbollink（有点类似于windows里的创建快捷方式）。以hadoop为例，在brew刚下载的hadoop只是存在/usr/local/Cellar目录下的，在全局环境下不能用hadoop命令。只有将其link到bin里（hadoop产生了27个symbolink），才能全局使用hadoop命令。在用brew install时会默认完成link的操作，除非出现意外。</p>
+<p>意外：在安装hadoop时出现了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: The `brew link` step did not complete successfully</span><br><span class="line">The formula built, but is not symlinked into /usr/local</span><br><span class="line">Could not symlink sbin/FederationStateStore</span><br><span class="line">/usr/local/sbin is not writable.</span><br></pre></td></tr></table></figure>
+<p>是因为我本机根本没有这个目录，同时权限也不够，所以我建了这个目录，然后用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -r $(whoami) $(brew --prefix)/*</span><br></pre></td></tr></table></figure>
+<p>修改了对应权限，成功安装。这里引出了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --prefix</span><br></pre></td></tr></table></figure>
+<p>这个是指brew存在的目录，其他brew操作都是在这个目录下搞的（例如cellar就是在这个目录下）。</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

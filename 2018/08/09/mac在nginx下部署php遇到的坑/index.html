@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        mac在nginx下部署php遇到的坑 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#继续补充"><span class="toc-text">继续补充</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        mac在nginx下部署php遇到的坑
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-08-09 00:43:26</span></span>
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>受人之托，帮人部署一个网站，然后我想在本地的nginx里先调试一下。一开始，打开页面显示403，这个之前见过，nginx的权限问题，改了这个权限之后，发现访问php页面都是直接下载而没有解析，我想起来电脑可能没有php环境，就下了php，然后还是同样的问题。总之因为对php不太熟悉（之前都用xampp这类软件），所以花了一点时间才搞定。</p>
+<p>首先要明白的是，nginx本身不能处理php，它只是一个web服务器，当前端请求php时，nginx需要把界面发给php解释器处理，然后把结果返回给前端。一般地，nginx是把请求发给fastcgi管理进程处理。如nginx中配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">    root           html;</span><br><span class="line">    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">    fastcgi_index  index.php;</span><br><span class="line">    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;#这里原来不是$document_root，搞得我很蒙，还好网上查到改好了，不然会报file not found</span><br><span class="line">    include        fastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以要启动一个fastcgi，这里就用到了php-fpm，它是一个php fastcgi管理器，只用于php语言（旧版php的要单独下php-fpm，我用的php-fpm已经集成了这个）。</p>
+<p>这里有很多奇怪的问题。</p>
+<p><strong>第一次运行php-fpm</strong></p>
+<p>failed: 找不到/private/etc/php-fpm.conf文件，</p>
+<p>Solution:但这个目录下有个php-fpm.conf.default的文件，所以cp了正确名字的新文件</p>
+<p><strong>第二次远行php-fpm</strong></p>
+<p>Failed: 找不到/usr/var/log/php-fpm.log </p>
+<p>Solution：根本没有这个目录，到conf文件里改了但是没有效果，没办法我就通过下面的命令执行php-fpm(后面都用这个命令执行)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php-fpm --fpm-config /private/etc/php-fpm.conf  --prefix /usr/local/var</span><br></pre></td></tr></table></figure>
+<p><strong>第三次运行php-fpm</strong></p>
+<p>Failed: No pool defined. at least one pool section must be specified in config file</p>
+<p>Solution：到/etc/php-fpm.d/ 目录下有文件www.conf.default，cp一份名为<a href="http://www.conf的文件" target="_blank" rel="noopener">www.conf的文件</a></p>
+<p><strong>第四次运行php-fpm</strong></p>
+<p>Failed：端口被占用</p>
+<p>Solution：杀掉这个进程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo lsof -i tcp:9000#找到占用9000端口的进程号</span><br><span class="line">kill -9 port#杀！</span><br></pre></td></tr></table></figure>
+<p><strong>第五次运行php-fpm</strong></p>
+<p>成功！</p>
+<p>##补充：</p>
+<p>在nginx上配的时候又有所一点不同，在mac上php-fpm直接listen了9000端口，但在服务器上它listen了php7.0-fpm.sock但socket文件，这种方式可能快一点，所以要在nginx上php的配置那边将</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastcgi_pass 127.0.0.1:9000;</span><br></pre></td></tr></table></figure>
+<p>改成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastcgi_pass unix:/run/php/php7.0-fpm.sock;</span><br></pre></td></tr></table></figure>
+<p>才能成功运行php</p>
+<h3 id="继续补充"><a href="#继续补充" class="headerlink" title="继续补充"></a>继续补充</h3><p>很有意思的一个东西，要上传27m的一个视频，nginx直接报了413 Request Entity Too Large，是我没设置…</p>
+<p>到nginx的配置（set-enabled/default）里面添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    ...</span><br><span class="line">    client_max_body_size 80m;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重读配置、重启服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br><span class="line">service nginx restart</span><br></pre></td></tr></table></figure>
+<p>然后还要去修改php.ini，在其中修改两条配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">upload_max_filesize = 80M</span><br><span class="line">post_max_size = 80M</span><br></pre></td></tr></table></figure>
+<p>然后关掉php-fpm的进程，再重启即可～</p>
+<p>ps：贺老师真的完全不研究的…mp4传不上去只是在系统里没添加这种类型，这种事都要我自己去找…难受 :(</p>
+<p><strong>note：</strong>在ubuntu下现在比较推荐用apt而不是apt-get…so，是时候改变了！</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

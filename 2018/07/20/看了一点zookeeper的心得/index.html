@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        看了一点zookeeper的心得 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i>  </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#znode（data-node）："><span class="toc-text">znode（data node）：</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i>  </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        看了一点zookeeper的心得
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-07-20 00:10:42</span></span>
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>###Fast Paxos算法：</p>
+<p>这个还没看，先留个坑把。</p>
+<p>###文件结构：</p>
+<p>zookeeper的文件结构大概是这个样子的：</p>
+<p>!å¾ 1 Zookeeper æ°æ®ç”æ](<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/image001.gif" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/image001.gif</a>)</p>
+<h3 id="znode（data-node）："><a href="#znode（data-node）：" class="headerlink" title="znode（data node）："></a>znode（data node）：</h3><ol>
+<li>其中的每个子目录就是一个znode，他们也可以有子的znode（临时znode除外）。</li>
+<li>这些znode必须是绝对路径，不允许相对路径。</li>
+<li>每个znode都维护一个stat structure（linux系统文件的结构），其中包括版本号，acl改变等等。每次更新数据会让版本号自增。</li>
+<li>每个znode可以设置一个watches，当watch触发后，zookeeper将发给client一个提醒。</li>
+<li>在znode中数据读写是原子性的。每个znode都有一个ACL（access control list）来控制其读写权限。zookeeper不是用来做数据库的，其中存储的数据可能都是几kb的配置/状态信息。大块数据都存在hdfs中。</li>
+<li>Ephemeral node就是临时节点，每次会话结束这些节点都会清空，不允许有子节点。</li>
+</ol>
+<p>###Zookeeper Session：</p>
+<p><img src="/Users/max/Documents/Blog/source/img/state_dia.jpg" alt="state_dia"></p>
+<p>###一致性的保证：</p>
+<p>zookeeper是一个非常高效、可扩展的服务。其一致性靠以下几点保证：</p>
+<ol>
+<li>顺序的一致性。一个client的更新会依序发送给其他。</li>
+<li>原子性。更新是原子操作，只有成功和失败，没有中间过程。</li>
+<li>服务器会看到完全相同的服务，不论其连接了哪个服务器。</li>
+<li>可靠性。一旦一个更新被部署，他会一直存在，直到被另一个更新覆盖。</li>
+<li>及时性。client对系统的观察在一个时间段内将是最新的。也即系统的改变在这个时间段内client是看见的，或者可以探测到它失败。</li>
+</ol>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
