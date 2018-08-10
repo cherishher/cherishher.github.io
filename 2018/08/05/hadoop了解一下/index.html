@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本架构"><span class="toc-text">基本架构</span></a></li></ol>
 </div>
     
 </div>
@@ -132,8 +132,7 @@
     </div>
     <div class="post-content ">
         <p>搞分布式数据分析系统，hadoop绝对是不可绕过的一关，所以简单玩了一下，以下是总结。</p>
-<p>##基本概念</p>
-<p>###Apache Hadoop与HDFS</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>###Apache Hadoop与HDFS</p>
 <p>Hadoop是一个大的生态系统，最主要是hdfs和一个基于mapreduce的分布式计算引擎。hdfs就是一个文件系统，在mapreduce的时候（包括用spark的时候）都需要对应文件在hdfs里。</p>
 <p><strong>block块：</strong>HDFS在物理上是以block存储的，block大小可以通过配置参数（dfs.blocksize）来规定，默认128M，可以减少寻址开销。大文件会被切分成很多block来存，而小文件存储则不会占用整个块的空间。</p>
 <p><strong>NameNode：</strong>是master。负责管理文件系统的namespace（可以理解是指向具体数据的文件名、路径名这种）和客户端对文件的访问。</p>
@@ -156,8 +155,7 @@
 <p><strong>ApplicationMaster：</strong>代替一个专用而短暂的JobTracker。用户提交一个应用程序时，会启动applicationmaster这个轻量级进程实例来协调程序内任务（监视进度、定时向resourcemanager发送心跳数据、负责容错等），计算数据需要的资源并向resourcemanager申请。它本身也是在一个container里运行的，且可能与它管理的任务运行在同一节点上。</p>
 <p><strong>Container：</strong>是yarn中资源的抽象，封装了某个节点上一定量的资源（如cpu和内存等资源）。它的分配是由applicationmaster向resourcemanager申请的；而它的运行则是applicationmaster向资源所在的nodemanager发起的。</p>
 <p><strong>NodeManager：</strong>代替tasktracker。拥有很多动态创建的资源Container。容器大小取决于它所包含资源量，而一个节点上的容器数量由配置参数和除用于后台进程和操作系统以外资源总量决定。</p>
-<p>##基本架构</p>
-<p>Hdfs采用了master/slave架构。一个hdfs集群由一个namenode和一群datanodes组成。简单来说，就是hdfs通过namenode暴露出了文件系统命名空间的操作，包括打卡、关闭、重命名文件等等。在这个文件系统对一块数据的操作会映射到具体的datanodes上。</p>
+<h2 id="基本架构"><a href="#基本架构" class="headerlink" title="基本架构"></a>基本架构</h2><p>Hdfs采用了master/slave架构。一个hdfs集群由一个namenode和一群datanodes组成。简单来说，就是hdfs通过namenode暴露出了文件系统命名空间的操作，包括打卡、关闭、重命名文件等等。在这个文件系统对一块数据的操作会映射到具体的datanodes上。</p>
 <p>所以一般是一台机器上搭namenode，然后datanode在其他各个机器上。</p>
 <p><img src="/Users/max/Documents/Blog/source/img/hdfsarchitecture.gif" alt="hdfsarchitecture"></p>
 <p>##基本操作</p>
