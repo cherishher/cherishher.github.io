@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-08-10T16:43:12.463Z</updated>
+  <updated>2018-08-27T15:21:07.557Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>daily life in HK  1</title>
+    <link href="http://yoursite.com/2018/08/27/daily%20life%20in%20HK%20%201/"/>
+    <id>http://yoursite.com/2018/08/27/daily life in HK  1/</id>
+    <published>2018-08-27T10:44:40.328Z</published>
+    <updated>2018-08-27T15:21:07.557Z</updated>
+    
+    <content type="html"><![CDATA[<p>Finally, I arrive at CUHK and now I sit in SINO building writing this words. After that, I will upgrade my daily life in CUHK in my blog unregularly.</p><p>The journey from SZ to HK is tremendously hard for my. I took all my packages (more than 30kg, wooo~~~) comming in HK custom. At that time, I thought the most difficulty time had been gone though. I was wrong, cause it was just the start of my suffering. The long lines of bus station made me crying, at the same time, I realized that I forgot to take some change. Of course, as a freshman of HK, I have no HK card. So I had to beg all around. After two times of tranfer, I got to Sha Tin station.</p><p>From the introduction of my room, I knew the building I live is not far from the station. While, I made the mistake for twice. Unfortunately, It lies on a unknown mountain, so I was supposed to climb mountain with huge bags.</p><p>Finally, I got in my rooms and met with my new roommate, who is a programmer, too. He is a nice guy and I was looking forward to make more friends here.</p><p>What was worth to mention is we have a free dinner organized by our college, other guys in my table feel embarrassed to pack the left-overs so I took it all back. It solved my two-day meal problems.</p><p>Never be shamed with yourself, keep on  doing what you believe in and you will make it sooner or later!</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Finally, I arrive at CUHK and now I sit in SINO building writing this words. After that, I will upgrade my daily life in CUHK in my blog 
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://yoursite.com/tags/life/"/>
+    
+  </entry>
   
   <entry>
     <title>20180811日记</title>
@@ -318,9 +341,9 @@
     <link href="http://yoursite.com/2018/07/04/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2018/07/04/一些简单的命令行操作总结/</id>
     <published>2018-07-04T10:03:57.407Z</published>
-    <updated>2018-08-10T10:37:17.965Z</updated>
+    <updated>2018-08-24T16:37:55.347Z</updated>
     
-    <content type="html"><![CDATA[<p>今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中，不然太容易忘掉了。</p><p>###插件：</p><p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p><ul><li>z。可以直接跳转。它记录（统计）了一些常用的跳转，只要z+destination就可以</li><li>extract。可以直接解压，忽略tar后各种参数。与unzip类似。</li><li>zsh-autosuggestions。这个神器，之前输入的命令可以再提示出来，很方便用。</li><li>Web-search。可以在命令行直接用 google+要查的内容 即可打开搜索页面。</li></ul><h3 id="命令行快捷键："><a href="#命令行快捷键：" class="headerlink" title="命令行快捷键："></a>命令行快捷键：</h3><ul><li>ctrl+q。可以直接删除整行命令。</li><li>ctrl+w。可以删除每一分段的命令。</li><li>ctrl+e。直接跳到命令最后。</li><li>ctrl+a。直接跳到命令最前面。</li><li>command+d 在iterm中分屏</li><li>comand+[ or ] 在iterm的分屏中切换</li></ul><h3 id="ssh的key的名字问题："><a href="#ssh的key的名字问题：" class="headerlink" title="ssh的key的名字问题："></a>ssh的key的名字问题：</h3><p>忘记有什么问题了。。。整理不及时呐～</p>]]></content>
+    <content type="html"><![CDATA[<p>今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中，不然太容易忘掉了。</p><p>###插件：</p><p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p><ul><li>z。可以直接跳转。它记录（统计）了一些常用的跳转，只要z+destination就可以</li><li>extract。可以直接解压，忽略tar后各种参数。与unzip类似。</li><li>zsh-autosuggestions。这个神器，之前输入的命令可以再提示出来，很方便用。</li><li>Web-search。可以在命令行直接用 google+要查的内容 即可打开搜索页面。</li></ul><h3 id="命令行快捷键："><a href="#命令行快捷键：" class="headerlink" title="命令行快捷键："></a>命令行快捷键：</h3><ul><li>ctrl+q。可以直接删除整行命令。</li><li>ctrl+w。可以删除每一分段的命令。</li><li>ctrl+e。直接跳到命令最后。</li><li>ctrl+a。直接跳到命令最前面。</li><li>command+d 在iterm中分屏</li><li>comand+[ or ] 在iterm的分屏中切换</li></ul><h3 id="ssh的key的名字问题："><a href="#ssh的key的名字问题：" class="headerlink" title="ssh的key的名字问题："></a>ssh的key的名字问题：</h3><p>忘记有什么问题了。。。整理不及时呐～</p><h3 id="Dockerfile的基础应用"><a href="#Dockerfile的基础应用" class="headerlink" title="Dockerfile的基础应用"></a>Dockerfile的基础应用</h3><p>Dockerfile里有个from，就是指从哪个images拿过来的，可以是本地的，所以增量修改images就是新建一个dockerfile然后from原来的images。再加上自己的RUN，最后执行docker build .就可以～</p>]]></content>
     
     <summary type="html">
     
