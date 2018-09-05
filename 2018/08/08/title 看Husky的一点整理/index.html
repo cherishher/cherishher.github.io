@@ -137,7 +137,9 @@
 </span>
     </div>
     <div class="post-content ">
-        <p>husky是一个通用的分布式的计算平台，就像mapreduce、spark这种，它是用c++写的（难受…）</p>
+        <p>Username : csci5570</p>
+<p>Password : huskydatalab</p>
+<p>husky是一个通用的分布式的计算平台，就像mapreduce、spark这种，它是用c++写的（难受…）</p>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> Required</span><br><span class="line">master_host=master#master跑的地方</span><br><span class="line">master_port=10086#master绑定的端口</span><br><span class="line">comm_port=12306#worker绑定的端口</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Worker information</span><br><span class="line">[worker]</span><br><span class="line">info=worker1:4#worker1有4个线程</span><br><span class="line">info=worker2:4#worker2有4个线程</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>如果用了hdfs，配置hdfs路径</span><br><span class="line">hdfs_namenode=master</span><br><span class="line">hdfs_namenode_port=9000</span><br></pre></td></tr></table></figure>
 <p>运行的时候用</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./program --conf=/path/to/config.ini</span><br></pre></td></tr></table></figure>

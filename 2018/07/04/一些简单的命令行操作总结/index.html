@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行快捷键："><span class="toc-text">命令行快捷键：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ssh的key的名字问题："><span class="toc-text">ssh的key的名字问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile的基础应用"><span class="toc-text">Dockerfile的基础应用</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令："><span class="toc-text">命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件："><span class="toc-text">插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行快捷键："><span class="toc-text">命令行快捷键：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ssh的key的名字问题："><span class="toc-text">ssh的key的名字问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile的基础应用"><span class="toc-text">Dockerfile的基础应用</span></a></li></ol>
 </div>
     
 </div>
@@ -138,8 +138,16 @@
     </div>
     <div class="post-content ">
         <p>今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中，不然太容易忘掉了。</p>
-<p>###插件：</p>
-<p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p>
+<h3 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h3><p>以后一些好用但是不熟悉的命令就都放在这里了，方便回忆：</p>
+<p><strong>jq</strong> ： 命令行处理json的命令，，支持管道</p>
+<p>用法：</p>
+<p>针对一个json，直接 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.'</span><br></pre></td></tr></table></figure>
+<p>就可以获得format之后的形式，如果想获得json某个key，只要</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq 'key'</span><br></pre></td></tr></table></figure>
+<p>即可获得</p>
+<p><strong>wc</strong> ： 用于统计指定文件的字节数、字数、行数</p>
+<h3 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h3><p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p>
 <ul>
 <li>z。可以直接跳转。它记录（统计）了一些常用的跳转，只要z+destination就可以</li>
 <li>extract。可以直接解压，忽略tar后各种参数。与unzip类似。</li>

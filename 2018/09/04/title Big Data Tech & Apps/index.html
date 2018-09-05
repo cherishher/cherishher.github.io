@@ -11,7 +11,7 @@
 
     <title>
         
-        Spark基础学习 - undefined
+        Big Data Tech &amp; Apps - undefined
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#the-notion-of-RDD-resilient-distributed-dataset"><span class="toc-text">the notion of RDD(resilient distributed dataset)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-RDD-Operation"><span class="toc-text">Basic RDD Operation</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Week2-MapReduce"><span class="toc-text">Week2 : MapReduce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week3-Locality-Sensitive-Hashing"><span class="toc-text">Week3 : Locality Sensitive Hashing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week4-Mining-Data-Stream"><span class="toc-text">Week4 : Mining Data Stream</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week5-Clustering"><span class="toc-text">Week5 : Clustering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week6-Dimensionality-Reduction"><span class="toc-text">Week6 : Dimensionality Reduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week7-Recommender-System"><span class="toc-text">Week7 : Recommender System</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week8-Link-Analysis"><span class="toc-text">Week8 : Link Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week9-Graph-Algorithms"><span class="toc-text">Week9 : Graph Algorithms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week10-Large-Scale-Classfication"><span class="toc-text">Week10 : Large Scale Classfication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Week11-Learning-Algorithms"><span class="toc-text">Week11 : Learning Algorithms</span></a></li></ol>
 </div>
     
 </div>
@@ -119,15 +119,15 @@
 
 <div class="post-container">
     <div class="post-title">
-        Spark基础学习
+        Big Data Tech & Apps
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-08-05 21:38:09</span></span>
+        <span class="attr">发布于：<span>2018-09-04 19:18:01</span></span>
         
         <span class="attr">标签：/
         
-        <a class="tag" href="/tags/#big data" title="big data">big data</a>
+        <a class="tag" href="/tags/#class note" title="class note">class note</a>
         <span>/</span>
         
         
@@ -137,24 +137,37 @@
 </span>
     </div>
     <div class="post-content ">
-        <p>Recently I read the book &lt;\<spark in="" action="">&gt;, the summation about this book will be wrote down here.</spark></p>
-<h3 id="the-notion-of-RDD-resilient-distributed-dataset"><a href="#the-notion-of-RDD-resilient-distributed-dataset" class="headerlink" title="the notion of RDD(resilient distributed dataset)"></a>the notion of RDD(resilient distributed dataset)</h3><p>The RDD is the fundamental abstraction in spark it represents a collection of elements that is</p>
+        <p>Textbook : Mining of Massvice Dataset</p>
+<p>Instructor : Prof. Michael R. Lyu</p>
+<p>Tutor : Zeng Jichuan</p>
+<p>exam : <strong>Nov. 6 Midterm Exam !</strong></p>
+<p>Assessment Scheme and Deadlines:</p>
 <ul>
-<li>Immutable ( read-only )</li>
-<li>Resilient ( fault-tolerant )</li>
-<li>Distributed</li>
+<li>20% Assignment</li>
+<li>40% Midterm examination : Nov.6 7-10pm</li>
+<li>40% Project : Proposal , Presentation , Report</li>
 </ul>
-<p>Immutable : allow xspark to provide important fault-tolerance guarantees in a straightforward manner.</p>
-<p>Distributed : machines are transparents to users, so working with RDDs is not much differents from working with a lists, maps and so on.</p>
-<p>Resilient: whereas other systems facilitate fault-tolerance by replicating data to multiple machines, RDDs provide falut-tolerant by logging the transformations used to build dataset rather than itself. When fault happens, it just need to repair a subset of dataset.</p>
-<h3 id="Basic-RDD-Operation"><a href="#Basic-RDD-Operation" class="headerlink" title="Basic RDD Operation"></a>Basic RDD Operation</h3><p>there are two types of operations</p>
+<p>Background: Tensorflow , Amazon EC2</p>
+<p>Things useful to know</p>
 <ul>
-<li>Transformations</li>
-<li>actions</li>
+<li>TF.IDF measure of word importance</li>
+<li>Hash functions</li>
+<li>Secondary storage(disk)</li>
+<li>The base of natural logarithms</li>
+<li>Power laws</li>
 </ul>
-<p>Transformations : like <em>filter</em> and <em>map</em>, perform some useful data manipulation and it will produce a new RDD</p>
-<p>actions : like <em>count</em> and <em>foreach</em>, trigger a computations to return a result.</p>
-
+<h2 id="Week2-MapReduce"><a href="#Week2-MapReduce" class="headerlink" title="Week2 : MapReduce"></a>Week2 : MapReduce</h2><p>Map:</p>
+<ul>
+<li>Accepts input key/value pair</li>
+<li>Emits intermediate key/value pair</li>
+</ul>
+<p>Reduce:</p>
+<ul>
+<li>Accepts intermediate key/value pair</li>
+<li>emits output key/value pair</li>
+</ul>
+<p>Advancement : Tensorflow</p>
+<h2 id="Week3-Locality-Sensitive-Hashing"><a href="#Week3-Locality-Sensitive-Hashing" class="headerlink" title="Week3 : Locality Sensitive Hashing"></a>Week3 : Locality Sensitive Hashing</h2><h2 id="Week4-Mining-Data-Stream"><a href="#Week4-Mining-Data-Stream" class="headerlink" title="Week4 : Mining Data Stream"></a>Week4 : Mining Data Stream</h2><h2 id="Week5-Clustering"><a href="#Week5-Clustering" class="headerlink" title="Week5 : Clustering"></a>Week5 : Clustering</h2><h2 id="Week6-Dimensionality-Reduction"><a href="#Week6-Dimensionality-Reduction" class="headerlink" title="Week6 : Dimensionality Reduction"></a>Week6 : Dimensionality Reduction</h2><h2 id="Week7-Recommender-System"><a href="#Week7-Recommender-System" class="headerlink" title="Week7 : Recommender System"></a>Week7 : Recommender System</h2><h2 id="Week8-Link-Analysis"><a href="#Week8-Link-Analysis" class="headerlink" title="Week8 : Link Analysis"></a>Week8 : Link Analysis</h2><h2 id="Week9-Graph-Algorithms"><a href="#Week9-Graph-Algorithms" class="headerlink" title="Week9 : Graph Algorithms"></a>Week9 : Graph Algorithms</h2><h2 id="Week10-Large-Scale-Classfication"><a href="#Week10-Large-Scale-Classfication" class="headerlink" title="Week10 : Large Scale Classfication"></a>Week10 : Large Scale Classfication</h2><h2 id="Week11-Learning-Algorithms"><a href="#Week11-Learning-Algorithms" class="headerlink" title="Week11 : Learning Algorithms"></a>Week11 : Learning Algorithms</h2>
         
         <div id="comment-container">
         </div>
