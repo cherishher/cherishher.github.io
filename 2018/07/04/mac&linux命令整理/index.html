@@ -11,7 +11,7 @@
 
     <title>
         
-        地道的口语表达积累 - undefined
+        mac&amp;linux命令整理 - undefined
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-给别人加油"><span class="toc-text">1. 给别人加油</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-问别人想不想要"><span class="toc-text">2. 问别人想不想要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-和朋友约出去玩"><span class="toc-text">3. 和朋友约出去玩</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令："><span class="toc-text">命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件："><span class="toc-text">插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行快捷键："><span class="toc-text">命令行快捷键：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件："><span class="toc-text">文件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到的问题："><span class="toc-text">遇到的问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile的基础应用"><span class="toc-text">Dockerfile的基础应用</span></a></li></ol>
 </div>
     
 </div>
@@ -119,11 +119,17 @@
 
 <div class="post-container">
     <div class="post-title">
-        地道的口语表达积累
+        mac&linux命令整理
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-09-01 15:40:05</span></span>
+        <span class="attr">发布于：<span>2018-07-04 18:03:57</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#mac" title="mac">mac</a>
+        <span>/</span>
+        
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -131,39 +137,35 @@
 </span>
     </div>
     <div class="post-content ">
-        <h3 id="1-给别人加油"><a href="#1-给别人加油" class="headerlink" title="1. 给别人加油"></a>1. 给别人加油</h3><p>不要再用fighting啦～</p>
-<p><strong>Go get‘em.</strong></p>
-<p>完整说法：Go get’em tiger.</p>
-<p>追女生：go get her</p>
-<h3 id="2-问别人想不想要"><a href="#2-问别人想不想要" class="headerlink" title="2. 问别人想不想要"></a>2. 问别人想不想要</h3><p>不要再用do you want啦～</p>
-<p><strong>be up for something</strong></p>
-<p>e.g: </p>
-<p>Are you up for going clubing?</p>
-<p>你想去蹦迪吗？</p>
-<p>be up三个意思：</p>
+        <p>今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中，不然太容易忘掉了。</p>
+<h3 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h3><p>以后一些好用但是不熟悉的命令就都放在这里了，方便回忆：</p>
+<p><strong>jq</strong> ： 命令行处理json的命令，，支持管道</p>
+<p>用法：</p>
+<p>针对一个json，直接 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.'</span><br></pre></td></tr></table></figure>
+<p>就可以获得format之后的形式，如果想获得json某个key，只要</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.key'</span><br></pre></td></tr></table></figure>
+<p>即可获得</p>
+<p><strong>wc</strong> ： 用于统计指定文件的字节数、字数、行数</p>
+<h3 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h3><p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p>
 <ul>
-<li><p>醒着 Are you up?</p>
-</li>
-<li><p>下一个 who’s up next?</p>
-</li>
-<li><p>怎么了 what’s up？</p>
-</li>
+<li>z。可以直接跳转。它记录（统计）了一些常用的跳转，只要z+destination就可以</li>
+<li>extract。可以直接解压，忽略tar后各种参数。与unzip类似。</li>
+<li>zsh-autosuggestions。这个神器，之前输入的命令可以再提示出来，很方便用。</li>
+<li>Web-search。可以在命令行直接用 google+要查的内容 即可打开搜索页面。</li>
 </ul>
-<h3 id="3-和朋友约出去玩"><a href="#3-和朋友约出去玩" class="headerlink" title="3. 和朋友约出去玩"></a>3. 和朋友约出去玩</h3><p>play with不行，一般是小朋友或者人和宠物，不适合成人一起玩</p>
-<p>hang out</p>
-<p>还可以用chill out，自己一个人出去玩</p>
-<p>e.g.</p>
-<p> Do you wanna hang out with us?</p>
-<p>###4. 如何约一场“夜生活”</p>
-<p><strong>night out～(名词)</strong></p>
-<p>e.g. </p>
-<p>It’s been a while since we had a girls’ night out.</p>
-<p>姐妹们我们已经很久没有出去玩啦</p>
-<p>have(need) a night out.</p>
-<p>e.g.</p>
-<p>If you are up for a boys’ night out~</p>
-<p>如果想约不会太晚的夜生活用：evening out</p>
-<p>Night owl 夜猫子</p>
+<h3 id="命令行快捷键："><a href="#命令行快捷键：" class="headerlink" title="命令行快捷键："></a>命令行快捷键：</h3><ul>
+<li>ctrl+q。可以直接删除整行命令。</li>
+<li>ctrl+w。可以删除每一分段的命令。</li>
+<li>ctrl+e。直接跳到命令最后。</li>
+<li>ctrl+a。直接跳到命令最前面。</li>
+<li>command+d 在iterm中分屏</li>
+<li>comand+[ or ] 在iterm的分屏中切换</li>
+</ul>
+<h3 id="文件："><a href="#文件：" class="headerlink" title="文件："></a>文件：</h3><p><strong>/etc/motd</strong> : 改命令行打开的提示语</p>
+<h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a>遇到的问题：</h3><p>ssh-key生成忘记有什么问题了。。。整理不及时呐～</p>
+<p>scala2.11和autosuggestions配色问题有冲突，导致每次scala都会报错</p>
+<h3 id="Dockerfile的基础应用"><a href="#Dockerfile的基础应用" class="headerlink" title="Dockerfile的基础应用"></a>Dockerfile的基础应用</h3><p>Dockerfile里有个from，就是指从哪个images拿过来的，可以是本地的，所以增量修改images就是新建一个dockerfile然后from原来的images。再加上自己的RUN，最后执行docker build .就可以～</p>
 
         
         <div id="comment-container">

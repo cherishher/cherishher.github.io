@@ -11,7 +11,7 @@
 
     <title>
         
-        地道的口语表达积累 - undefined
+        看了一点zookeeper的心得 - undefined
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-给别人加油"><span class="toc-text">1. 给别人加油</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-问别人想不想要"><span class="toc-text">2. 问别人想不想要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-和朋友约出去玩"><span class="toc-text">3. 和朋友约出去玩</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#znode（data-node）："><span class="toc-text">znode（data node）：</span></a></li></ol>
 </div>
     
 </div>
@@ -119,11 +119,17 @@
 
 <div class="post-container">
     <div class="post-title">
-        地道的口语表达积累
+        看了一点zookeeper的心得
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-09-01 15:40:05</span></span>
+        <span class="attr">发布于：<span>2018-07-20 00:10:42</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#big data" title="big data">big data</a>
+        <span>/</span>
+        
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -131,39 +137,30 @@
 </span>
     </div>
     <div class="post-content ">
-        <h3 id="1-给别人加油"><a href="#1-给别人加油" class="headerlink" title="1. 给别人加油"></a>1. 给别人加油</h3><p>不要再用fighting啦～</p>
-<p><strong>Go get‘em.</strong></p>
-<p>完整说法：Go get’em tiger.</p>
-<p>追女生：go get her</p>
-<h3 id="2-问别人想不想要"><a href="#2-问别人想不想要" class="headerlink" title="2. 问别人想不想要"></a>2. 问别人想不想要</h3><p>不要再用do you want啦～</p>
-<p><strong>be up for something</strong></p>
-<p>e.g: </p>
-<p>Are you up for going clubing?</p>
-<p>你想去蹦迪吗？</p>
-<p>be up三个意思：</p>
-<ul>
-<li><p>醒着 Are you up?</p>
-</li>
-<li><p>下一个 who’s up next?</p>
-</li>
-<li><p>怎么了 what’s up？</p>
-</li>
-</ul>
-<h3 id="3-和朋友约出去玩"><a href="#3-和朋友约出去玩" class="headerlink" title="3. 和朋友约出去玩"></a>3. 和朋友约出去玩</h3><p>play with不行，一般是小朋友或者人和宠物，不适合成人一起玩</p>
-<p>hang out</p>
-<p>还可以用chill out，自己一个人出去玩</p>
-<p>e.g.</p>
-<p> Do you wanna hang out with us?</p>
-<p>###4. 如何约一场“夜生活”</p>
-<p><strong>night out～(名词)</strong></p>
-<p>e.g. </p>
-<p>It’s been a while since we had a girls’ night out.</p>
-<p>姐妹们我们已经很久没有出去玩啦</p>
-<p>have(need) a night out.</p>
-<p>e.g.</p>
-<p>If you are up for a boys’ night out~</p>
-<p>如果想约不会太晚的夜生活用：evening out</p>
-<p>Night owl 夜猫子</p>
+        <p>###Fast Paxos算法：</p>
+<p>这个还没看，先留个坑把。</p>
+<p>###文件结构：</p>
+<p>zookeeper的文件结构大概是这个样子的：</p>
+<p>!å¾ 1 Zookeeper æ°æ®ç”æ](<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/image001.gif" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/image001.gif</a>)</p>
+<h3 id="znode（data-node）："><a href="#znode（data-node）：" class="headerlink" title="znode（data node）："></a>znode（data node）：</h3><ol>
+<li>其中的每个子目录就是一个znode，他们也可以有子的znode（临时znode除外）。</li>
+<li>这些znode必须是绝对路径，不允许相对路径。</li>
+<li>每个znode都维护一个stat structure（linux系统文件的结构），其中包括版本号，acl改变等等。每次更新数据会让版本号自增。</li>
+<li>每个znode可以设置一个watches，当watch触发后，zookeeper将发给client一个提醒。</li>
+<li>在znode中数据读写是原子性的。每个znode都有一个ACL（access control list）来控制其读写权限。zookeeper不是用来做数据库的，其中存储的数据可能都是几kb的配置/状态信息。大块数据都存在hdfs中。</li>
+<li>Ephemeral node就是临时节点，每次会话结束这些节点都会清空，不允许有子节点。</li>
+</ol>
+<p>###Zookeeper Session：</p>
+<p><img src="/Users/max/Documents/Blog/source/img/state_dia.jpg" alt="state_dia"></p>
+<p>###一致性的保证：</p>
+<p>zookeeper是一个非常高效、可扩展的服务。其一致性靠以下几点保证：</p>
+<ol>
+<li>顺序的一致性。一个client的更新会依序发送给其他。</li>
+<li>原子性。更新是原子操作，只有成功和失败，没有中间过程。</li>
+<li>服务器会看到完全相同的服务，不论其连接了哪个服务器。</li>
+<li>可靠性。一旦一个更新被部署，他会一直存在，直到被另一个更新覆盖。</li>
+<li>及时性。client对系统的观察在一个时间段内将是最新的。也即系统的改变在这个时间段内client是看见的，或者可以探测到它失败。</li>
+</ol>
 
         
         <div id="comment-container">

@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本架构"><span class="toc-text">基本架构</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#map-reduce"><span class="toc-text">map reduce</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本架构"><span class="toc-text">基本架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop-Streaming"><span class="toc-text">Hadoop Streaming</span></a></li></ol>
 </div>
     
 </div>
@@ -138,10 +138,17 @@
     </div>
     <div class="post-content ">
         <p>搞分布式数据分析系统，hadoop绝对是不可绕过的一关，所以简单玩了一下，以下是总结。</p>
+<h3 id="map-reduce"><a href="#map-reduce" class="headerlink" title="map reduce"></a>map reduce</h3><ul>
+<li>automatic parallezation</li>
+<li>Fault tolerance</li>
+<li>a clean abstraction for programmers</li>
+</ul>
+<p>BSP model : Bulk sychronous parallel</p>
+<p>identity reducer？re</p>
 <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>###Apache Hadoop与HDFS</p>
 <p>Hadoop是一个大的生态系统，最主要是hdfs和一个基于mapreduce的分布式计算引擎。hdfs就是一个文件系统，在mapreduce的时候（包括用spark的时候）都需要对应文件在hdfs里。</p>
 <p><strong>block块：</strong>HDFS在物理上是以block存储的，block大小可以通过配置参数（dfs.blocksize）来规定，默认128M，可以减少寻址开销。大文件会被切分成很多block来存，而小文件存储则不会占用整个块的空间。</p>
-<p><strong>NameNode：</strong>是master。负责管理文件系统的namespace（可以理解是指向具体数据的文件名、路径名这种）和客户端对文件的访问。</p>
+<p><strong>NameNode：</strong>是master。负责管理文件系统的namespace（可以理解是指向具体数据的文件名、路径名这种）和客户端对文件的访问。data path？</p>
 <p><strong>(非Yarn)JobTracker：</strong>在NameNode上，协调在集群运行的所有作业，分配要在tasktracker上运行的map和reduce任务。</p>
 <p><strong>DataNode：</strong>是slave。datanode则负责数据的存储。</p>
 <p><strong>(非Yarn)TaskTracker：</strong>在datanode上，运行分配的任务并定期向jobtracker报告进度。</p>
@@ -164,10 +171,11 @@
 <h2 id="基本架构"><a href="#基本架构" class="headerlink" title="基本架构"></a>基本架构</h2><p>Hdfs采用了master/slave架构。一个hdfs集群由一个namenode和一群datanodes组成。简单来说，就是hdfs通过namenode暴露出了文件系统命名空间的操作，包括打卡、关闭、重命名文件等等。在这个文件系统对一块数据的操作会映射到具体的datanodes上。</p>
 <p>所以一般是一台机器上搭namenode，然后datanode在其他各个机器上。</p>
 <p><img src="/Users/max/Documents/Blog/source/img/hdfsarchitecture.gif" alt="hdfsarchitecture"></p>
+<h3 id="Hadoop-Streaming"><a href="#Hadoop-Streaming" class="headerlink" title="Hadoop Streaming"></a>Hadoop Streaming</h3><p>java这么规范的东西有人就是不喜欢，非得用python啥的写hadoop，所以就有了hadoop streaming，支持其他语言的hadoop操作。</p>
 <p>##基本操作</p>
 <p>###单节点测试</p>
 <p>比较无聊，只是测一下能不能跑，不需要运行什么</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cd Cellar/hadoop/3.1.0/libexec</span><br><span class="line"><span class="meta">$</span> mkdir input#不能是别的名字</span><br><span class="line"><span class="meta">$</span> cp etc/hadoop/*.xml input</span><br><span class="line"><span class="meta">$</span> hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.0.jar  grep input output 'dfs[a-z.]+'</span><br><span class="line"><span class="meta">$</span> cat output/*</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Cellar/hadoop/3.1.0/libexec</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir input<span class="comment">#不能是别的名字</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cp etc/hadoop/*.xml input</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.0.jar  grep input output <span class="string">'dfs[a-z.]+'</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat output/*</span></span><br></pre></td></tr></table></figure>
 <p>###伪分布式测试（pseudo-distributed）</p>
 <ol>
 <li><p>保证本机已经装好hadoop，java1.8（java9有些函数被废了会报错）</p>
@@ -185,7 +193,7 @@
 <p>成功的话在tmp目录下可以看到dfs文件</p>
 </li>
 <li><p>启动各个节点</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hdfs --daemon start NameNode#启动namenode</span><br><span class="line">hdfs --daemon start DataNode#启动datanode</span><br><span class="line">hdfs --daemon start SecondaryNameNode#它是namenode的快照，保证了namenode的更新</span><br><span class="line"><span class="meta">jps#</span>用来查看这些节点是否真的启动了</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hdfs --daemon start NameNode#启动namenode</span><br><span class="line">hdfs --daemon start DataNode#启动datanode</span><br><span class="line">hdfs --daemon start SecondaryNameNode#它是namenode的快照，保证了namenode的更新</span><br><span class="line"><span class="meta">jps#</span><span class="bash">用来查看这些节点是否真的启动了</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在HDFS上创建文件夹及文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hdfs dfs -mkdir /demo#在hdfs上创建demo文件夹</span><br><span class="line">hdfs dfs -ls /demo</span><br><span class="line">hdfs dfs -put test.input /demo#将本地的test.input文件发到hdfs上</span><br></pre></td></tr></table></figure>

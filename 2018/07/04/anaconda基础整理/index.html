@@ -11,7 +11,7 @@
 
     <title>
         
-        地道的口语表达积累 - undefined
+        anaconda基础整理 - undefined
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-给别人加油"><span class="toc-text">1. 给别人加油</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-问别人想不想要"><span class="toc-text">2. 问别人想不想要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-和朋友约出去玩"><span class="toc-text">3. 和朋友约出去玩</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#插一个其他东西："><span class="toc-text">插一个其他东西：</span></a></li></ol>
 </div>
     
 </div>
@@ -119,11 +119,17 @@
 
 <div class="post-container">
     <div class="post-title">
-        地道的口语表达积累
+        anaconda基础整理
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-09-01 15:40:05</span></span>
+        <span class="attr">发布于：<span>2018-07-04 20:20:26</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#data science" title="data science">data science</a>
+        <span>/</span>
+        
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -131,39 +137,23 @@
 </span>
     </div>
     <div class="post-content ">
-        <h3 id="1-给别人加油"><a href="#1-给别人加油" class="headerlink" title="1. 给别人加油"></a>1. 给别人加油</h3><p>不要再用fighting啦～</p>
-<p><strong>Go get‘em.</strong></p>
-<p>完整说法：Go get’em tiger.</p>
-<p>追女生：go get her</p>
-<h3 id="2-问别人想不想要"><a href="#2-问别人想不想要" class="headerlink" title="2. 问别人想不想要"></a>2. 问别人想不想要</h3><p>不要再用do you want啦～</p>
-<p><strong>be up for something</strong></p>
-<p>e.g: </p>
-<p>Are you up for going clubing?</p>
-<p>你想去蹦迪吗？</p>
-<p>be up三个意思：</p>
-<ul>
-<li><p>醒着 Are you up?</p>
-</li>
-<li><p>下一个 who’s up next?</p>
-</li>
-<li><p>怎么了 what’s up？</p>
-</li>
-</ul>
-<h3 id="3-和朋友约出去玩"><a href="#3-和朋友约出去玩" class="headerlink" title="3. 和朋友约出去玩"></a>3. 和朋友约出去玩</h3><p>play with不行，一般是小朋友或者人和宠物，不适合成人一起玩</p>
-<p>hang out</p>
-<p>还可以用chill out，自己一个人出去玩</p>
-<p>e.g.</p>
-<p> Do you wanna hang out with us?</p>
-<p>###4. 如何约一场“夜生活”</p>
-<p><strong>night out～(名词)</strong></p>
-<p>e.g. </p>
-<p>It’s been a while since we had a girls’ night out.</p>
-<p>姐妹们我们已经很久没有出去玩啦</p>
-<p>have(need) a night out.</p>
-<p>e.g.</p>
-<p>If you are up for a boys’ night out~</p>
-<p>如果想约不会太晚的夜生活用：evening out</p>
-<p>Night owl 夜猫子</p>
+        <p>这是一个python环境、包管理工具，这玩意很厉害。</p>
+<h3 id="插一个其他东西："><a href="#插一个其他东西：" class="headerlink" title="插一个其他东西："></a>插一个其他东西：</h3><p>在搞conda环境变量的时候在.zshrc里没有注意语句的顺序，变量使用在前，声明在后，导致path里没有这个。。。。。。以后要注意了！</p>
+<p>###使用原因：</p>
+<ol>
+<li>和以前用的virtualenv有点像，可以创建一个独立的python环境，python版本，包都是独立于外部的。</li>
+<li>自带很多数据科学的包，省的下。</li>
+<li>可以将环境与远程同步，也可以clone别人的环境，开发效率高。</li>
+<li>可以与pycharm等工具结合，通用性强。</li>
+<li>Anaconda navigator是一个桌面应用，使用非常简单。</li>
+</ol>
+<p>###常用到的操作：</p>
+<ol>
+<li>在命令行可以用conda来操作一些东西：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">conda create -n &lt;env-name&gt; &lt;package-name&gt;<span class="comment">#创建conda环境</span></span><br><span class="line"></span><br><span class="line">conda remove -n &lt;env-name&gt;<span class="comment">#删除conda环境</span></span><br><span class="line"></span><br><span class="line">conda env list<span class="comment">#查看所有环境，其中带*的为当前环境，在当前环境下，用的python版本、包等都是anaconda的，而不是本机环境</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> activate &lt;env-name&gt;<span class="comment">#激活某个环境，之后zsh前面会加上这个环境的名称</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> deactivate<span class="comment">#退出某个环境</span></span><br><span class="line"></span><br><span class="line">conda install &lt;package-name&gt;[=versionInfo]<span class="comment">#在当前环境下安装包，可以选定版本</span></span><br><span class="line"></span><br><span class="line">conda install -n &lt;env-name&gt; &lt;package-name&gt;<span class="comment">#在特定环境中</span></span><br><span class="line"></span><br><span class="line">conda list<span class="comment">#列出当前环境所有的包</span></span><br><span class="line"></span><br><span class="line">conda search &lt;package-name&gt;<span class="comment">#查找某个包（模糊匹配）</span></span><br></pre></td></tr></table></figure>
+<p>###conda和pycharm的结合：</p>
+<p>pycharm可以直接用conda的environment来做，只要在选择interpreter的时候选conda环境对应的那个即可。</p>
 
         
         <div id="comment-container">

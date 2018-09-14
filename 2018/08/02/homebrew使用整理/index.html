@@ -11,7 +11,7 @@
 
     <title>
         
-        地道的口语表达积累 - undefined
+        homebrew使用整理 - undefined
         
     </title>
 
@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-给别人加油"><span class="toc-text">1. 给别人加油</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-问别人想不想要"><span class="toc-text">2. 问别人想不想要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-和朋友约出去玩"><span class="toc-text">3. 和朋友约出去玩</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#brew管理服务"><span class="toc-text">brew管理服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#brew其他命令"><span class="toc-text">brew其他命令</span></a></li></ol>
 </div>
     
 </div>
@@ -119,11 +119,17 @@
 
 <div class="post-container">
     <div class="post-title">
-        地道的口语表达积累
+        homebrew使用整理
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2018-09-01 15:40:05</span></span>
+        <span class="attr">发布于：<span>2018-08-02 12:05:26</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#mac" title="mac">mac</a>
+        <span>/</span>
+        
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -131,39 +137,31 @@
 </span>
     </div>
     <div class="post-content ">
-        <h3 id="1-给别人加油"><a href="#1-给别人加油" class="headerlink" title="1. 给别人加油"></a>1. 给别人加油</h3><p>不要再用fighting啦～</p>
-<p><strong>Go get‘em.</strong></p>
-<p>完整说法：Go get’em tiger.</p>
-<p>追女生：go get her</p>
-<h3 id="2-问别人想不想要"><a href="#2-问别人想不想要" class="headerlink" title="2. 问别人想不想要"></a>2. 问别人想不想要</h3><p>不要再用do you want啦～</p>
-<p><strong>be up for something</strong></p>
-<p>e.g: </p>
-<p>Are you up for going clubing?</p>
-<p>你想去蹦迪吗？</p>
-<p>be up三个意思：</p>
+        <p>现在新的mac基本都内置homebrew了吧，brew可以说是mac神器之一了。上手简单，但还是用法需要整理一下：</p>
+<p>###brew常用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew search 包名 #搜索包</span><br><span class="line">brew info 包名#包信息</span><br><span class="line">brew list #查看有哪些包</span><br><span class="line">brew install 包名#安装包</span><br><span class="line">brew uninstall 包名#删除包</span><br></pre></td></tr></table></figure>
+<h3 id="brew管理服务"><a href="#brew管理服务" class="headerlink" title="brew管理服务"></a>brew管理服务</h3><p>brew还有个重要的任务就是管理服务，在我本机的：</p>
 <ul>
-<li><p>醒着 Are you up?</p>
-</li>
-<li><p>下一个 who’s up next?</p>
-</li>
-<li><p>怎么了 what’s up？</p>
-</li>
+<li>Kafka</li>
+<li>mysql</li>
+<li>nginx</li>
+<li>Redis</li>
+<li>zookeeper</li>
 </ul>
-<h3 id="3-和朋友约出去玩"><a href="#3-和朋友约出去玩" class="headerlink" title="3. 和朋友约出去玩"></a>3. 和朋友约出去玩</h3><p>play with不行，一般是小朋友或者人和宠物，不适合成人一起玩</p>
-<p>hang out</p>
-<p>还可以用chill out，自己一个人出去玩</p>
-<p>e.g.</p>
-<p> Do you wanna hang out with us?</p>
-<p>###4. 如何约一场“夜生活”</p>
-<p><strong>night out～(名词)</strong></p>
-<p>e.g. </p>
-<p>It’s been a while since we had a girls’ night out.</p>
-<p>姐妹们我们已经很久没有出去玩啦</p>
-<p>have(need) a night out.</p>
-<p>e.g.</p>
-<p>If you are up for a boys’ night out~</p>
-<p>如果想约不会太晚的夜生活用：evening out</p>
-<p>Night owl 夜猫子</p>
+<p>都是用了brew进行管理，管理他们用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew services start 服务名#开启一个service</span><br><span class="line">brew services stop 服务名#关闭一个service</span><br></pre></td></tr></table></figure>
+<p>每次开启一个服务，就会在～/Library/LaunchAgents里面增加一个plist文件，用来存储这个服务的一些版本信息，同时，本机所有其他服务可以通过</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">launchctl load *.plist #加载 </span><br><span class="line">launchctl unload *.plist #取消</span><br><span class="line">launchctl list#查看服务</span><br></pre></td></tr></table></figure>
+<p>来完成</p>
+<h3 id="brew其他命令"><a href="#brew其他命令" class="headerlink" title="brew其他命令"></a>brew其他命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew link 包名</span><br></pre></td></tr></table></figure>
+<p>这里的link是指symbollink（有点类似于windows里的创建快捷方式）。以hadoop为例，在brew刚下载的hadoop只是存在/usr/local/Cellar目录下的，在全局环境下不能用hadoop命令。只有将其link到bin里（hadoop产生了27个symbolink），才能全局使用hadoop命令。在用brew install时会默认完成link的操作，除非出现意外。</p>
+<p>意外：在安装hadoop时出现了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: The `brew link` step did not complete successfully</span><br><span class="line">The formula built, but is not symlinked into /usr/local</span><br><span class="line">Could not symlink sbin/FederationStateStore</span><br><span class="line">/usr/local/sbin is not writable.</span><br></pre></td></tr></table></figure>
+<p>是因为我本机根本没有这个目录，同时权限也不够，所以我建了这个目录，然后用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -r $(whoami) $(brew --prefix)/*</span><br></pre></td></tr></table></figure>
+<p>修改了对应权限，成功安装。这里引出了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --prefix</span><br></pre></td></tr></table></figure>
+<p>这个是指brew存在的目录，其他brew操作都是在这个目录下搞的（例如cellar就是在这个目录下）。</p>
 
         
         <div id="comment-container">
