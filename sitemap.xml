@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/09/13/MapReduce%E7%BB%88%E6%9E%81%E6%95%B4%E7%90%86/</loc>
+    
+    <lastmod>2018-09-14T12:29:05.217Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/09/14/%E5%9B%BE%E8%AF%B4mysql%E7%9A%84%E5%9B%9B%E7%A7%8Djoin/</loc>
+    
+    <lastmod>2018-09-14T02:58:13.621Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/09/13/%E8%AF%BE%E7%A8%8B%E4%BF%A1%E6%81%AF%E6%95%B4%E7%90%86/</loc>
     
     <lastmod>2018-09-13T08:19:32.862Z</lastmod>
@@ -65,9 +79,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/09/13/MapReduce%E7%BB%88%E6%9E%81%E6%95%B4%E7%90%86/</loc>
+    <loc>http://yoursite.com/2018/09/06/dataMiningCourse/</loc>
     
-    <lastmod>2018-09-13T08:04:51.475Z</lastmod>
+    <lastmod>2018-09-07T06:37:04.228Z</lastmod>
     
   </url>
   

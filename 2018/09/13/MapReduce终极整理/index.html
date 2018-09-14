@@ -141,7 +141,7 @@
 <p>首先，关于HDFS的内容在另一篇博客中有了比较详细的介绍，这里直接谈MapReduce。</p>
 <h3 id="使用MapReduce的目的"><a href="#使用MapReduce的目的" class="headerlink" title="使用MapReduce的目的"></a>使用MapReduce的目的</h3><p>用一个工具只有知道他的目的和优点，才能找到最合适的使用场景。简单来说，mapreduce提供了一个自动并行和分布式计算的工具（接口），在大规模集群中性能出众。由于它隐藏了这些分布式系统的细节，所以很多不懂分布式的程序员也可以基于此搭建分布式系统。对于一些web服务器、爬虫、排序算法、机器学习、数据挖掘等都很有用。</p>
 <h3 id="MapReduce的架构和运行"><a href="#MapReduce的架构和运行" class="headerlink" title="MapReduce的架构和运行"></a>MapReduce的架构和运行</h3><p>这是本文的重点，不多说，直接上图。</p>
-<p><img src="/Users/max/Documents/Blog/source/_posts/mapreduce.png" alt="mapreduce"></p>
+<p><img src="../img/mapreduce.png" alt="mapreduce"></p>
 <p>这幅图是直接从论文截下来的，生动的讲述了mapreduce的整个流程：</p>
 <ol>
 <li>将用户input文件主动分割成成16-64MB大小的块，然后在集群中做一些备份（一般备份3份，其中两份在同一个机架上）</li>
