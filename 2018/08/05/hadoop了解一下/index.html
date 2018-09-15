@@ -170,7 +170,7 @@
 <p><strong>NodeManager：</strong>代替tasktracker。拥有很多动态创建的资源Container。容器大小取决于它所包含资源量，而一个节点上的容器数量由配置参数和除用于后台进程和操作系统以外资源总量决定。</p>
 <h2 id="基本架构"><a href="#基本架构" class="headerlink" title="基本架构"></a>基本架构</h2><p>Hdfs采用了master/slave架构。一个hdfs集群由一个namenode和一群datanodes组成。简单来说，就是hdfs通过namenode暴露出了文件系统命名空间的操作，包括打卡、关闭、重命名文件等等。在这个文件系统对一块数据的操作会映射到具体的datanodes上。</p>
 <p>所以一般是一台机器上搭namenode，然后datanode在其他各个机器上。</p>
-<p><img src="/Users/max/Documents/Blog/source/img/hdfsarchitecture.gif" alt="hdfsarchitecture"></p>
+<p><img src="/img/hdfsarchitecture.jpg" alt="hdfsarchitecture"></p>
 <h3 id="Hadoop-Streaming"><a href="#Hadoop-Streaming" class="headerlink" title="Hadoop Streaming"></a>Hadoop Streaming</h3><p>java这么规范的东西有人就是不喜欢，非得用python啥的写hadoop，所以就有了hadoop streaming，支持其他语言的hadoop操作。</p>
 <p>##基本操作</p>
 <p>###单节点测试</p>
