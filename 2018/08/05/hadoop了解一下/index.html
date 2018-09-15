@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#map-reduce"><span class="toc-text">map reduce</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本架构"><span class="toc-text">基本架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop-Streaming"><span class="toc-text">Hadoop Streaming</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#map-reduce"><span class="toc-text">map reduce</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Hadoop与HDFS"><span class="toc-text">Apache Hadoop与HDFS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yarn"><span class="toc-text">Yarn</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本架构"><span class="toc-text">基本架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop-Streaming"><span class="toc-text">Hadoop Streaming</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本操作"><span class="toc-text">基本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单节点测试"><span class="toc-text">单节点测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#伪分布式测试（pseudo-distributed）"><span class="toc-text">伪分布式测试（pseudo-distributed）</span></a></li></ol>
 </div>
     
 </div>
@@ -145,8 +145,7 @@
 </ul>
 <p>BSP model : Bulk sychronous parallel</p>
 <p>identity reducer？re</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>###Apache Hadoop与HDFS</p>
-<p>Hadoop是一个大的生态系统，最主要是hdfs和一个基于mapreduce的分布式计算引擎。hdfs就是一个文件系统，在mapreduce的时候（包括用spark的时候）都需要对应文件在hdfs里。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="Apache-Hadoop与HDFS"><a href="#Apache-Hadoop与HDFS" class="headerlink" title="Apache Hadoop与HDFS"></a>Apache Hadoop与HDFS</h3><p>Hadoop是一个大的生态系统，最主要是hdfs和一个基于mapreduce的分布式计算引擎。hdfs就是一个文件系统，在mapreduce的时候（包括用spark的时候）都需要对应文件在hdfs里。</p>
 <p><strong>block块：</strong>HDFS在物理上是以block存储的，block大小可以通过配置参数（dfs.blocksize）来规定，默认128M，可以减少寻址开销。大文件会被切分成很多block来存，而小文件存储则不会占用整个块的空间。</p>
 <p><strong>NameNode：</strong>是master。负责管理文件系统的namespace（可以理解是指向具体数据的文件名、路径名这种）和客户端对文件的访问。data path？</p>
 <p><strong>(非Yarn)JobTracker：</strong>在NameNode上，协调在集群运行的所有作业，分配要在tasktracker上运行的map和reduce任务。</p>
@@ -162,8 +161,7 @@
 <li>文件访问模型是“一次写入、多次访问”</li>
 <li>将计算移动到数据附近闭将数据移动到计算更好</li>
 </ul>
-<p>###Yarn：</p>
-<p>yarn其实是解决了经典mapreduce中一些问题（例如：jobtracker太累导致的可扩展性问题）的新一代hadoop计算平台。</p>
+<h3 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h3><p>yarn其实是解决了经典mapreduce中一些问题（例如：jobtracker太累导致的可扩展性问题）的新一代hadoop计算平台。</p>
 <p><strong>ResourceManager：</strong>代替jobtracker，以后台进程的形式运行。追踪有哪些可用的活动节点和资源，指出哪些程序应该何时或者这些资源。</p>
 <p><strong>ApplicationMaster：</strong>代替一个专用而短暂的JobTracker。用户提交一个应用程序时，会启动applicationmaster这个轻量级进程实例来协调程序内任务（监视进度、定时向resourcemanager发送心跳数据、负责容错等），计算数据需要的资源并向resourcemanager申请。它本身也是在一个container里运行的，且可能与它管理的任务运行在同一节点上。</p>
 <p><strong>Container：</strong>是yarn中资源的抽象，封装了某个节点上一定量的资源（如cpu和内存等资源）。它的分配是由applicationmaster向resourcemanager申请的；而它的运行则是applicationmaster向资源所在的nodemanager发起的。</p>
@@ -172,12 +170,9 @@
 <p>所以一般是一台机器上搭namenode，然后datanode在其他各个机器上。</p>
 <p><img src="/img/hdfsarchitecture.jpg" alt="hdfsarchitecture"></p>
 <h3 id="Hadoop-Streaming"><a href="#Hadoop-Streaming" class="headerlink" title="Hadoop Streaming"></a>Hadoop Streaming</h3><p>java这么规范的东西有人就是不喜欢，非得用python啥的写hadoop，所以就有了hadoop streaming，支持其他语言的hadoop操作。</p>
-<p>##基本操作</p>
-<p>###单节点测试</p>
-<p>比较无聊，只是测一下能不能跑，不需要运行什么</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="单节点测试"><a href="#单节点测试" class="headerlink" title="单节点测试"></a>单节点测试</h3><p>比较无聊，只是测一下能不能跑，不需要运行什么</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Cellar/hadoop/3.1.0/libexec</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir input<span class="comment">#不能是别的名字</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cp etc/hadoop/*.xml input</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.0.jar  grep input output <span class="string">'dfs[a-z.]+'</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cat output/*</span></span><br></pre></td></tr></table></figure>
-<p>###伪分布式测试（pseudo-distributed）</p>
-<ol>
+<h3 id="伪分布式测试（pseudo-distributed）"><a href="#伪分布式测试（pseudo-distributed）" class="headerlink" title="伪分布式测试（pseudo-distributed）"></a>伪分布式测试（pseudo-distributed）</h3><ol>
 <li><p>保证本机已经装好hadoop，java1.8（java9有些函数被废了会报错）</p>
 </li>
 <li><p>配置本机ssh，确保</p>

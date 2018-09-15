@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/08/05/hadoop%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B/</loc>
+    
+    <lastmod>2018-09-15T02:27:39.557Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2018-09-15T02:25:03.343Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/07/27/hip-hop%E4%B8%AD%E4%B8%80%E4%BA%9Bslang%E7%A7%AF%E7%B4%AF/</loc>
     
     <lastmod>2018-09-15T02:21:21.625Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://yoursite.com/2018/09/14/%E5%9B%BE%E8%AF%B4mysql%E7%9A%84%E5%9B%9B%E7%A7%8Djoin/</loc>
     
     <lastmod>2018-09-15T02:19:20.596Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/08/05/hadoop%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B/</loc>
-    
-    <lastmod>2018-09-15T02:15:36.125Z</lastmod>
     
   </url>
   
@@ -124,13 +131,6 @@
     <loc>http://yoursite.com/2018/08/27/daily%20life%20in%20HK%20%201/</loc>
     
     <lastmod>2018-08-27T15:21:07.557Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2018-08-20T10:20:50.283Z</lastmod>
     
   </url>
   
