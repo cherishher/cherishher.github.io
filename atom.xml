@@ -91,29 +91,6 @@
   </entry>
   
   <entry>
-    <title>Data Mining Courses</title>
-    <link href="http://yoursite.com/2018/09/06/dataMiningCourse/"/>
-    <id>http://yoursite.com/2018/09/06/dataMiningCourse/</id>
-    <published>2018-09-06T13:41:25.656Z</published>
-    <updated>2018-09-07T06:37:04.228Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h2><h3 id="Decision-Tree"><a href="#Decision-Tree" class="headerlink" title="Decision Tree"></a>Decision Tree</h3><p>The feature of attribute:</p><ul><li>Numeral/ordered</li><li>Nominal(domain a subset or not)</li></ul><p>The result of mining from training data : M(A1,A2,A3…Ad) -&gt; model</p><h3 id="Hunt’s-Algorithm"><a href="#Hunt’s-Algorithm" class="headerlink" title="Hunt’s Algorithm"></a>Hunt’s Algorithm</h3><p>When you should end up with the leaf?</p><ol><li>you got the purity classification</li><li>you got the majority result</li></ol><p>What the attribute you put? How to split this attribute into two parts?</p><p>quatify the quality of the split -&gt; Gini-index (not the only choices)</p><p>Gini-index -&gt; measure the purity of content</p><p>Algo:</p><p>ni : Yes in S, p1 = n1/|S|</p><p>no : No in S, p1 = n0/|S|</p><p>Gini(S) = 1 - p0^2 - p1^2</p><p>Calculate Quality:</p><p>( Gini(S1) <em> S1/(S1 + S2) ) + ( Gini(S2) </em> S2/(S1 + S2) )</p><p>sample:</p><ul><li>representative -&gt; random</li><li>large enough</li></ul><p>each part of rooms has a few points -&gt; overfitting</p><p>DecisionTree Problem:</p><p>U = domain(A1) <em> …</em> domain(A2)</p><p>U * { 0, 1 }</p><p>D is a distribution on U*{ 0 , 1 }</p><p>R is drawn independently fro D</p><p>M(A1,A2,A3…Ad) = {0,1}</p><p>the real error : errD(M) = Pr(e belongto D){M(e) != e.C}</p><p>What you can control : errR(M) = | {e belongto R | M(e) != e.C} |</p><p>errD(M) &lt;= errR(M) + 根号（(b*ln4 + lnR(sigma))/2|R|）-&gt; NP-hard</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Classification&quot;&gt;&lt;a href=&quot;#Classification&quot; class=&quot;headerlink&quot; title=&quot;Classification&quot;&gt;&lt;/a&gt;Classification&lt;/h2&gt;&lt;h3 id=&quot;Decision-Tree&quot;&gt;&lt;a
-      
-    
-    </summary>
-    
-    
-      <category term="class note" scheme="http://yoursite.com/tags/class-note/"/>
-    
-  </entry>
-  
-  <entry>
     <title>地道的口语表达积累</title>
     <link href="http://yoursite.com/2018/09/01/%E5%9C%B0%E9%81%93%E7%9A%84%E5%8F%A3%E8%AF%AD%E8%A1%A8%E8%BE%BE/"/>
     <id>http://yoursite.com/2018/09/01/地道的口语表达/</id>
@@ -501,6 +478,29 @@
     
     
       <category term="mac" scheme="http://yoursite.com/tags/mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cryptocurrency Technologies</title>
+    <link href="http://yoursite.com/2018/04/30/Cryptocurrency%20Technologies/"/>
+    <id>http://yoursite.com/2018/04/30/Cryptocurrency Technologies/</id>
+    <published>2018-04-30T08:27:54.000Z</published>
+    <updated>2018-09-01T05:04:53.156Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Cryptocurrency-Technologies"><a href="#Cryptocurrency-Technologies" class="headerlink" title="Cryptocurrency Technologies"></a>Cryptocurrency Technologies</h1><p>Coursera course from Princeton University, here are some information and notes from the course.</p><h2 id="Cryptographic-Hash-Functions"><a href="#Cryptographic-Hash-Functions" class="headerlink" title="Cryptographic Hash Functions"></a>Cryptographic Hash Functions</h2><h3 id="basic-term"><a href="#basic-term" class="headerlink" title="basic term:"></a>basic term:</h3><ul><li>takes any string of any size as input</li><li>fixed-size output (We’ll use 256 bits )</li><li>efficiently computable</li></ul><h3 id="Security-properties"><a href="#Security-properties" class="headerlink" title="Security properties:"></a>Security properties:</h3><ul><li>collision-free</li><li>hiding</li><li>puzzle-friendly </li></ul><h3 id="collision-free"><a href="#collision-free" class="headerlink" title="collision-free"></a>collision-free</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><p>Nobody can find x and y such that:</p><blockquote><p> <strong>x!=y and H(x) = H(y)</strong>  </p></blockquote><p>So that is what we call collision-free.</p><p>Actually <strong>collision do exist. But it merely be found</strong> ——that is guaranteed the work.</p><h4 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h4><p>If we know H(x) = H(y), it’s safe to assume that x = y. Hash function provide us with a efficient way to recognize the same things. The hash is small, which has only 256 bits, while the whole things might be really big.</p><h3 id="Hiding"><a href="#Hiding" class="headerlink" title="Hiding"></a>Hiding</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><p>We want something like this:</p><blockquote><p>Given H(x), it is infeasible to find x.</p></blockquote><p>high min-entropy : the distribution is “very spread out”. If r is chosen from a probability distribution that has high min-entropy, then given H(r | x), it is infeasible to find x.</p><h4 id="Application-Commitment"><a href="#Application-Commitment" class="headerlink" title="Application : Commitment"></a>Application : Commitment</h4><p>Commit to a value, reveal it later.</p><blockquote><p><strong>com = H(key | msg)</strong></p></blockquote><h5 id="Hidding"><a href="#Hidding" class="headerlink" title="Hidding:"></a>Hidding:</h5><p>Given H(key | msg), infeasible to find msg.</p><h5 id="Binding"><a href="#Binding" class="headerlink" title="Binding:"></a>Binding:</h5><p>Infeasible to find msg != msg’ such that H(key | msg) == H(key | msg’)</p><h3 id="Puzzle-friendly"><a href="#Puzzle-friendly" class="headerlink" title="Puzzle-friendly"></a>Puzzle-friendly</h3><p>for every possible output value y, if k is chosen from a distribution with high min-entropy, then it is infeasible to find x such that H(k | x) = y.</p><h4 id="Application-Search-puzzle"><a href="#Application-Search-puzzle" class="headerlink" title="Application: Search puzzle"></a>Application: Search puzzle</h4><ol><li>given a “puzzle ID” id (from high min-entropy distrib), and a target set Y;</li><li>try to find a “solution” x such that H(id | x) = y.</li></ol><h2 id="Add"><a href="#Add" class="headerlink" title="Add:"></a>Add:</h2><p>common hash function in shell</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>md5</span><br><span class="line">md5 [-pqrtx] [-s string] [files ...]</span><br><span class="line"><span class="meta">#</span>more ways</span><br><span class="line">echo "max"|md5</span><br><span class="line">md5 &lt;&lt;&lt; "max"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>sha-1 &amp;&amp; sha-256</span><br><span class="line">shasum -a 1 -t test</span><br><span class="line">shasum -a 256 &lt;&lt;&lt; "max"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>encode and decode function -&gt; base64</span><br><span class="line">base64 -D &lt;&lt;&lt; "max" #decode</span><br><span class="line">base64 &lt;&lt;&lt; "max" #encode</span><br></pre></td></tr></table></figure><p>bitcoin use <strong>sha256</strong> as its hash function</p><h2 id="Topic-from-Prof-Yuen"><a href="#Topic-from-Prof-Yuen" class="headerlink" title="Topic from Prof.Yuen"></a>Topic from Prof.Yuen</h2><h3 id="some-keywords"><a href="#some-keywords" class="headerlink" title="some keywords"></a>some keywords</h3><p>Zero-knoledge proff approach</p><p>Linkable ring signature</p><p>Lighting network</p><p>IOTA</p><p>Byteball</p><p>Hdera/Hashgraph</p><p>monero’s limitation</p><p>RingCT 2.0</p><p>BulletRingCT</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Cryptocurrency-Technologies&quot;&gt;&lt;a href=&quot;#Cryptocurrency-Technologies&quot; class=&quot;headerlink&quot; title=&quot;Cryptocurrency Technologies&quot;&gt;&lt;/a&gt;Crypt
+      
+    
+    </summary>
+    
+    
+      <category term="block chain" scheme="http://yoursite.com/tags/block-chain/"/>
     
   </entry>
   
