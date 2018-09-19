@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令："><span class="toc-text">命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件："><span class="toc-text">插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行快捷键："><span class="toc-text">命令行快捷键：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件："><span class="toc-text">文件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到的问题："><span class="toc-text">遇到的问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile的基础应用"><span class="toc-text">Dockerfile的基础应用</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令："><span class="toc-text">命令：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker"><span class="toc-text">Docker:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插件："><span class="toc-text">插件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行快捷键："><span class="toc-text">命令行快捷键：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件："><span class="toc-text">文件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到的问题："><span class="toc-text">遇到的问题：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile的基础应用"><span class="toc-text">Dockerfile的基础应用</span></a></li></ol>
 </div>
     
 </div>
@@ -147,6 +147,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.key'</span><br></pre></td></tr></table></figure>
 <p>即可获得</p>
 <p><strong>wc</strong> ： 用于统计指定文件的字节数、字数、行数</p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker:"></a>Docker:</h3><p>我有一句mmp一定要说出来！</p>
+<p>mac下由于docker的实现原因，所以宿主机不会有docker0网卡，更无法ping通container的，即使我用了bridge模式。当然container之间是可以互相ping通的。。。</p>
 <h3 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h3><p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p>
 <ul>
 <li>z。可以直接跳转。它记录（统计）了一些常用的跳转，只要z+destination就可以</li>

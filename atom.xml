@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-15T02:19:20.596Z</updated>
+  <updated>2018-09-19T05:11:25.735Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>局部敏感哈希(LSH)——Locality Sensitive Hashing</title>
+    <link href="http://yoursite.com/2018/09/19/%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E5%93%88%E5%B8%8C/"/>
+    <id>http://yoursite.com/2018/09/19/局部敏感哈希/</id>
+    <published>2018-09-19T03:34:16.899Z</published>
+    <updated>2018-09-19T05:11:25.735Z</updated>
+    
+    <content type="html"><![CDATA[<p>课上学了一种大数据计算相似性的算法，觉得很巧妙，在这里总结下。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>求相似性的场景有很多，比如比较两图相似性从而做一些处理，或者搜索引擎比较文本相似性从而确定返回的搜索结果等等。这种场景常常面临的问题是要进行比较的数据特征量非常大，同时比较对象又非常多，不能直接比较。LSH正是解决了这个问题。</p><h2 id="LSH流程"><a href="#LSH流程" class="headerlink" title="LSH流程"></a>LSH流程</h2><p>LSH分为三步：</p><ol><li>Shingling: Convert documents to sets</li><li>Min Hashing: Convert large sets to short signatures, while preserving similarity</li><li>Locality Sensitive Hashing: Focus on pairs of signatures likely to b from similar documents - <strong>Candidate pairs!</strong></li></ol><p><img src="/img/LSHFlow.png" alt="LSHFlow"></p><p>要测相似性就要确定距离/相似性函数，LSH使用的是jaccard距离/相似性，具体如下：</p><ul><li>sim(C1,C2) =  | C1 ∩ C2 | / | C1 U C2 |</li><li>d(C1,C2) = 1 -  | C1 ∩ C2 | / | C1 U C2 |</li></ul><h3 id="第一步：Shingling"><a href="#第一步：Shingling" class="headerlink" title="第一步：Shingling"></a>第一步：Shingling</h3><p>Shingling是将整个文档转化为一个set，这里我们不重视文档顺序、重要词等信息，所以shingling是最好选择。</p><p>K-shingle（k-gram）则是将文档分成以k个token为一个单位的序列，token可以是字符、单词或者其他。例如k=2，则对于文档D = abcab，2-shingle的set则是：C = S(D) = {ab, bc, ca}。k的取值：</p><ul><li>k = 5，对于比较短的文章</li><li>k = 10，对于很长的文章</li></ul><p>随后可以将每一个shingle作为一个维度将所有文档联合起来构建一个0/1矩阵，这个 矩阵:</p><ul><li>Rows = elements (shingles)</li><li>Columns = set(documents)</li></ul><p>例如：</p><table><thead><tr><th></th><th>C1</th><th>C2</th><th>C3</th><th>C4</th></tr></thead><tbody><tr><td>Shingles1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr><td>Shingles2</td><td>1</td><td>1</td><td>0</td><td>1</td></tr><tr><td>…</td><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><td>…</td><td>0</td><td>0</td><td>0</td><td>1</td></tr></tbody></table><p>很显然这个矩阵非常稀疏的。这样计算量非常大，所以有第二步来“压缩矩阵”。</p><h3 id="第二步：Minhash"><a href="#第二步：Minhash" class="headerlink" title="第二步：Minhash"></a>第二步：Minhash</h3><p>minhash需要压缩矩阵，将原来100，000维的压缩到100维，采用了很聪明的方法：概率聚类大法！</p><p>具体描述：将上述矩阵每一列随机排列，然后记录第一个1的对应位置（位置标注方式不一定是递增序列，而和产生随机的方式有关）</p><p><img src="/img/minhash.png" alt="minhash"></p><p>每一次随机都会产生1个signature，100次随机就针对每个文档产生一个长度100的signature，文档之前只要互相比较一下这个signature的相似性就相当于比较文档的相似性。</p><p>这个算法的可行性用公式表达则是：</p><ul><li>Pr[ min( π (C1 )) = min ( π (C2 )) ] = sim(C1,C2)</li></ul><p>这个结论是可以证明的，此处略过。</p><p>由于这里要随机100次，这个显然是比较麻烦的，所以随机用hash方法来进行。</p><p>全局hash为：</p><ul><li>h_a,b(x) = (( a*x + b )mod p ) mod N</li></ul><p>然后每次只要随机产生a，b两个值就好。之后按照产生的hash函数的大小顺序进行排列。hash产生重复的值也不要紧，signature就是产生的这个hash值即可。</p><p>这里解决了维度太多的问题，但相互比较问题还是没解决，因为文档很多，所以要非常多次比较。第三步将减少比较流程，只要候选文档之间相互比较即可。</p><h3 id="第三步：Locality-Sensitive-Hashing"><a href="#第三步：Locality-Sensitive-Hashing" class="headerlink" title="第三步：Locality Sensitive Hashing"></a>第三步：Locality Sensitive Hashing</h3><p>这里先讲M矩阵分成了b个bands，每个bands里包含r行，如图：</p><p><img src="/img/LSHBand.png" alt="LshBand"></p><p>之后再对每个内容进行hash，使其map到k个buckets中，如果C1,C2有大于等于一个band在同一buckets中，则对他们进行比较，如图：</p><p><img src="/img/hashBand.png" alt="hashBand"></p><p>这样将每个bands都map到Buckets的不同块里，如果map到同一个buckets的块里，则称为candidate pair，他们不一定相等，要进行比较。但如果map到不同的块里，表明这两个band一定不同，不需要进行比较。</p><p>下面验证一下这个算法的可行性。</p><p>假设C1和C2的相似度为t，b为bands数目，r为每个band多少row，可以得知：</p><ul><li>band中所有row相等（该band会映射到同一bucket块）概率： t^r</li><li>band中row存在不相等row概率：1-t^r</li><li>没有一个band是相等的概率：(1 - t^r)^b</li><li>至少有一个band相等的概率：1 - (1 - t^r)^b</li></ul><p>按照公式计算，当b取20，r取5，对于相似度30%的文档C1,C2（不希望有bands出现在同一buckets中），有4.7%的几率至少一个bands分在同一buckets中，我们花多余的代价去计算它概率比较小。而相对于相似度80%的文档，有99.96%的几率我们要去比较他们，我们会错过一对相似文档的概率不到0.04%，可以接受。</p><p>综上改算法是可行的。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;课上学了一种大数据计算相似性的算法，觉得很巧妙，在这里总结下。&lt;/p&gt;
+&lt;h2 id=&quot;使用场景&quot;&gt;&lt;a href=&quot;#使用场景&quot; class=&quot;headerlink&quot; title=&quot;使用场景&quot;&gt;&lt;/a&gt;使用场景&lt;/h2&gt;&lt;p&gt;求相似性的场景有很多，比如比较两图相似性从而做
+      
+    
+    </summary>
+    
+    
+      <category term="big data" scheme="http://yoursite.com/tags/big-data/"/>
+    
+  </entry>
   
   <entry>
     <title>图说mysql的四种join</title>
@@ -462,9 +486,9 @@
     <link href="http://yoursite.com/2018/07/04/mac&amp;linux%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2018/07/04/mac&amp;linux命令整理/</id>
     <published>2018-07-04T10:03:57.407Z</published>
-    <updated>2018-09-13T08:06:55.106Z</updated>
+    <updated>2018-09-15T08:04:26.270Z</updated>
     
-    <content type="html"><![CDATA[<p>今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中，不然太容易忘掉了。</p><h3 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h3><p>以后一些好用但是不熟悉的命令就都放在这里了，方便回忆：</p><p><strong>jq</strong> ： 命令行处理json的命令，，支持管道</p><p>用法：</p><p>针对一个json，直接 </p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.'</span><br></pre></td></tr></table></figure><p>就可以获得format之后的形式，如果想获得json某个key，只要</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.key'</span><br></pre></td></tr></table></figure><p>即可获得</p><p><strong>wc</strong> ： 用于统计指定文件的字节数、字数、行数</p><h3 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h3><p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p><ul><li>z。可以直接跳转。它记录（统计）了一些常用的跳转，只要z+destination就可以</li><li>extract。可以直接解压，忽略tar后各种参数。与unzip类似。</li><li>zsh-autosuggestions。这个神器，之前输入的命令可以再提示出来，很方便用。</li><li>Web-search。可以在命令行直接用 google+要查的内容 即可打开搜索页面。</li></ul><h3 id="命令行快捷键："><a href="#命令行快捷键：" class="headerlink" title="命令行快捷键："></a>命令行快捷键：</h3><ul><li>ctrl+q。可以直接删除整行命令。</li><li>ctrl+w。可以删除每一分段的命令。</li><li>ctrl+e。直接跳到命令最后。</li><li>ctrl+a。直接跳到命令最前面。</li><li>command+d 在iterm中分屏</li><li>comand+[ or ] 在iterm的分屏中切换</li></ul><h3 id="文件："><a href="#文件：" class="headerlink" title="文件："></a>文件：</h3><p><strong>/etc/motd</strong> : 改命令行打开的提示语</p><h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a>遇到的问题：</h3><p>ssh-key生成忘记有什么问题了。。。整理不及时呐～</p><p>scala2.11和autosuggestions配色问题有冲突，导致每次scala都会报错</p><h3 id="Dockerfile的基础应用"><a href="#Dockerfile的基础应用" class="headerlink" title="Dockerfile的基础应用"></a>Dockerfile的基础应用</h3><p>Dockerfile里有个from，就是指从哪个images拿过来的，可以是本地的，所以增量修改images就是新建一个dockerfile然后from原来的images。再加上自己的RUN，最后执行docker build .就可以～</p>]]></content>
+    <content type="html"><![CDATA[<p>今天看了一些oh-my-zsh的东西，感觉还是要整理在博客中，不然太容易忘掉了。</p><h3 id="命令："><a href="#命令：" class="headerlink" title="命令："></a>命令：</h3><p>以后一些好用但是不熟悉的命令就都放在这里了，方便回忆：</p><p><strong>jq</strong> ： 命令行处理json的命令，，支持管道</p><p>用法：</p><p>针对一个json，直接 </p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.'</span><br></pre></td></tr></table></figure><p>就可以获得format之后的形式，如果想获得json某个key，只要</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -n 1 xxx.json | jq '.key'</span><br></pre></td></tr></table></figure><p>即可获得</p><p><strong>wc</strong> ： 用于统计指定文件的字节数、字数、行数</p><h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker:"></a>Docker:</h3><p>我有一句mmp一定要说出来！</p><p>mac下由于docker的实现原因，所以宿主机不会有docker0网卡，更无法ping通container的，即使我用了bridge模式。当然container之间是可以互相ping通的。。。</p><h3 id="插件："><a href="#插件：" class="headerlink" title="插件："></a>插件：</h3><p>zsh自带很多插件，可以在.zshrc的plugin里写入，就可以用这些插件了，我用的插件包括：</p><ul><li>z。可以直接跳转。它记录（统计）了一些常用的跳转，只要z+destination就可以</li><li>extract。可以直接解压，忽略tar后各种参数。与unzip类似。</li><li>zsh-autosuggestions。这个神器，之前输入的命令可以再提示出来，很方便用。</li><li>Web-search。可以在命令行直接用 google+要查的内容 即可打开搜索页面。</li></ul><h3 id="命令行快捷键："><a href="#命令行快捷键：" class="headerlink" title="命令行快捷键："></a>命令行快捷键：</h3><ul><li>ctrl+q。可以直接删除整行命令。</li><li>ctrl+w。可以删除每一分段的命令。</li><li>ctrl+e。直接跳到命令最后。</li><li>ctrl+a。直接跳到命令最前面。</li><li>command+d 在iterm中分屏</li><li>comand+[ or ] 在iterm的分屏中切换</li></ul><h3 id="文件："><a href="#文件：" class="headerlink" title="文件："></a>文件：</h3><p><strong>/etc/motd</strong> : 改命令行打开的提示语</p><h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a>遇到的问题：</h3><p>ssh-key生成忘记有什么问题了。。。整理不及时呐～</p><p>scala2.11和autosuggestions配色问题有冲突，导致每次scala都会报错</p><h3 id="Dockerfile的基础应用"><a href="#Dockerfile的基础应用" class="headerlink" title="Dockerfile的基础应用"></a>Dockerfile的基础应用</h3><p>Dockerfile里有个from，就是指从哪个images拿过来的，可以是本地的，所以增量修改images就是新建一个dockerfile然后from原来的images。再加上自己的RUN，最后执行docker build .就可以～</p>]]></content>
     
     <summary type="html">
     
@@ -478,29 +502,6 @@
     
     
       <category term="mac" scheme="http://yoursite.com/tags/mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Cryptocurrency Technologies</title>
-    <link href="http://yoursite.com/2018/04/30/Cryptocurrency%20Technologies/"/>
-    <id>http://yoursite.com/2018/04/30/Cryptocurrency Technologies/</id>
-    <published>2018-04-30T08:27:54.000Z</published>
-    <updated>2018-09-01T05:04:53.156Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Cryptocurrency-Technologies"><a href="#Cryptocurrency-Technologies" class="headerlink" title="Cryptocurrency Technologies"></a>Cryptocurrency Technologies</h1><p>Coursera course from Princeton University, here are some information and notes from the course.</p><h2 id="Cryptographic-Hash-Functions"><a href="#Cryptographic-Hash-Functions" class="headerlink" title="Cryptographic Hash Functions"></a>Cryptographic Hash Functions</h2><h3 id="basic-term"><a href="#basic-term" class="headerlink" title="basic term:"></a>basic term:</h3><ul><li>takes any string of any size as input</li><li>fixed-size output (We’ll use 256 bits )</li><li>efficiently computable</li></ul><h3 id="Security-properties"><a href="#Security-properties" class="headerlink" title="Security properties:"></a>Security properties:</h3><ul><li>collision-free</li><li>hiding</li><li>puzzle-friendly </li></ul><h3 id="collision-free"><a href="#collision-free" class="headerlink" title="collision-free"></a>collision-free</h3><h4 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h4><p>Nobody can find x and y such that:</p><blockquote><p> <strong>x!=y and H(x) = H(y)</strong>  </p></blockquote><p>So that is what we call collision-free.</p><p>Actually <strong>collision do exist. But it merely be found</strong> ——that is guaranteed the work.</p><h4 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h4><p>If we know H(x) = H(y), it’s safe to assume that x = y. Hash function provide us with a efficient way to recognize the same things. The hash is small, which has only 256 bits, while the whole things might be really big.</p><h3 id="Hiding"><a href="#Hiding" class="headerlink" title="Hiding"></a>Hiding</h3><h4 id="Definition-1"><a href="#Definition-1" class="headerlink" title="Definition"></a>Definition</h4><p>We want something like this:</p><blockquote><p>Given H(x), it is infeasible to find x.</p></blockquote><p>high min-entropy : the distribution is “very spread out”. If r is chosen from a probability distribution that has high min-entropy, then given H(r | x), it is infeasible to find x.</p><h4 id="Application-Commitment"><a href="#Application-Commitment" class="headerlink" title="Application : Commitment"></a>Application : Commitment</h4><p>Commit to a value, reveal it later.</p><blockquote><p><strong>com = H(key | msg)</strong></p></blockquote><h5 id="Hidding"><a href="#Hidding" class="headerlink" title="Hidding:"></a>Hidding:</h5><p>Given H(key | msg), infeasible to find msg.</p><h5 id="Binding"><a href="#Binding" class="headerlink" title="Binding:"></a>Binding:</h5><p>Infeasible to find msg != msg’ such that H(key | msg) == H(key | msg’)</p><h3 id="Puzzle-friendly"><a href="#Puzzle-friendly" class="headerlink" title="Puzzle-friendly"></a>Puzzle-friendly</h3><p>for every possible output value y, if k is chosen from a distribution with high min-entropy, then it is infeasible to find x such that H(k | x) = y.</p><h4 id="Application-Search-puzzle"><a href="#Application-Search-puzzle" class="headerlink" title="Application: Search puzzle"></a>Application: Search puzzle</h4><ol><li>given a “puzzle ID” id (from high min-entropy distrib), and a target set Y;</li><li>try to find a “solution” x such that H(id | x) = y.</li></ol><h2 id="Add"><a href="#Add" class="headerlink" title="Add:"></a>Add:</h2><p>common hash function in shell</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>md5</span><br><span class="line">md5 [-pqrtx] [-s string] [files ...]</span><br><span class="line"><span class="meta">#</span>more ways</span><br><span class="line">echo "max"|md5</span><br><span class="line">md5 &lt;&lt;&lt; "max"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>sha-1 &amp;&amp; sha-256</span><br><span class="line">shasum -a 1 -t test</span><br><span class="line">shasum -a 256 &lt;&lt;&lt; "max"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>encode and decode function -&gt; base64</span><br><span class="line">base64 -D &lt;&lt;&lt; "max" #decode</span><br><span class="line">base64 &lt;&lt;&lt; "max" #encode</span><br></pre></td></tr></table></figure><p>bitcoin use <strong>sha256</strong> as its hash function</p><h2 id="Topic-from-Prof-Yuen"><a href="#Topic-from-Prof-Yuen" class="headerlink" title="Topic from Prof.Yuen"></a>Topic from Prof.Yuen</h2><h3 id="some-keywords"><a href="#some-keywords" class="headerlink" title="some keywords"></a>some keywords</h3><p>Zero-knoledge proff approach</p><p>Linkable ring signature</p><p>Lighting network</p><p>IOTA</p><p>Byteball</p><p>Hdera/Hashgraph</p><p>monero’s limitation</p><p>RingCT 2.0</p><p>BulletRingCT</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Cryptocurrency-Technologies&quot;&gt;&lt;a href=&quot;#Cryptocurrency-Technologies&quot; class=&quot;headerlink&quot; title=&quot;Cryptocurrency Technologies&quot;&gt;&lt;/a&gt;Crypt
-      
-    
-    </summary>
-    
-    
-      <category term="block chain" scheme="http://yoursite.com/tags/block-chain/"/>
     
   </entry>
   

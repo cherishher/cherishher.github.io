@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/09/19/%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E5%93%88%E5%B8%8C/</loc>
+    
+    <lastmod>2018-09-19T05:11:25.735Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/07/04/mac&linux%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/</loc>
+    
+    <lastmod>2018-09-15T08:04:26.270Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/08/05/hadoop%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B/</loc>
     
     <lastmod>2018-09-15T02:27:39.557Z</lastmod>
@@ -89,13 +103,6 @@
     <loc>http://yoursite.com/2018/07/04/anaconda%E5%9F%BA%E7%A1%80%E6%95%B4%E7%90%86/</loc>
     
     <lastmod>2018-09-13T08:07:02.449Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/07/04/mac&linux%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/</loc>
-    
-    <lastmod>2018-09-13T08:06:55.106Z</lastmod>
     
   </url>
   
