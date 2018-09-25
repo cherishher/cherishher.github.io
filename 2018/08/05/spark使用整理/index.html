@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#the-notion-of-RDD-resilient-distributed-dataset"><span class="toc-text">the notion of RDD(resilient distributed dataset)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-RDD-Operation"><span class="toc-text">Basic RDD Operation</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#the-notion-of-RDD-resilient-distributed-dataset"><span class="toc-text">the notion of RDD(resilient distributed dataset)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Basic-RDD-Operation"><span class="toc-text">Basic RDD Operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spark-SQL"><span class="toc-text">Spark SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Create-DataFrame"><span class="toc-text">Create DataFrame</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DataFrame-API-Basics"><span class="toc-text">DataFrame API Basics</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -154,6 +154,36 @@
 </ul>
 <p>Transformations : like <em>filter</em> and <em>map</em>, perform some useful data manipulation and it will produce a new RDD</p>
 <p>actions : like <em>count</em> and <em>foreach</em>, trigger a computations to return a result.</p>
+<h3 id="Spark-SQL"><a href="#Spark-SQL" class="headerlink" title="Spark SQL"></a>Spark SQL</h3><p>Dataframe is a basic elements of Spark, similarily with other Dataframe in python or R, it represent a table-like data with named columns and declared column types. The different among them is it’s distributed nature and spark’s catalyst.</p>
+<p>Fundamental concepts:</p>
+<ul>
+<li>Spark Sql: Consult from Table catalog; Query from Relational DB, Read data from HDFS. Spark Application can using DataFrame DSL to submit spark job, as for non-spark client could connect though JDBC.</li>
+<li>Table catalog: It contains information about registered DataFrames and how to access their data.</li>
+<li>DataFrame: user reads its data from a table in a relational databases.</li>
+</ul>
+<p>Spark sql is supported by Hive. Hive is a distributed warehouse built as a layer of abstraction on the top of Hadoop’s MapReduce. It has its own dialect named HiveQL.</p>
+<h4 id="Create-DataFrame"><a href="#Create-DataFrame" class="headerlink" title="Create DataFrame"></a>Create DataFrame</h4><p>We can create DataFrame in these three ways:</p>
+<ul>
+<li>Converting from RDDs<ul>
+<li>Using RDDs containing row data as tuples</li>
+<li>Using case classes</li>
+<li>Specifying a schema</li>
+</ul>
+</li>
+<li>Running SQL queries</li>
+<li>Loading external data</li>
+</ul>
+<p>Using RDDs containing row data as tuples : use toDF() method to convert RDD to DataFrame. However, all columns are of type String and nullable, which obviously is a bad solution.</p>
+<p>Using case classes : the case class like this:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">Post</span>(<span class="params"></span></span></span><br><span class="line"><span class="class"><span class="params"></span></span></span><br><span class="line"><span class="class"><span class="params">commentCount:<span class="type">Option</span>[<span class="type">Int</span>],</span></span></span><br><span class="line"><span class="class"><span class="params"></span></span></span><br><span class="line"><span class="class"><span class="params">body:<span class="type">String</span>,</span></span></span><br><span class="line"><span class="class"><span class="params"></span></span></span><br><span class="line"><span class="class"><span class="params">......</span>)</span></span><br></pre></td></tr></table></figure>
+<p>Nullable fields are declared to be of type Option[T].</p>
+<p>Specify a schema: This format of schema like this:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> postSchema = <span class="type">StructType</span>(<span class="type">Seq</span>(</span><br><span class="line">    <span class="type">StructField</span>(<span class="string">"commentCount"</span>, <span class="type">IntegerType</span>, <span class="literal">true</span>),</span><br><span class="line">    <span class="type">StructField</span>(<span class="string">"id"</span>,<span class="type">LongType</span>,<span class="literal">false</span>))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Then invoke spark.createDataFrame(rowRDD, postSchema) to convert.</p>
+<h4 id="DataFrame-API-Basics"><a href="#DataFrame-API-Basics" class="headerlink" title="DataFrame API Basics"></a>DataFrame API Basics</h4><p>Select:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> postIdBody = postsDF.select(<span class="string">"id"</span>,<span class="string">"body"</span>)</span><br><span class="line"><span class="keyword">val</span> postIds = postsIdBody.drop(<span class="string">"body"</span>)<span class="comment">//drop this column</span></span><br></pre></td></tr></table></figure>
+<p>Filtering:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> noAnswer = postsDf.filter((<span class="symbol">'postTypeId</span> === <span class="number">1</span>) and (<span class="symbol">'acceptedAnswerId</span> isNull))</span><br></pre></td></tr></table></figure>
 
         
         <div id="comment-container">
