@@ -245,7 +245,8 @@
 <p><img src="/img/ranged sharding.png" alt="ranged sharding"></p>
 <p>这样相近的shard key实在同一个chunk里的，这样mongos只需要把operation route到包含这些数据的shards。</p>
 <p>这个方式很依赖shard key的选择，不理想的话可能造成数据分配不平衡。</p>
-<h3 id="Zones-in-Sharded-clusters"><a href="#Zones-in-Sharded-clusters" class="headerlink" title="Zones in Sharded clusters"></a>Zones in Sharded clusters</h3><p>在sharded clusters里，zone和shards是一组多对多的关系。chunks只在一个zone下的几个shards中转移。</p>
+<h3 id="Zones-in-Sharded-clusters"><a href="#Zones-in-Sharded-clusters" class="headerlink" title="Zones in Sharded clusters"></a>Zones in Sharded clusters</h3><p>在sharded clusters里，可以把几个shard对应到一个zone中，一个shard也可以对应到多个zone里。chunks只在相同zone下的几个shards中转移。</p>
+<p><img src="/img/zoneMongoDB.png" alt="zoneMongoDB"></p>
 <p>zones存在的目的是提高在大的sharded clusters里数据的本地化程度。</p>
 
         
