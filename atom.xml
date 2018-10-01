@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-29T03:57:36.012Z</updated>
+  <updated>2018-10-01T09:03:38.753Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>流数据挖掘算法</title>
+    <link href="http://yoursite.com/2018/09/29/%E6%95%B0%E6%8D%AE%E6%B5%81%E6%8C%96%E6%8E%98/"/>
+    <id>http://yoursite.com/2018/09/29/数据流挖掘/</id>
+    <published>2018-09-29T14:06:01.697Z</published>
+    <updated>2018-10-01T09:03:38.753Z</updated>
+    
+    <content type="html"><![CDATA[<p>流数据，顾名思义，就是针对流数据（例如google查询、twitter的状态更新这类数据）的一些挖掘。不同于普通数据集，流数据源源不断地产生，而我们的存储空间是有限的。所以要采取一些办法，：</p><ul><li>Samping data from stream</li><li>Queries over sliding windows</li><li>Filtering a data streaming</li></ul><h3 id="Sampling-data-from-stream"><a href="#Sampling-data-from-stream" class="headerlink" title="Sampling data from stream"></a>Sampling data from stream</h3><p>由于我们不能存储整个stream，所以要存一些sample，具体有两种方式</p><ol><li>Sample一个stream的固定比例</li><li>维护一个固定大小的随机Sample —— 蓄水池采样</li></ol><h4 id="固定比例"><a href="#固定比例" class="headerlink" title="固定比例"></a>固定比例</h4><p>以用户的查询为例：假设有s个单次查询，有d个两次查询，即总共有s+2d次查询，sample率为p（0&lt;p&lt;=1），求用户两次查询的比例</p><p>正确答案：d/(s+d)</p><p>按照条件推倒：dp^2/(sp+dp^2+2p(1-p)d)</p><p>这个准确率问题还是比较大的，为了改良，可以采用以取用户sample的方式。</p><h4 id="固定大小的sample-——-蓄水池采样"><a href="#固定大小的sample-——-蓄水池采样" class="headerlink" title="固定大小的sample —— 蓄水池采样"></a>固定大小的sample —— 蓄水池采样</h4><p>很好玩的问题：假如有一本非常厚的电话簿，你要随机挑1000个人打电话，并且保证每个人被选中的几率相等，你要怎么做？</p><p>这里的电话簿就像数据流，你不能先数一遍总共有多少人，再产生一千个随机数这样，效率太低。</p><p><strong>解决方法：</strong></p><p>先选前1000人，然后后面的每一位以k/n的概率决定替换掉前面的任意一位。其中n是当前总共人数，k是蓄水池大小。例如第1001位就有1000/1001的概率替换掉前面1000个人中任意一个。</p><p><strong>证明：</strong></p><p>条件: sample size: k，total size: n，probability of each element: s/n</p><p>求证: 对于n-&gt;n+1的情况，probability of each element: k/n+1，即无论n多大，每个元素被选中概率均等</p><p>证明: </p><p>每个元素被选中概率：k/n</p><p>n-&gt;n+1后，每个被替换前面概率：k/n+1</p><p>而假设A而原来在sample里的，仍然还在的概率为: (1-k/n+1) + (k/n+1)*(k-1/k) = n/n+1，这个公式前者是n+1这个元素没被选中，后者是没替换自己的概率</p><p>那么A的概率就是：k/n * n/n+1 = k/n+1</p><p>综上，概率相等～</p><h3 id="Sliding-Windows"><a href="#Sliding-Windows" class="headerlink" title="Sliding Windows"></a>Sliding Windows</h3><p>就是滑动窗口，简单来说：最多储存N bits,当又来一个新bit时，吐出第N+1个bits（也就是窗口里最老的那个）。</p><p>问题：如果我们要统计N中有一个1，那必须全部存储N中的内容，但窗口的存储空间有限，因此这里用了DGIM方法-&gt;exponential Window。</p><h4 id="DGIM算法"><a href="#DGIM算法" class="headerlink" title="DGIM算法"></a>DGIM算法</h4><p>它是通过Bucket来对滑动窗口进行划分，每个桶包括：</p><ol><li>桶最右边的timestamp（O(logN) bits）</li><li>在每个桶中1刀数量（O(log logN)bits）</li></ol><p>桶的限制：每个桶里的1的数量是2的次方。</p><p>桶的特征：</p><ul><li>只有1个或者2个桶有相同数目的2的次方个1</li><li>桶和桶的timestamps不会重叠</li><li>桶是按照大小有序的</li><li>当桶的end-time &gt; N的时候（即整个桶已经从窗口中走了），桶会消失</li></ul><p><img src="/img/DGIMbucket.png" alt="DGIMbucket"></p><p>  DGIM算法中数据结构的更新（2048式更新）：</p><ol><li>每一个新的位进入滑动窗口后，最左边一个位从窗口中移出（同时从桶中移出）；如果最左边的桶的时间戳是当前时间戳减去N（也就是说桶里已经没有处于窗口中的位），则放弃这个桶；</li><li>对于新加入的位，如果其为0，则无操作；否则建立一个包含新加入位的大小为1的桶；</li><li>由于新增一个大小为1的桶而出现3个桶大小为1，则合并最左边的两个桶为一个大小为2的桶；合并之后可能出现3个大小为2的桶，则合并最左边两个大小为2的桶得到一个大小为4的桶……依次类推直到到达最左边的桶。</li></ol><p>如何估计最新N窗口中1的数目呢？</p><ul><li>将除了最后一个的所有的bucket大小（这里大小都是指1的数目）加起来</li><li>再加上最后一个bucket的一半大小</li></ul><p>准确率：&gt;= 50%</p><h3 id="Filtering-Data-Streams"><a href="#Filtering-Data-Streams" class="headerlink" title="Filtering Data Streams"></a>Filtering Data Streams</h3><p>问题：垃圾邮件的过滤问题，我们知道有10亿个好的email address，如果邮件来自这些address，那么它就不是spam。即现在有一封邮件{“address”:”contents”}，如果key可以匹配10亿email address就不是spam。</p><h4 id="Bloom-Filter"><a href="#Bloom-Filter" class="headerlink" title="Bloom Filter"></a>Bloom Filter</h4><p>设S是刚刚好的email address集合，而B是大小为n，全部初始化为0的一个bit array</p><p><img src="/img/initBFbits.png" alt="initBFbits"></p><p>使用k个相互独立的hash函数h1,h2……hk，他们可以将元素映射到[0,n]的bit array上。将S中元素通过k个hash函数映射，映射到的地方设置为1</p><p><img src="/img/findBFbits.png" alt="findBFbits"></p><p>这里的x1，x2就是S的元素。</p><p>当判断一个元素y1，y2是否在集合S中时，就通过相同的hash函数将其映射到B上，如果任何一个hash函数映射到的地方存在0，那y就不在S中，反之则证明在S上，或者是一个false positive（将错的分到对的里）。</p><p><img src="/img/hashedBFbits.png" alt="hashedBFbits"></p><p>如图y1就不在S中，y2或是在S中，或是一个false positive。但这种方法不存在true negative（将对的分到错的里）。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;流数据，顾名思义，就是针对流数据（例如google查询、twitter的状态更新这类数据）的一些挖掘。不同于普通数据集，流数据源源不断地产生，而我们的存储空间是有限的。所以要采取一些办法，：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Samping data from stream&lt;/li
+      
+    
+    </summary>
+    
+    
+      <category term="data mining" scheme="http://yoursite.com/tags/data-mining/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB使用整理</title>
@@ -478,30 +503,6 @@
     
     
       <category term="life" scheme="http://yoursite.com/tags/life/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>anaconda基础整理</title>
-    <link href="http://yoursite.com/2018/07/04/anaconda%E5%9F%BA%E7%A1%80%E6%95%B4%E7%90%86/"/>
-    <id>http://yoursite.com/2018/07/04/anaconda基础整理/</id>
-    <published>2018-07-04T12:20:26.782Z</published>
-    <updated>2018-09-13T08:07:02.449Z</updated>
-    
-    <content type="html"><![CDATA[<p>这是一个python环境、包管理工具，这玩意很厉害。</p><h3 id="插一个其他东西："><a href="#插一个其他东西：" class="headerlink" title="插一个其他东西："></a>插一个其他东西：</h3><p>在搞conda环境变量的时候在.zshrc里没有注意语句的顺序，变量使用在前，声明在后，导致path里没有这个。。。。。。以后要注意了！</p><p>###使用原因：</p><ol><li>和以前用的virtualenv有点像，可以创建一个独立的python环境，python版本，包都是独立于外部的。</li><li>自带很多数据科学的包，省的下。</li><li>可以将环境与远程同步，也可以clone别人的环境，开发效率高。</li><li>可以与pycharm等工具结合，通用性强。</li><li>Anaconda navigator是一个桌面应用，使用非常简单。</li></ol><p>###常用到的操作：</p><ol><li>在命令行可以用conda来操作一些东西：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">conda create -n &lt;env-name&gt; &lt;package-name&gt;<span class="comment">#创建conda环境</span></span><br><span class="line"></span><br><span class="line">conda remove -n &lt;env-name&gt;<span class="comment">#删除conda环境</span></span><br><span class="line"></span><br><span class="line">conda env list<span class="comment">#查看所有环境，其中带*的为当前环境，在当前环境下，用的python版本、包等都是anaconda的，而不是本机环境</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> activate &lt;env-name&gt;<span class="comment">#激活某个环境，之后zsh前面会加上这个环境的名称</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> deactivate<span class="comment">#退出某个环境</span></span><br><span class="line"></span><br><span class="line">conda install &lt;package-name&gt;[=versionInfo]<span class="comment">#在当前环境下安装包，可以选定版本</span></span><br><span class="line"></span><br><span class="line">conda install -n &lt;env-name&gt; &lt;package-name&gt;<span class="comment">#在特定环境中</span></span><br><span class="line"></span><br><span class="line">conda list<span class="comment">#列出当前环境所有的包</span></span><br><span class="line"></span><br><span class="line">conda search &lt;package-name&gt;<span class="comment">#查找某个包（模糊匹配）</span></span><br></pre></td></tr></table></figure><p>###conda和pycharm的结合：</p><p>pycharm可以直接用conda的environment来做，只要在选择interpreter的时候选conda环境对应的那个即可。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;这是一个python环境、包管理工具，这玩意很厉害。&lt;/p&gt;
-&lt;h3 id=&quot;插一个其他东西：&quot;&gt;&lt;a href=&quot;#插一个其他东西：&quot; class=&quot;headerlink&quot; title=&quot;插一个其他东西：&quot;&gt;&lt;/a&gt;插一个其他东西：&lt;/h3&gt;&lt;p&gt;在搞conda环境变量的
-      
-    
-    </summary>
-    
-    
-      <category term="data science" scheme="http://yoursite.com/tags/data-science/"/>
     
   </entry>
   

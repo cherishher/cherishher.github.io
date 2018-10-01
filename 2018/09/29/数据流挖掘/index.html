@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="HH的博客">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        流数据挖掘算法 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> keep hungry, then you&#39;ll be really hungry </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sampling-data-from-stream"><span class="toc-text">Sampling data from stream</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#固定比例"><span class="toc-text">固定比例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#固定大小的sample-——-蓄水池采样"><span class="toc-text">固定大小的sample —— 蓄水池采样</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sliding-Windows"><span class="toc-text">Sliding Windows</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DGIM算法"><span class="toc-text">DGIM算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filtering-Data-Streams"><span class="toc-text">Filtering Data Streams</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bloom-Filter"><span class="toc-text">Bloom Filter</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> keep hungry, then you&#39;ll be really hungry </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        流数据挖掘算法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-09-29 22:06:01</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#data mining" title="data mining">data mining</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>流数据，顾名思义，就是针对流数据（例如google查询、twitter的状态更新这类数据）的一些挖掘。不同于普通数据集，流数据源源不断地产生，而我们的存储空间是有限的。所以要采取一些办法，：</p>
+<ul>
+<li>Samping data from stream</li>
+<li>Queries over sliding windows</li>
+<li>Filtering a data streaming</li>
+</ul>
+<h3 id="Sampling-data-from-stream"><a href="#Sampling-data-from-stream" class="headerlink" title="Sampling data from stream"></a>Sampling data from stream</h3><p>由于我们不能存储整个stream，所以要存一些sample，具体有两种方式</p>
+<ol>
+<li>Sample一个stream的固定比例</li>
+<li>维护一个固定大小的随机Sample —— 蓄水池采样</li>
+</ol>
+<h4 id="固定比例"><a href="#固定比例" class="headerlink" title="固定比例"></a>固定比例</h4><p>以用户的查询为例：假设有s个单次查询，有d个两次查询，即总共有s+2d次查询，sample率为p（0&lt;p&lt;=1），求用户两次查询的比例</p>
+<p>正确答案：d/(s+d)</p>
+<p>按照条件推倒：dp^2/(sp+dp^2+2p(1-p)d)</p>
+<p>这个准确率问题还是比较大的，为了改良，可以采用以取用户sample的方式。</p>
+<h4 id="固定大小的sample-——-蓄水池采样"><a href="#固定大小的sample-——-蓄水池采样" class="headerlink" title="固定大小的sample —— 蓄水池采样"></a>固定大小的sample —— 蓄水池采样</h4><p>很好玩的问题：假如有一本非常厚的电话簿，你要随机挑1000个人打电话，并且保证每个人被选中的几率相等，你要怎么做？</p>
+<p>这里的电话簿就像数据流，你不能先数一遍总共有多少人，再产生一千个随机数这样，效率太低。</p>
+<p><strong>解决方法：</strong></p>
+<p>先选前1000人，然后后面的每一位以k/n的概率决定替换掉前面的任意一位。其中n是当前总共人数，k是蓄水池大小。例如第1001位就有1000/1001的概率替换掉前面1000个人中任意一个。</p>
+<p><strong>证明：</strong></p>
+<p>条件: sample size: k，total size: n，probability of each element: s/n</p>
+<p>求证: 对于n-&gt;n+1的情况，probability of each element: k/n+1，即无论n多大，每个元素被选中概率均等</p>
+<p>证明: </p>
+<p>每个元素被选中概率：k/n</p>
+<p>n-&gt;n+1后，每个被替换前面概率：k/n+1</p>
+<p>而假设A而原来在sample里的，仍然还在的概率为: (1-k/n+1) + (k/n+1)*(k-1/k) = n/n+1，这个公式前者是n+1这个元素没被选中，后者是没替换自己的概率</p>
+<p>那么A的概率就是：k/n * n/n+1 = k/n+1</p>
+<p>综上，概率相等～</p>
+<h3 id="Sliding-Windows"><a href="#Sliding-Windows" class="headerlink" title="Sliding Windows"></a>Sliding Windows</h3><p>就是滑动窗口，简单来说：最多储存N bits,当又来一个新bit时，吐出第N+1个bits（也就是窗口里最老的那个）。</p>
+<p>问题：如果我们要统计N中有一个1，那必须全部存储N中的内容，但窗口的存储空间有限，因此这里用了DGIM方法-&gt;exponential Window。</p>
+<h4 id="DGIM算法"><a href="#DGIM算法" class="headerlink" title="DGIM算法"></a>DGIM算法</h4><p>它是通过Bucket来对滑动窗口进行划分，每个桶包括：</p>
+<ol>
+<li>桶最右边的timestamp（O(logN) bits）</li>
+<li>在每个桶中1刀数量（O(log logN)bits）</li>
+</ol>
+<p>桶的限制：每个桶里的1的数量是2的次方。</p>
+<p>桶的特征：</p>
+<ul>
+<li>只有1个或者2个桶有相同数目的2的次方个1</li>
+<li>桶和桶的timestamps不会重叠</li>
+<li>桶是按照大小有序的</li>
+<li>当桶的end-time &gt; N的时候（即整个桶已经从窗口中走了），桶会消失</li>
+</ul>
+<p><img src="/img/DGIMbucket.png" alt="DGIMbucket"></p>
+<p>  DGIM算法中数据结构的更新（2048式更新）：</p>
+<ol>
+<li>每一个新的位进入滑动窗口后，最左边一个位从窗口中移出（同时从桶中移出）；如果最左边的桶的时间戳是当前时间戳减去N（也就是说桶里已经没有处于窗口中的位），则放弃这个桶；</li>
+<li>对于新加入的位，如果其为0，则无操作；否则建立一个包含新加入位的大小为1的桶；</li>
+<li>由于新增一个大小为1的桶而出现3个桶大小为1，则合并最左边的两个桶为一个大小为2的桶；合并之后可能出现3个大小为2的桶，则合并最左边两个大小为2的桶得到一个大小为4的桶……依次类推直到到达最左边的桶。</li>
+</ol>
+<p>如何估计最新N窗口中1的数目呢？</p>
+<ul>
+<li>将除了最后一个的所有的bucket大小（这里大小都是指1的数目）加起来</li>
+<li>再加上最后一个bucket的一半大小</li>
+</ul>
+<p>准确率：&gt;= 50%</p>
+<h3 id="Filtering-Data-Streams"><a href="#Filtering-Data-Streams" class="headerlink" title="Filtering Data Streams"></a>Filtering Data Streams</h3><p>问题：垃圾邮件的过滤问题，我们知道有10亿个好的email address，如果邮件来自这些address，那么它就不是spam。即现在有一封邮件{“address”:”contents”}，如果key可以匹配10亿email address就不是spam。</p>
+<h4 id="Bloom-Filter"><a href="#Bloom-Filter" class="headerlink" title="Bloom Filter"></a>Bloom Filter</h4><p>设S是刚刚好的email address集合，而B是大小为n，全部初始化为0的一个bit array</p>
+<p><img src="/img/initBFbits.png" alt="initBFbits"></p>
+<p>使用k个相互独立的hash函数h1,h2……hk，他们可以将元素映射到[0,n]的bit array上。将S中元素通过k个hash函数映射，映射到的地方设置为1</p>
+<p><img src="/img/findBFbits.png" alt="findBFbits"></p>
+<p>这里的x1，x2就是S的元素。</p>
+<p>当判断一个元素y1，y2是否在集合S中时，就通过相同的hash函数将其映射到B上，如果任何一个hash函数映射到的地方存在0，那y就不在S中，反之则证明在S上，或者是一个false positive（将错的分到对的里）。</p>
+<p><img src="/img/hashedBFbits.png" alt="hashedBFbits"></p>
+<p>如图y1就不在S中，y2或是在S中，或是一个false positive。但这种方法不存在true negative（将对的分到错的里）。</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/5177514260">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/cherishher">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
