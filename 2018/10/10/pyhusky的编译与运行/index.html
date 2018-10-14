@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="HH的博客">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        pyhusky的单机编译与运行遇到的坑 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> keep hungry, then you&#39;ll be really hungry </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#坑1-——-zeromq"><span class="toc-text">坑1 —— zeromq</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坑2-——-libhdfs3"><span class="toc-text">坑2 —— libhdfs3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坑3-——-build完Master依然不存在"><span class="toc-text">坑3 —— build完Master依然不存在</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坑4-——-Daemon无法执行"><span class="toc-text">坑4 —— Daemon无法执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坑5-——-bindings路径问题"><span class="toc-text">坑5 —— bindings路径问题</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> keep hungry, then you&#39;ll be really hungry </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        pyhusky的单机编译与运行遇到的坑
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-10 19:20:22</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#database" title="database">database</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>由于项目要用到husky的python版，pyhusky。所以要在本机运行husky。不得不说，c++的项目的可移植性和兼容性真的差java好几条街，所以编译这个看起来简单，但实操坑非常多。</p>
+<h3 id="坑1-——-zeromq"><a href="#坑1-——-zeromq" class="headerlink" title="坑1 —— zeromq"></a>坑1 —— zeromq</h3><p>我很早以前就在mac上通过brew装好了zeromq，这次在编译husky的时候还报了找不到。最后发现homebrew安装的zmq只是一个底层的c版本，而不是合适版本。这里我只好手动下载了libzmq和cppzmq。clone下来后大概流程就是：</p>
+<ol>
+<li>mkdir build &amp; cd build</li>
+<li>make ..</li>
+<li>make -j4</li>
+<li>make install</li>
+</ol>
+<p>可以说是build一个项目最典型的操作了。刚开始不理解学长讲的要把hpp放在系统的include里，后来了解了一下原来cpp会把自己的一些hpp文件（类似快捷方式）放在/usr/local/include文件目录下，其他proj就可以去调用了。而make install里面集成了这一步。</p>
+<h3 id="坑2-——-libhdfs3"><a href="#坑2-——-libhdfs3" class="headerlink" title="坑2 —— libhdfs3"></a>坑2 —— libhdfs3</h3><p>这个库是cpp用来连接hdfs的，但放弃维护了，所以只能找别人的，这里我找到了一个可用的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:ContinuumIO/libhdfs3-downstream.git</span><br><span class="line">mkdir build &amp; cd build</span><br><span class="line">../bootstrap --prefix=/usr/local --dependency=$(brew --prefix openssl)</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>这个需要提前装好gtest和gmock，就要去下载gtest和gmock，还是一样的build</p>
+<h3 id="坑3-——-build完Master依然不存在"><a href="#坑3-——-build完Master依然不存在" class="headerlink" title="坑3 —— build完Master依然不存在"></a>坑3 —— build完Master依然不存在</h3><p>在make master之后，应该出现Master应用程序，但我的程序里没出现。后来才知道因为mac的默认文件格式是不支持大小写敏感的，所以会有问题。这样我需要去改master下build的CMakeList.txt，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> MasterHusky</span></span><br><span class="line">add_executable(MasterHusky master.cpp $&#123;master_plugins&#125;)</span><br><span class="line">target_link_libraries(MasterHusky $&#123;husky&#125;)</span><br><span class="line">target_link_libraries(MasterHusky $&#123;EXTERNAL_LIB&#125;)</span><br><span class="line">set_property(TARGET MasterHusky PROPERTY CXX_STANDARD 14)</span><br></pre></td></tr></table></figure>
+<p>原来这里的MasterHusky叫Master，与build出的master文件冲突，所以要将它改成MasterHusky的名字，下面相应的地方都要改，然后再重新cmake就可以了。</p>
+<h3 id="坑4-——-Daemon无法执行"><a href="#坑4-——-Daemon无法执行" class="headerlink" title="坑4 —— Daemon无法执行"></a>坑4 —— Daemon无法执行</h3><p>刚开始不知道要跑起来master以后再跑daemon，daemon也是build出来的，但刚开始不能跑，我需要装好libhdfs3以后，先运行master，再运行daemon（master不能停顿太久，因为可能挂掉了）</p>
+<h3 id="坑5-——-bindings路径问题"><a href="#坑5-——-bindings路径问题" class="headerlink" title="坑5 —— bindings路径问题"></a>坑5 —— bindings路径问题</h3><p>这个是最大的一个坑，我需要把husky目录下的bindings放在自己执行./Daemon和./Master的地方才可以！！！</p>
+<p>例如我是直接在release里执行的，就需要把bindings文件夹和crawler下的hcrawl都放在release目录下！</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/5177514260">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/cherishher">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

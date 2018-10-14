@@ -11,7 +11,7 @@
 
     <title>
         
-        
+        降维的常用方法总结（未完待续） - undefined
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li  class=active >
+            <li >
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的词汇"><span class="toc-text">常见的词汇</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVD-Singular-Value-Decomposition"><span class="toc-text">SVD (Singular Value Decomposition)</span></a></li></ol>
+</div>
+    
 </div>
 
 
@@ -111,138 +115,56 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 576px">
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-20</div>
-        <div class="post-info">
-            <a href="/2018/07/20/zookeeper整理/">
-                <h3>
-                    看了一点zookeeper的心得
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#big data" title="big data">big data</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-18</div>
-        <div class="post-info">
-            <a href="/2018/07/18/numpy使用整理/">
-                <h3>
-                    numpy使用整理
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#data science" title="data science">data science</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-16</div>
-        <div class="post-info">
-            <a href="/2018/07/16/20180716日记/">
-                <h3>
-                    最近在看的东西
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#life" title="life">life</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-04</div>
-        <div class="post-info">
-            <a href="/2018/07/04/anaconda基础整理/">
-                <h3>
-                    anaconda基础整理
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#data science" title="data science">data science</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-07-04</div>
-        <div class="post-info">
-            <a href="/2018/07/04/mac&linux命令整理/">
-                <h3>
-                    mac&linux命令整理
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#mac" title="mac">mac</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2018-04-30</div>
-        <div class="post-info">
-            <a href="/2018/04/30/Cryptocurrency Technologies/">
-                <h3>
-                    Cryptocurrency Technologies
-                </h3>
-            </a>
-            <p>
-                
-                <span>/</span>
-                
-                <a class="tag" href="/tags/#block chain" title="block chain">block chain</a>
-                <span>/</span>
-                
-                
-            </p>
-        </div>
-    </div>
-    
-</div>
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/page/2/">&larr; Newer Posts</a>
-    </li>
-    
-    
-</ul>
 
+
+<div class="post-container">
+    <div class="post-title">
+        降维的常用方法总结（未完待续）
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-10 19:19:12</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#big data" title="big data">big data</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>课上讲了常见的数据降维的方法PCA，感觉比较有用，再结合一下网上看到的比较新的方法，总结在这里吧。</p>
+<h3 id="常见的词汇"><a href="#常见的词汇" class="headerlink" title="常见的词汇"></a>常见的词汇</h3><p>最近都只看英文，所以相关的很多词汇中文不太熟悉，以后面试内地的话不太好聊，先把中文翻译放在这里</p>
+<p>rank of matrix：矩阵的秩</p>
+<p>determinant：行列式</p>
+<p>conjugate transpose：转置</p>
+<p>orthonormal matrix：正交矩阵</p>
+<p>similarity matrix：相似矩阵</p>
+<p>diagonal matrix：对角矩阵</p>
+<p>diagonal element：对角元素</p>
+<p>Singular Value Decomposition (SVD)：奇异值分解 ：）</p>
+<p>Eigen-Decomposition：特征分解</p>
+<p>eigenvector：特征向量</p>
+<p>eigenpair：特征值</p>
+<p>Priciple Component Analysis (PCA) ：主成分分析</p>
+<h3 id="SVD-Singular-Value-Decomposition"><a href="#SVD-Singular-Value-Decomposition" class="headerlink" title="SVD (Singular Value Decomposition)"></a>SVD (Singular Value Decomposition)</h3><p>奇异值分解是一种提取特征值的很好的方法。公式如下：</p>
+<p><img src="/Users/max/Desktop/屏幕快照 2018-10-10 下午6.01.35.png" alt="屏幕快照 2018-10-10 下午6.01.35"></p>
+<p>A可以通过这样的方式分解，而当：rank（A）= r时，有如下：</p>
+<p><img src="/Users/max/Desktop/屏幕快照 2018-10-10 下午8.30.45.png" alt="屏幕快照 2018-10-10 下午8.30.45"></p>
+<p>U：左奇异向量</p>
+<p>Σ：奇异值</p>
+<p>V：右奇异向量</p>
+<p>这个总是成立的如果U,V是正交矩阵并且Σ为对角矩阵并且所有元素降序非负</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
     </div>
 </div>
 
@@ -297,7 +219,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
