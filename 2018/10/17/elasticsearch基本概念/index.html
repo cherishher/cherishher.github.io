@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="HH的博客">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        elasticsearch使用整理 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> keep hungry, then you&#39;ll be really hungry </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单机操作api"><span class="toc-text">单机操作api</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建："><span class="toc-text">创建：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取："><span class="toc-text">获取：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在："><span class="toc-text">存在：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新："><span class="toc-text">更新：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除："><span class="toc-text">删除：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索："><span class="toc-text">搜索：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mapping和Analysis"><span class="toc-text">mapping和Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Analysis"><span class="toc-text">Analysis</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> keep hungry, then you&#39;ll be really hungry </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        elasticsearch使用整理
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-17 17:08:43</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#big data" title="big data">big data</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>最近项目要使用elasticsearch。。。这里总结一下看elasticsearch文档的一些总结吧。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>elasticsearch是一个全文本搜索的服务，比如github从几百亿行代码中搜索某个代码就用了elasticsearch。在mac下可以通过brew安装和管理，注意还要再安装一个kibana来进行可视化和管理（可以在kibana的console跑各种请求）。es默认跑在9200，kibana默认跑在5601端口。</p>
+<p>这里注意对于中文场景要安装<a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">elasticsearch-analysis-ik</a>进行分词，ik还支持自定义词典，可以在es-path/config/analysis-ik/custom下自定义dic。</p>
+<p>概念对应关系如下表</p>
+<table>
+<thead>
+<tr>
+<th>传统数据库</th>
+<th>ElasticSearch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Database</td>
+<td>Index</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>Type</td>
+</tr>
+<tr>
+<td>Row</td>
+<td>Document</td>
+</tr>
+<tr>
+<td>Column</td>
+<td>Field</td>
+</tr>
+<tr>
+<td>schema</td>
+<td>mapping</td>
+</tr>
+</tbody>
+</table>
+<p>elasticsearch的所有内容都是通过json格式传递的。每个文档都是一个json的形式。一般文档包括下面三个metadata：</p>
+<ul>
+<li>_index：文档存储的地方（类似于database）</li>
+<li>_type：文档代表的对象的类（类似于table）</li>
+<li>_id：文档的唯一标示（类似于主见，可以自定义，也可以让es帮你生成）</li>
+</ul>
+<p>es是支持分布式的，当然也有对应的shard和replica机制。</p>
+<h2 id="单机操作api"><a href="#单机操作api" class="headerlink" title="单机操作api"></a>单机操作api</h2><h3 id="创建："><a href="#创建：" class="headerlink" title="创建："></a>创建：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PUT /&#123;index&#125;/&#123;type&#125;/&#123;id&#125; </span><br><span class="line">&#123;</span><br><span class="line">    "field":"value",</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取："><a href="#获取：" class="headerlink" title="获取："></a>获取：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /&#123;index&#125;/&#123;type&#125;/&#123;id&#125;?_source=title,text#可以获取特定字段（包含metadata）</span><br><span class="line">GET /&#123;index&#125;/&#123;type&#125;/&#123;id&#125;/_source#只获取_source字段，而无metadata</span><br></pre></td></tr></table></figure>
+<h3 id="存在："><a href="#存在：" class="headerlink" title="存在："></a>存在：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HEAD /&#123;index&#125;/&#123;type&#125;/&#123;id&#125;#判断document是不是存在，只返回状态码而没有具体数据</span><br></pre></td></tr></table></figure>
+<h3 id="更新："><a href="#更新：" class="headerlink" title="更新："></a>更新：</h3><p>由于elasticsearch中的文档是不可变的，所以修改只能通过重建或者脚本的方式更新</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PUT /&#123;index&#125;/&#123;type&#125;/&#123;id&#125;</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash">也可以用post，注意put和post的区别主要是post可以默认自动生成id</span></span><br><span class="line">POST /&#123;index&#125;/&#123;type&#125;</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>脚本的方式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">POST &#123;index&#125;/&#123;type&#125;/&#123;id&#125;/_update#注意最后是一个_update</span><br><span class="line">&#123;</span><br><span class="line">    "script" : &#123;</span><br><span class="line">        "source":"stx._source.tags.add(params.tag)",</span><br><span class="line">        "lang":"painless",</span><br><span class="line">        "params" : &#123;</span><br><span class="line">            "tag":"blue"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash">想增加一个字段tags的内容</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除："><a href="#删除：" class="headerlink" title="删除："></a>删除：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE /&#123;index&#125;/&#123;type&#125;/&#123;id&#125;#删除某个文档</span><br></pre></td></tr></table></figure>
+<h3 id="搜索："><a href="#搜索：" class="headerlink" title="搜索："></a>搜索：</h3><p>elasticsearch最重要的功能就是搜索，搜索的姿势也是很多的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET /_search#在所有索引类型中搜索</span><br><span class="line">GET /&#123;index1&#125;,&#123;index2&#125;/_search#在index1和index2两种索引类型中搜索</span><br><span class="line">GET /&#123;index&#125;/&#123;type&#125;/_search#在某个type中搜索</span><br><span class="line">GET /_all/&#123;type&#125;,&#123;type&#125;/_search#在所有索引的某些type上搜索</span><br></pre></td></tr></table></figure>
+<p>对于搜索的结果，可以用size分页，用from决定从哪里出发</p>
+<p>当然平时比较多的是查找字符串</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /_all/&#123;type&#125;/_search?q=tweet:elasticsearch#查找某个type中tweet：elasticsearch的文档</span><br><span class="line">GET /_all/_doc/_search?q=%2bdescribtion%3amax#查找某个类中describtion字段包含max的文档</span><br></pre></td></tr></table></figure>
+<p>第二个要重点解释一下，其实在url encode之前为：</p>
+<p>+describtion:max</p>
+<p>如果要放在查询中，就要进行urlencode（percent encode），然后放在q后，即：</p>
+<p>q=%2bdescribtion%3amax</p>
+<p>这里的查询不仅限于字符串查找，还可以是特定条件下的查找，如</p>
+<ul>
+<li><code>name</code>字段包含<code>&quot;mary&quot;</code>或<code>&quot;john&quot;</code></li>
+<li><code>date</code>晚于<code>2014-09-10</code></li>
+<li><code>_all</code>字段包含<code>&quot;aggregations&quot;</code>或<code>&quot;geo&quot;</code></li>
+</ul>
+<p>这个可以用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+name:(mary john) +date:&gt;2014-09-10 +(aggregations geo)</span><br></pre></td></tr></table></figure>
+<p>来表示，最后urlencode即可进行查询。</p>
+<h2 id="mapping和Analysis"><a href="#mapping和Analysis" class="headerlink" title="mapping和Analysis"></a>mapping和Analysis</h2><p>es的mapping对应了传统数据库的schema，其中es会对不同的字段类型进行猜测，得到对应的mapping，在这种情况下，对某个field的类型猜测可能会是date，但如果用_all搜索这个field则认为他是string，从而带来搜索结果的不同。</p>
+<p>对于一个搜索引擎，与数据库最本质的区别在于确切值和全文文本之间。</p>
+<p>传统数据库需要在where语句里的特定匹配，但es则希望如下：</p>
+<ul>
+<li>一个针对<code>&quot;UK&quot;</code>的查询将返回涉及<code>&quot;United Kingdom&quot;</code>的文档</li>
+<li>一个针对<code>&quot;jump&quot;</code>的查询同时能够匹配<code>&quot;jumped&quot;</code>， <code>&quot;jumps&quot;</code>， <code>&quot;jumping&quot;</code>甚至`”leap”</li>
+</ul>
+<p>等等等场景，为此引出了es最关键的技术——倒排索引。</p>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>对于大小写或者同源词等原本是不能匹配的，需要通过特定的分析过程才能被检索，具体过程如下：</p>
+<ul>
+<li>首先，标记化一个文本快为适用于倒排索引的term</li>
+<li>标准化这些term为标准行事，提高可搜索率和查全率</li>
+</ul>
+<p>一个完成的分析器（analyzer）包括三部分：</p>
+<ol>
+<li>字符过滤器：去掉一些html标签，或者转化&amp;为and等</li>
+<li>分词器：通过空格或逗号分词（中文需要特定分词工具ik）</li>
+<li>标记过滤：将词进行大小写转换、去掉一些停用词（a、the这些）或者增加词（同义词）</li>
+</ol>
+<p>可以通过如下方式测试analyzer</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">GET _analyze?pretty</span><br><span class="line">&#123;</span><br><span class="line">  "analyzer": "ik_smart",</span><br><span class="line">  "text":"王者荣耀真好玩"</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">output:</span></span><br><span class="line">&#123;</span><br><span class="line">  "tokens": [</span><br><span class="line">    &#123;</span><br><span class="line">      "token": "王者荣耀",</span><br><span class="line">      "start_offset": 0,</span><br><span class="line">      "end_offset": 4,</span><br><span class="line">      "type": "CN_WORD",</span><br><span class="line">      "position": 0</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "token": "真好玩",</span><br><span class="line">      "start_offset": 4,</span><br><span class="line">      "end_offset": 7,</span><br><span class="line">      "type": "CN_WORD",</span><br><span class="line">      "position": 1</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想使用某个特定analyzer，而不是系统自带的standard，就需要通过mapping。</p>
+<p>查看map需要用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /&#123;index&#125;/_mapping/&#123;type&#125;</span><br></pre></td></tr></table></figure>
+<p>这样得到mappings的内容，注意现在一些field的类型是keyword（而不是text）是因为keyword不会自动分词并建立索引，但text会这么做。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PUT final</span><br><span class="line">&#123;</span><br><span class="line">  "mappings": &#123;</span><br><span class="line">    "_doc": &#123;</span><br><span class="line">      "properties": &#123;</span><br><span class="line">        "name": &#123;</span><br><span class="line">          "type": "text"</span><br><span class="line">        &#125;,</span><br><span class="line">        "blob": &#123;</span><br><span class="line">          "type": "text",</span><br><span class="line">          "analyzer":"ik_smart"</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/5177514260">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/cherishher">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

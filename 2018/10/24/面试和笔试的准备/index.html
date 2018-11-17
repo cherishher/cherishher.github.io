@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="HH的博客">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        笔试和面试准备 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> keep hungry, then you&#39;ll be really hungry </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#语言——java、python、cpp、scala"><span class="toc-text">语言——java、python、cpp、scala</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#并发编程、java内存模型（Java-Memory-Model）："><span class="toc-text">并发编程、java内存模型（Java Memory Model）：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线程之间的通信机制有两种："><span class="toc-text">线程之间的通信机制有两种：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存模型："><span class="toc-text">内存模型：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存模型的实现"><span class="toc-text">内存模型的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Volatile和sychronized区别"><span class="toc-text">Volatile和sychronized区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#happen-before原则："><span class="toc-text">happen-before原则：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存栅栏："><span class="toc-text">内存栅栏：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大数据相关"><span class="toc-text">大数据相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql数据库"><span class="toc-text">mysql数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql主键和唯一索引"><span class="toc-text">mysql主键和唯一索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#外键："><span class="toc-text">外键：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB和MyISAM的几点区别："><span class="toc-text">InnoDB和MyISAM的几点区别：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MySQL的锁机制："><span class="toc-text">MySQL的锁机制：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#InnoDB中MVCC的一些理解"><span class="toc-text">InnoDB中MVCC的一些理解</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法相关"><span class="toc-text">算法相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> keep hungry, then you&#39;ll be really hungry </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        笔试和面试准备
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-10-24 20:54:57</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#career" title="career">career</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>由于不想错过秋招，并且为明年春招做准备，之后会不定期的在这里整理一些问题。</p>
+<h2 id="语言——java、python、cpp、scala"><a href="#语言——java、python、cpp、scala" class="headerlink" title="语言——java、python、cpp、scala"></a>语言——java、python、cpp、scala</h2><h3 id="并发编程、java内存模型（Java-Memory-Model）："><a href="#并发编程、java内存模型（Java-Memory-Model）：" class="headerlink" title="并发编程、java内存模型（Java Memory Model）："></a>并发编程、java内存模型（Java Memory Model）：</h3><h4 id="线程之间的通信机制有两种："><a href="#线程之间的通信机制有两种：" class="headerlink" title="线程之间的通信机制有两种："></a>线程之间的通信机制有两种：</h4><ul>
+<li><p><strong>共享内存 </strong>：不同线程共享内存中的公共状态来隐式的通行，比较典型的就是通过<strong>共享对象</strong>来进行通信。对于线程的同步必须是显式的，即程序员手动指定某个方法或者某段代码必须在线程之间互斥的进行。</p>
+</li>
+<li><p><strong>消息传递</strong>：线程之间没有公共状态，线程之间必须通过明确的发送信息进行显式通信，比较典型的就是调用<strong>wait()</strong>或者<strong>notify()</strong>等函数的方式。同步是隐式的，因为消息的发送必须在消息接受前。</p>
+</li>
+</ul>
+<h4 id="内存模型："><a href="#内存模型：" class="headerlink" title="内存模型："></a>内存模型：</h4><p><img src="../img/jmm.png" alt="jmm"></p>
+<p>每个线程都有自己的本地内存，然后也有主内存。本地内存中有一份共享变量的副本。线程A刷新了自己本地内存中的变量x，但AB需要通信时，会先通过副本刷新主内存中的x，然后线程B再读取主内存中的x，此时B的本地内存中x也成了新值。</p>
+<h4 id="内存模型的实现"><a href="#内存模型的实现" class="headerlink" title="内存模型的实现"></a>内存模型的实现</h4><p><img src="../img/jmmImplement.png" alt="jmmImplement"></p>
+<p>所有的原始类型变量都在stack中，一个线程中的本地变量对另一个线程是不可见的。而java创建的对象，以及原始类型的封装类则存在heap中（不管是成员变量还是方法中的本地变量）。heap中的变量是可以被共享的，只要另一个线程获得了这个对象，那它就可以访问这个对象的成员变量。</p>
+<h4 id="Volatile和sychronized区别"><a href="#Volatile和sychronized区别" class="headerlink" title="Volatile和sychronized区别"></a>Volatile和sychronized区别</h4><p>首先要理解线程安全的两个方面：</p>
+<ul>
+<li><strong>执行控制：</strong>目的是控制代码执行顺序及是否可以并发进行</li>
+<li><strong>内存可见：</strong>线程执行的结果在内存中的可见性</li>
+</ul>
+<p>特征：</p>
+<p>synchronized：是解决执行控制的问题，即阻止其他线程获得当前对象的监控锁，使得被synchronized保护的代码块无法被其他线程所访问，也就无法并发执行。</p>
+<p>volatile：解决的是内存可见性的问题。使得所有对volatile变量对读写都直接刷新到主存，即保证了变量的可见性，但只能保证对原始类型变量（除了double、long）的操作原子性。</p>
+<p>区别：</p>
+<ol>
+<li>volatile本质是告诉jvm这个变量值是不确定的，需要从主内存中取，而synchronized则是直接锁定当前变量。</li>
+<li>volatile只能针对变量，而synchronized可以用在变量、方法或类的级别。</li>
+<li>volatile只能实现对变量修改的可见性，而无法保证原子性。synchronized则可以保证原子性</li>
+<li>volatile不会造成线程阻塞，而synchronized会造成</li>
+<li>volatile标记变量不会被编译器优化，而synchronized则会被优化。</li>
+</ol>
+<h4 id="happen-before原则："><a href="#happen-before原则：" class="headerlink" title="happen-before原则："></a>happen-before原则：</h4><p>一个线程内，按照代码执行顺序，书写在前面的操作先行发生于书写在后面的操作。</p>
+<h4 id="内存栅栏："><a href="#内存栅栏：" class="headerlink" title="内存栅栏："></a>内存栅栏：</h4><p>为了提高性能，cpu通常不按照顺序执行指令，而是通过重排指令来提高存储器的利用率，但这也意味着会有不可预测的问题发生。内存栅栏就是解决指令重排问题的方法，具体来说，是指处理器在重排时，不能采用先执行栅栏后的内存访问，在执行栅栏前内存访问的方式。这也是volatile的实现方式。</p>
+<h2 id="大数据相关"><a href="#大数据相关" class="headerlink" title="大数据相关"></a>大数据相关</h2><h3 id="mysql数据库"><a href="#mysql数据库" class="headerlink" title="mysql数据库"></a>mysql数据库</h3><h4 id="mysql主键和唯一索引"><a href="#mysql主键和唯一索引" class="headerlink" title="mysql主键和唯一索引"></a>mysql主键和唯一索引</h4><p>之前不太了解唯一索引，这次才知道。唯一索引就是mysql里的unique，可以在创建表时或者建表后增加，如建表后可以用：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> nm <span class="keyword">on</span> PERSON(<span class="keyword">name</span>);</span><br></pre></td></tr></table></figure>
+<p>执行成功后，如果在原表已经有一条类似 (‘1’,’max’,’1995-12-12’)类似的记录后，还要插入如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO person(name,birthday) values (&apos;max&apos;,&apos;1995-12-13&apos;);</span><br></pre></td></tr></table></figure>
+<p>会直接报错，告诉用户name是唯一索引，无法再插入相同。这个有个使用场景，即在高并发下为了保证某一个键不会插入重复信息，需要给这个键增加唯一索引。</p>
+<p>主键和唯一索引的区别：</p>
+<ul>
+<li>唯一索引允许空值，但主键不能为空</li>
+<li>主键创建后一定包含一个唯一索引，但唯一索引不一定是主键</li>
+<li>主键可以被其他表引为外间，但唯一索引不能</li>
+<li>一个表只能有一个主键，但可以有多个外键</li>
+</ul>
+<p>mysql里key其实包含三种：PRI（主键）,UNQ（唯一索引）,MUL（普通key，可以重复）</p>
+<h4 id="外键："><a href="#外键：" class="headerlink" title="外键："></a>外键：</h4><p>一个表的主键可以作为它从表的一个外键，外键本质是一种约束。外键要求和主键Type完全相同（int(10)和int(11)的差别都不可以），用如下语句可以创建外键约束：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> my_profile <span class="keyword">add</span> <span class="keyword">CONSTRAINT</span> <span class="keyword">id</span> foreign <span class="keyword">key</span>(<span class="keyword">id</span>) <span class="keyword">references</span> person(<span class="keyword">id</span>) <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">cascade</span> <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">no</span> <span class="keyword">action</span>;</span><br></pre></td></tr></table></figure>
+<p>注意后面可以对这个键的delete、update进行约定，确定是否进行级联操作。</p>
+<p>注意：外键只有InnoDB支持，而MyISAM不支持。</p>
+<h4 id="InnoDB和MyISAM的几点区别："><a href="#InnoDB和MyISAM的几点区别：" class="headerlink" title="InnoDB和MyISAM的几点区别："></a>InnoDB和MyISAM的几点区别：</h4><ul>
+<li>InnoDB支持事物和外键，而MyISAM不支持</li>
+<li>InnoDB支持行及锁，MyISAM只支持表级锁</li>
+<li>InnoDB不支持全文索引，而MyISAM支持</li>
+<li>MyISAM相对简单，提供了告诉存储和检索，在效率上要优于InnoDB，适合管理非事物表，适合有大量的select的程序。</li>
+<li>InnoDB则更安全，多用户的并发性能更好，适合有大量insert、update的事物处理的应用程序。</li>
+</ul>
+<h4 id="MySQL的锁机制："><a href="#MySQL的锁机制：" class="headerlink" title="MySQL的锁机制："></a>MySQL的锁机制：</h4><p>mysql有几种类型的锁：</p>
+<ul>
+<li>排他锁（写锁，X锁）：如果事务T对A加上排他锁，那其他事务不能对A加任何类型的锁。获得排他锁既能读数据也能写数据。</li>
+<li>共享锁（读锁，S锁）：如果事务T对A加上共享锁，则其他事务不能对A加排他锁，获得共享锁的事务只能读数据，不能写数据。</li>
+<li>行级锁：行级锁氛围共享锁和排他锁，行级锁是mysql中锁定粒度最细的锁。行级锁开销大，加锁慢，锁定力度小，发生锁冲突的概率最低，并发度最高。</li>
+<li>表级锁：表级锁分为表共享锁和表独占锁。表级锁开销小，加锁快，锁定粒度大，发生冲突概率高，并发度低。</li>
+<li>悲观锁：即悲观并发控制，简称PCC。悲观锁是指在数据处理过程中加锁，使数据处于锁定状态，使用数据库锁机制实现。注意在mysql中使用悲观锁要关闭mysql的自动提交。——安全，但产生额外开销，增加产生死锁机会。</li>
+<li>乐观锁：通过记录数据版本的方式实现。为数据增加一个版本标识，读取数据时，将版本标识一起取出，数据每更新一次，就对版本标识进行更新。</li>
+</ul>
+<p>语句示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#共享锁</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> person <span class="keyword">WHERE</span> ... <span class="keyword">LOCK</span> <span class="keyword">IN</span> <span class="keyword">SHARE</span> <span class="keyword">MODE</span>;</span><br><span class="line">#排他锁</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> person <span class="keyword">WHERE</span> ... <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<p>InnoDB实现行级锁需要在表上增加索引，InnoDB会对索引项加锁，即当InnoDB没有索引项时，也只能进行表锁。</p>
+<h4 id="InnoDB中MVCC的一些理解"><a href="#InnoDB中MVCC的一些理解" class="headerlink" title="InnoDB中MVCC的一些理解"></a>InnoDB中MVCC的一些理解</h4><p>mvcc（multiversion concurrency control），即多版本并发控制技术，它使得行锁不再简单通过锁来进行并发控制。它本身希望同一个数据有多个版本，版本号是单向增长的。而读事务只读在该事务开始前的数据库的快照。实质是用来解决读写冲突的无锁并发控制。乐观锁就是这种思路。</p>
+<h2 id="算法相关"><a href="#算法相关" class="headerlink" title="算法相关"></a>算法相关</h2><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2>
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/5177514260">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/cherishher">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
