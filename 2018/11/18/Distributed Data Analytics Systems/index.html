@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="HH的博客">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Distributed Data Analytics Systems - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> keep hungry, then you&#39;ll be really hungry </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Distributed-Data-Analytics-Systems"><span class="toc-text">Distributed Data Analytics Systems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop"><span class="toc-text">Hadoop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HaLoop"><span class="toc-text">HaLoop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FlumeJava"><span class="toc-text">FlumeJava</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dryad"><span class="toc-text">Dryad</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spark"><span class="toc-text">Spark</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Naiad"><span class="toc-text">Naiad</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Husky"><span class="toc-text">Husky</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> keep hungry, then you&#39;ll be really hungry </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Distributed Data Analytics Systems
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-18 22:27:02</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h2 id="Distributed-Data-Analytics-Systems"><a href="#Distributed-Data-Analytics-Systems" class="headerlink" title="Distributed Data Analytics Systems"></a>Distributed Data Analytics Systems</h2><h3 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h3><p>Drawbacks of traditional distributed Framework,Why this?</p>
+<p>Drawback:</p>
+<ul>
+<li>Data exchange requires synchronization</li>
+<li>Difficult to cope with partial system failure</li>
+</ul>
+<p>Why Hadoop:</p>
+<ul>
+<li>Reliability: handle partial failures</li>
+<li>Scalability: Automatically scales to more computing nodes</li>
+<li>Programmability: written in high-level code</li>
+</ul>
+<p>How HDFS works?</p>
+<p>When a client application wants to read a file, it communicates with the name node to determine which blocks make up the file, and which datanodes those blocks reside in.Then it communicate directly with the datanodes to read the data.</p>
+<p>MapReduce Execution:</p>
+<ol>
+<li>Pre-loaded local input data</li>
+<li>Intermediate data from mappers</li>
+<li>Values exchanged by shuffle process</li>
+<li>Reducing process generates outputs</li>
+<li>Outputs stored in HDFS</li>
+</ol>
+<p>MapReduce bottleneck:</p>
+<ol>
+<li><p>Problem: huge data transfer takes lot of time in shuffle step.</p>
+<p>Solution:Hadoop will start transfer data from mappers to reduces as the mappers finish work</p>
+</li>
+<li><p>Problem: straggler problem exist indeed, while no reducer can start before every mapper has finished</p>
+<p>Solution: Hadoop uses speculative execution, specifically, if a mapper appears to be running significantly more slowly than others, a new instance of the mapper will start on another machine, operating same data, the first result will be used and the running mapper will be killed</p>
+</li>
+<li><p>Problem: Data must be passed to reducer, which result in a lot of network traffic</p>
+<p>Solution: Combiner, like a “mini-reduce”, runs locally on single mapper’s output, and the codes are often identical with reducer.</p>
+</li>
+<li><p>Problem: potential performance issues or secondary sort is needed.</p>
+<p>Solution: Write you own Custom Partitioners</p>
+</li>
+</ol>
+<h3 id="HaLoop"><a href="#HaLoop" class="headerlink" title="HaLoop"></a>HaLoop</h3><p>Drawbacks of traditional distributed Framework,Why this?</p>
+<p>Drawbacks:</p>
+<p>Hard to handle recursive program, for example: Graph analytics, machine learning, data mining or some recursive queries. mapreduce: Load and Shuffle data on each iteration</p>
+<p>Why HaLoop:</p>
+<ul>
+<li><p>TaskTracker (Cache management)</p>
+</li>
+<li><p>Scheduler (Cache awareness)</p>
+</li>
+<li><p>Programming model (multi-step loop bodies, cache control)</p>
+</li>
+</ul>
+<p>It is a efficient common runtime for recursive languages: Map, Reduce, Fixpoint.</p>
+<p>Solution:</p>
+<p>Inter-iteration caching:</p>
+<ul>
+<li>Mapper input cache (MI)</li>
+<li>Reducer input cache (RI)</li>
+<li>Reducer output cache (RO)</li>
+</ul>
+<p>RI - Reducer Input Cache:</p>
+<p>Access to loop invariant data without map/shuffle, used by reducer function.</p>
+<p>RO - Reducer Output Cache:</p>
+<p>Distributed access to output of previous iteration, used by fixpoint evaluation</p>
+<p>MI - Mapper Input Cache:</p>
+<p>Access to non-local mapper input on later iterations, used during scheduling of map tasks.</p>
+<p>Architecture:</p>
+<ul>
+<li>Loop Control</li>
+<li>Caching</li>
+<li>Indexing</li>
+</ul>
+<h3 id="FlumeJava"><a href="#FlumeJava" class="headerlink" title="FlumeJava"></a>FlumeJava</h3><p>Drawbacks of traditional distributed Framework,Why this?</p>
+<p>When meet long and complicated data-parallel pipelines, it is difficult to program and manage, besides each mapreduce job needs to keep intermediate results, what’s more, high overhead at synchronization barrier between different mapreduce jobs.</p>
+<p>Why flume?</p>
+<p>Expressiveness</p>
+<p>Abstractions</p>
+<p>Performance (lazy evaluation and Dynamic optimization)</p>
+<p>Usability &amp; deployability (implemented as a java library)</p>
+<p>Optimization:</p>
+<ol>
+<li>Sink flatten</li>
+<li>ParallelDo fusion</li>
+<li>MSCR fusion</li>
+</ol>
+<h3 id="Dryad"><a href="#Dryad" class="headerlink" title="Dryad"></a>Dryad</h3><p>Drawbacks of traditional distributed Framework,Why this?</p>
+<p>General-purpose execution engine for coarse-grained data-parallel applications</p>
+<p>Easy to write simple programs, execution engine automatically manages scheduling, distribution, FT, etc.</p>
+<p>Why Dryad?</p>
+<p>Job = Directed Acyclic Graph</p>
+<p>Computational “vertices” connected by communication “channels”(edges)</p>
+<p>What GDL (Graph Description Language)?</p>
+<p>A lower-level programming model than SQL</p>
+<p>Architecture?</p>
+<ul>
+<li>Job Manager</li>
+<li>Name Server</li>
+<li>Daemons</li>
+</ul>
+<h3 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h3><p>Drawbacks of traditional distributed Framework,Why this?</p>
+<p>complex applications</p>
+<p>interactive ad-hoc queries</p>
+<p>Reuse of intermediate results across multiple computatios</p>
+<p>RDD (Resilient Distributed Datasets)?</p>
+<ol>
+<li>Restricted form of distributed shared memory, only be built through coarse-grained deterministic transformations</li>
+<li>Fault recovery using lineage (Log transformations used to build a dataset, log enough info how it was derived from other RDDs)</li>
+</ol>
+<p>RDD good for:</p>
+<p>Apply the same operation to all elements of a dataset (coarse-grained operation)</p>
+<p>Remember each transformation as one step in a lineage graph</p>
+<p>Recovery of lost partitions without having to log large amounts of data</p>
+<p>Not good for: asynchronous fine-grained updates to shared state</p>
+<p>Task Scheduler:</p>
+<p>Dryad-like DAGs</p>
+<h3 id="Naiad"><a href="#Naiad" class="headerlink" title="Naiad"></a>Naiad</h3><p>Drawbacks of traditional distributed Framework,Why this?</p>
+<p>Iterative processing on streaming data, interactive queries on a fresh, consistent view of the results.</p>
+<p>Whay Naiad?</p>
+<p>A new computational model: timely dataflow</p>
+<p>Solusion:</p>
+<p>iteractive and incremental computations : Structured loops allowing feedback in the dataflow, stateful dataflow vertices capable of consuming and producing records without global coordination</p>
+<p>producing consistent results -&gt; notifications for vertices once they have received all records for a given round of input or loop iteration.</p>
+<p>Key point:</p>
+<p>Timestamp: </p>
+<p>in the graph, every stateful vertices receive timestamped message along directed edges.</p>
+<p>In nested cycle, use timestamp to distiguish data in different input and loop iterations</p>
+<p>Two methods:</p>
+<p>Supports asynchronous and fine-grained synchronous execution</p>
+<ol>
+<li>Batching: sychronous, one-to-one correspondence between input and output</li>
+<li>Streaming: asychronous, overlapping computation (latency is low)</li>
+</ol>
+<p>Low latency?</p>
+<ol>
+<li>programming model: Asynchronous and fine-grained synchronous execution.</li>
+<li>Distributed progress tracking protocol: enables processes to deliver notifications promptly.</li>
+</ol>
+<h3 id="Husky"><a href="#Husky" class="headerlink" title="Husky"></a>Husky</h3><p>Drawbacks of traditional distributed Framework,Why this?</p>
+<p>High performance, flat learning curve, good reusability, low maintenance cost and high compatibility</p>
+<p>Why husky?</p>
+<p>A new computational model that makes Husky general and expressive</p>
+<p>Architecure?</p>
+<p>Master-Worker architecture </p>
+<p>master: </p>
+<p>keeps worker information and data partitioning scheme</p>
+<p>Does not sit on the data path and don’t compute</p>
+<p>coordinates work among workers and monitors the progress of workers</p>
+<p>Worker:</p>
+<p>Read/write data, communicate with other workers. compute in parallel</p>
+<p>Send heartbeat to master periodically</p>
+<p>Implementation:</p>
+<p>Channel-based messaging subsystem -&gt; makes streaming computation posible</p>
+<p>Store attribute lists as in a column-store</p>
+<p>Better locality, more oppotunity to optimize (vectorization). Adding attributes without recompiling, useful for interactive data analysis.</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/5177514260">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/cherishher">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>

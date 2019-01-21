@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/01/21/survey/</loc>
+    
+    <lastmod>2019-01-21T14:20:05.841Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/01/19/Zookeeper%E7%AE%80%E4%BB%8B/</loc>
+    
+    <lastmod>2019-01-19T13:23:12.065Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/08/05/hadoop%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B/</loc>
+    
+    <lastmod>2019-01-13T04:23:05.133Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/11/18/Distributed%20Data%20Analytics%20Systems/</loc>
+    
+    <lastmod>2018-12-09T08:41:10.145Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/09/25/MongoDB%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/</loc>
     
     <lastmod>2018-11-11T06:56:12.499Z</lastmod>
@@ -68,13 +96,6 @@
     <loc>http://yoursite.com/2018/09/19/%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E5%93%88%E5%B8%8C/</loc>
     
     <lastmod>2018-09-19T05:12:12.981Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/08/05/hadoop%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B/</loc>
-    
-    <lastmod>2018-09-15T02:27:39.557Z</lastmod>
     
   </url>
   
