@@ -149,7 +149,7 @@
 <li>Coordination</li>
 </ul>
 <h3 id="基础架构"><a href="#基础架构" class="headerlink" title="基础架构"></a>基础架构</h3><p>Zookeeper分布在不同的服务器上，每个节点是一个server，其中有一个会作为leader，如图：</p>
-<p><img src="/Users/max/Documents/Blog/source/img/zookeeperArc.png" alt="zookeeperArc"></p>
+<p><img src="/img/zookeeperArc.png" alt="zookeeperArc"></p>
 <p>具体来说，zk的架构有如下特点：</p>
 <ul>
 <li>所有的server都有一份数据、logs、硬盘snipshots的拷贝，被存在内存数据库中（它并不存储真正的数据，所以上面空间通常只有几十M，仅用来存必要的一些配置等）</li>
@@ -250,7 +250,7 @@
 <li>更新服务器状态：每个服务器根据投票结果更新服务器状态为leading或following</li>
 </ol>
 <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="分布式一致性锁"><a href="#分布式一致性锁" class="headerlink" title="分布式一致性锁"></a>分布式一致性锁</h3><p>利用名称唯一性，枷锁操作时，只需要所有客户端创建/test/lock节点，只有一个创建成功，即可以获得锁。而解锁时，只要删除/test/lock节点，其他客户端通过watch机制可以继续进入竞争创建节点。如下图：</p>
-<p><img src="/Users/max/Documents/Blog/source/img/zkdistributedlock.png" alt="zookeeperArc"></p>
+<p><img src="/img/zkdistributedlock.png" alt="zookeeperArc"></p>
 <h3 id="并发的惊群效应"><a href="#并发的惊群效应" class="headerlink" title="并发的惊群效应"></a>并发的惊群效应</h3><p>以上的实现非常简单，但会产生惊群效应，即当锁释放时，所以客户端都会被唤醒，但只有一个客户端可以获得锁。这个可以通过改良分布式锁实现的方式解决。</p>
 <p>让所有客户端都在/lock下创建临时顺序节点，如果创建客户端自身节点编号是/lock下最小的节点，则获得锁。其他节点只监视比自己小的的最大节点（如创建节点1、2、5，1获得锁，2只监视1，5只监视2），只有当自己监视的节点释放锁自己才可以获得锁。这种其实是一种按照创建顺序排队的实现。</p>
 
