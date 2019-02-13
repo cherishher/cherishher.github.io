@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/02/13/Pig%20&&%20Hive%20%E7%AE%80%E4%BB%8B/</loc>
+    
+    <lastmod>2019-02-13T12:55:52.133Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/07/04/mac&linux%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/</loc>
+    
+    <lastmod>2019-02-13T09:24:21.952Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/01/22/Zookeeper%E7%AE%80%E4%BB%8B/</loc>
     
     <lastmod>2019-01-29T03:42:21.416Z</lastmod>
@@ -61,13 +75,6 @@
     <loc>http://yoursite.com/2018/10/12/%E5%9F%BA%E4%BA%8Epyhusky%E7%9A%84%E7%88%AC%E8%99%AB%EF%BC%89/</loc>
     
     <lastmod>2018-10-14T11:49:23.583Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/07/04/mac&linux%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/</loc>
-    
-    <lastmod>2018-10-06T09:21:45.153Z</lastmod>
     
   </url>
   
