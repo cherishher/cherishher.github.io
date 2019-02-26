@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/02/26/kafka%E6%9E%B6%E6%9E%84/</loc>
+    
+    <lastmod>2019-02-26T08:57:42.241Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/10/24/%E9%9D%A2%E8%AF%95%E5%92%8C%E7%AC%94%E8%AF%95%E7%9A%84%E5%87%86%E5%A4%87/</loc>
+    
+    <lastmod>2019-02-22T06:25:57.806Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/02/13/Pig%20&&%20Hive%20%E7%AE%80%E4%BB%8B/</loc>
     
     <lastmod>2019-02-13T12:55:52.133Z</lastmod>
@@ -40,13 +54,6 @@
     <loc>http://yoursite.com/2018/09/25/MongoDB%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/</loc>
     
     <lastmod>2018-11-11T06:56:12.499Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2018/10/24/%E9%9D%A2%E8%AF%95%E5%92%8C%E7%AC%94%E8%AF%95%E7%9A%84%E5%87%86%E5%A4%87/</loc>
-    
-    <lastmod>2018-11-11T06:55:11.158Z</lastmod>
     
   </url>
   

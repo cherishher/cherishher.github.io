@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="HH的博客">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> keep hungry, then you&#39;ll be really hungry </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Max Qi</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka架构"><span class="toc-text">kafka架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka特性"><span class="toc-text">Kafka特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#保证："><span class="toc-text">保证：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#消息传递："><span class="toc-text">消息传递：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发现leader："><span class="toc-text">发现leader：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rebalancing："><span class="toc-text">Rebalancing：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么kafka那么快？"><span class="toc-text">为什么kafka那么快？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意："><span class="toc-text">注意：</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> keep hungry, then you&#39;ll be really hungry </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-02-26 15:21:41</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#big data" title="big data">big data</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>kafka是一个高性能，高可靠性的消息系统，具体来说：</p>
+<ul>
+<li>kakfa维护了不同topics的消息流</li>
+<li>支持对消息流的发布/订阅</li>
+<li>通过多服务器备份进行FT</li>
+<li>高效I/O，batch和compression</li>
+<li>对消费者和生产者解耦</li>
+</ul>
+<p>另外，kafka还提供了消息存储的功能，一定程度上可以当一个分布式存储系统用，它将数据存储在disk上</p>
+<h2 id="kafka架构"><a href="#kafka架构" class="headerlink" title="kafka架构"></a>kafka架构</h2><p><img src="/img/kafka_core.png" alt="kafka_core"></p>
+<p>Kafka主要组成部分：</p>
+<ul>
+<li>Broker：kafka集群的服务器，类似于node的概念，一个broker上可以有多个topics</li>
+<li>Topic：每条发布到kafka的消息都有一个类别，这个类别就是topic</li>
+<li>Commit Log：由message，offset等组成</li>
+<li>Producer：生产者，向broker发消息</li>
+<li>Consumer：消费者，从broker取消息</li>
+<li>offset：在partition中的每条信息都会被分配一个唯一的顺序id叫做offset，consumer会track这个offset</li>
+<li>Partitions：topics在物理上的分组，每个topic可能分成多个partition，每个partition都是有序的队列，kafka只保证一个partition的顺序，而不能保证partition间的顺序，具体消息会到哪个partition，由hash算法或者round robin决定</li>
+<li>Zookeeper：用来存储和维护集群配置信息，选举算法和集群切换；在0.8以前还支持追踪offset，后面被取代</li>
+</ul>
+<p><img src="/img/kafka_cluster.png" alt="kafka_cluster"></p>
+<p>在这个图中只有一个topic：zerg.hydra，它包括三个partition，分别是P0，P1，P2，每个partition在不同broker上又有replication，这里每个partition有3个replica，但其中只有一个是leader（图中边框加粗），对这个partition所有的读写只能走leader，针对每个partition的读写都可以并发进行。</p>
+<h2 id="Kafka特性"><a href="#Kafka特性" class="headerlink" title="Kafka特性"></a>Kafka特性</h2><h3 id="保证："><a href="#保证：" class="headerlink" title="保证："></a>保证：</h3><ul>
+<li>kafka保证了每个topic的partition的内容会按照其发送的顺序增加</li>
+<li>consumer看到信息的顺序和其存储在log中的顺序相同</li>
+<li>如果想保证全局顺序，有两种方案：只使用一个parttion；在consumer应用中增加全局顺序的处理（例如在storm的topology中）</li>
+</ul>
+<h3 id="消息传递："><a href="#消息传递：" class="headerlink" title="消息传递："></a>消息传递：</h3><p>At Least Once(default)：消息不会丢失但可能被多次递送，为了做到这个，需要满足：</p>
+<ul>
+<li>在发送信息的时候保证信息的持久性</li>
+<li>在读取信息时保证持久性</li>
+<li>produce发送但没收到ack时-&gt;检查最近的commit值</li>
+<li>consumer要保存offset</li>
+</ul>
+<p>消息传递的方式：</p>
+<ul>
+<li>消息广播：把消息发送给所有consumer</li>
+<li>订阅发布：消息发送个单个consumer</li>
+</ul>
+<p>通过consumer group的方式实现</p>
+<p><img src="/img/consumer_group.png" alt="consumer_group"></p>
+<p>对于订阅发布，每个consumer对应一个独立的consumer group即可，而对于广播，则可以把所有的consumer放在一个consumer group里。不论每个group里有多少个consumer thread（小于等于partitions），对应多个partition，这个consumer thread总会消费全部的partition。因此，最好的设计便是consumer group下的thread与partition数量相等，这样效率最高。</p>
+<p>发送信息：</p>
+<ul>
+<li>可以选择同步/异步，同步在发送时会进入阻塞，异步可以实现高吞吐率</li>
+<li>异步时将信息batching化</li>
+<li>当queue满之后异步producer可能造成消息的丢失</li>
+</ul>
+<h3 id="发现leader："><a href="#发现leader：" class="headerlink" title="发现leader："></a>发现leader：</h3><ul>
+<li>producers：不与zookeeper直接接触，而是通过bootstraping的方式，让boostrap server（broker）通知producer有哪些存活的broker以及如何找到对应的partition leader。而boostrap broker是通过zk来知道的。</li>
+</ul>
+<h3 id="Rebalancing："><a href="#Rebalancing：" class="headerlink" title="Rebalancing："></a>Rebalancing：</h3><p>每个topic的partition对应的conusmer是在运行时动态分配的，这个过程会造成rebalancing（因为机器会坏或者consumer会因为一些原因挂掉）会发生rebalance的情况包括：</p>
+<ul>
+<li>consumer加入或离开consumer group（例：通过createMessageStreams()为topic注册consumer）</li>
+<li>broker加入或离开（例：当broker无法发送heartbeat给zookeeper）</li>
+<li>topic由于filter而造成的 ”加入/离开“</li>
+</ul>
+<h2 id="为什么kafka那么快？"><a href="#为什么kafka那么快？" class="headerlink" title="为什么kafka那么快？"></a>为什么kafka那么快？</h2><ul>
+<li>Zero Copy的使用：即使用sendfile()系统调用代替了传统I/O中的read()和write()，使数据由MDA从磁盘直接读取到内核buffer中，然后从内核buffer直接复制到socket buffer（而不用从kernel buffer-&gt;application buffer-&gt;socket buffer），减少了其中的copy和上下文切换</li>
+<li>I/O过程中batch化数据</li>
+<li>串行硬盘写入</li>
+<li>大量依赖linux PageCache（页缓存）：自动使用机器上的所有可用内存</li>
+<li>可扩展性强</li>
+</ul>
+<h2 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h2><p>每次启动kafka前需要先启动zookeeper，kafka和zookeeper都需要在每台机子上都运行start程序（不同于hdfs）</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/5177514260">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/cherishher">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
